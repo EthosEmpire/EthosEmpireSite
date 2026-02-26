@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ethos Empire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { background: black; }
+
+    .gold-text {
+      background: linear-gradient(
+        135deg,
+        #8B6914 0%,
+        #C9952A 25%,
+        #F0C040 50%,
+        #C9952A 75%,
+        #8B6914 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.15em;
+    }
+
+    .fade-up {
+      animation: fadeUp 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .social-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 8px;
+      transition: transform 0.25s ease;
+    }
+
+    .social-link:hover .social-icon {
+      transform: scale(1.15);
+    }
+  </style>
+</head>
+
+<body class="text-white flex flex-col items-center overflow-x-hidden">
+
+  <!-- HERO -->
+  <section class="fade-up text-center pt-20 px-6 max-w-2xl">
+    <img
+      src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_699bd5062e6b23a572f2cdf4/d19660684_logoupdate.jpg"
+      alt="Ethos Empire Logo"
+      class="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover mx-auto mb-8"
+      style="box-shadow: 0 0 60px rgba(255,215,0,0.5), 0 0 120px rgba(197,165,90,0.3);"
+    />
+
+    <h1 class="text-5xl md:text-6xl font-extrabold gold-text">
+      ETHOS EMPIRE
+    </h1>
+
+    <div class="w-24 h-0.5 mx-auto my-6 rounded-full"
+      style="background: linear-gradient(to right, transparent, #FFD700, transparent);">
+    </div>
+
+    <p class="text-xl md:text-2xl font-semibold italic text-[#C9952A]">
+      ⚔️ Ethos means character. Empire means legacy.
+    </p>
+
+    <p class="mt-6 text-base md:text-lg text-[#A07828]">
+      Time doesn't wait. It watches. What you do with it defines you.
+    </p>
+
+    <p class="mt-4 text-sm font-bold tracking-[0.3em] text-[#C9952A]">
+      – ETHOS EMPIRE
+    </p>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="w-full max-w-md h-px my-12"
+    style="background: linear-gradient(to right, transparent, #FFD700, transparent);">
+  </div>
+
+  <!-- SOCIAL LINKS -->
+  <section class="fade-up text-center px-6">
+    <h2 class="text-xs font-bold tracking-[0.4em] uppercase mb-8 text-[#C5A55A]">
+      Follow Us
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-10 text-sm">
+
+      <a href="https://www.instagram.com/ethosempire.x/" target="_blank" class="social-link hover:text-yellow-400 transition">
+        <img src="Instagram_icon.png" class="social-icon" alt="Instagram">
+        Instagram
+      </a>
+
+      <a href="https://www.tiktok.com/@ethos.empire" target="_blank" class="social-link hover:text-yellow-400 transition">
+        <img src="Tiktok transparent backgorud.png" class="social-icon" alt="TikTok">
+        TikTok
+      </a>
+
+      <a href="https://www.facebook.com/ethosempire.x" target="_blank" class="social-link hover:text-yellow-400 transition">
+        <img src="Facebook-logo-blue-circle-large-transparent-png.png" class="social-icon" alt="Facebook">
+        Facebook
+      </a>
+
+      <a href="https://www.youtube.com/@Ethos.Empire.Official" target="_blank" class="social-link hover:text-yellow-400 transition">
+        <img src="youtube-icon-app-logo-png-9.png" class="social-icon" alt="YouTube">
+        YouTube
+      </a>
+
+      <a href="https://x.com/EthosEmpire_X" target="_blank" class="social-link hover:text-yellow-400 transition">
+        <img src="x-twitter-logo-on-black-circle-5694247.png" class="social-icon" alt="X">
+        X
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="fade-up text-center px-6 mt-16">
+    <h3 class="text-2xl font-bold text-[#C9952A] mb-4">
+      Begin Your Legacy
+    </h3>
+
+    <p class="text-[#A07828] max-w-md mx-auto mb-6">
+      Learn discipline, structure, and purpose. Build your empire the right way.
+    </p>
+
+    <a href="https://ethos-empire-hub-71dc7e2f.base44.app/" target="_blank">
+      <button class="px-8 py-3 rounded-xl font-bold text-black bg-gradient-to-r from-yellow-500 to-yellow-300 hover:scale-105 transition">
+        Enter the Empire
+      </button>
+    </a>
+  </section>
+
+  <footer class="mt-20 pb-8 text-xs tracking-wider text-[#7A5C1E]">
+    © 2026 Ethos Empire. All rights reserved.
+  </footer>
+
+</body>
+</html>
