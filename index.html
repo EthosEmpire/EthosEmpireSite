@@ -22,16 +22,12 @@ overflow-x:hidden;
 font-family:system-ui;
 }
 
-/* GOLD TITLE */
-
 .gold-text{
 background:linear-gradient(135deg,#8B6914,#C9952A,#F0C040,#C9952A,#8B6914);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 letter-spacing:.15em;
 }
-
-/* FADE */
 
 .fade-up{
 animation:fadeUp 1s ease forwards;
@@ -43,8 +39,6 @@ from{opacity:0;transform:translateY(30px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-/* SOCIAL */
-
 .social-icon{
 width:48px;
 height:48px;
@@ -55,8 +49,6 @@ transition:transform .25s ease;
 .social-link:hover .social-icon{
 transform:scale(1.15);
 }
-
-/* EBOOK CAROUSEL */
 
 .ebook-wrapper{
 overflow:hidden;
@@ -70,8 +62,6 @@ display:flex;
 gap:24px;
 width:max-content;
 }
-
-/* BOOK CARD */
 
 .ebook-card{
 flex:0 0 auto;
@@ -316,12 +306,36 @@ Build your legacy the right way.
 </p>
 
 <a href="https://ethos-empire-hub-71dc7e2f.base44.app/" target="_blank">
-
 <button class="px-8 py-3 rounded-xl font-bold text-black bg-gradient-to-r from-yellow-500 to-yellow-300 hover:scale-105 transition">
 Enter the Empire
 </button>
-
 </a>
+
+</section>
+
+<!-- MERCH SECTION -->
+
+<section class="w-full max-w-6xl px-6 mb-14">
+
+<h2 class="text-center text-xs tracking-[0.4em] uppercase mb-10 text-[#C5A55A]">
+Empire Merch
+</h2>
+
+<div class="ebook-wrapper">
+<div class="ebook-track" id="merchTrack">
+
+<div class="ebook-card"><img src="Hoodie black.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="Hoodie bone.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="Hoodie latte.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="Hoodie lavender.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="Hoodie navy.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="Hoodie oatmeal.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="Hoodie vintage.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="hoodie white.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card"><img src="Hoodies pink.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+
+</div>
+</div>
 
 </section>
 
@@ -335,55 +349,58 @@ style="background:linear-gradient(to right,transparent,#FFD700,transparent)">
 
 <script>
 
+/* EBOOK */
 const track=document.getElementById("ebookTrack");
 const cards=[...track.children];
-
-cards.forEach(card=>{
-track.appendChild(card.cloneNode(true));
-});
+cards.forEach(card=>track.appendChild(card.cloneNode(true)));
 
 let speed=0.35;
 let scroll=0;
 
 function animate(){
 scroll+=speed;
-
-if(scroll>=track.scrollWidth/2){
-scroll=0;
-}
-
+if(scroll>=track.scrollWidth/2){scroll=0;}
 track.style.transform=`translateX(${-scroll}px)`;
-
 requestAnimationFrame(animate);
 }
-
 animate();
 
 const wrapper=document.querySelector(".ebook-wrapper");
 
 let startX,startScroll,isDown=false;
 
-wrapper.addEventListener("mousedown",(e)=>{
-isDown=true;
-startX=e.pageX;
-startScroll=scroll;
-});
-
+wrapper.addEventListener("mousedown",(e)=>{isDown=true;startX=e.pageX;startScroll=scroll;});
 wrapper.addEventListener("mouseup",()=>isDown=false);
+wrapper.addEventListener("mousemove",(e)=>{if(!isDown)return;scroll=startScroll-(e.pageX-startX);});
 
-wrapper.addEventListener("mousemove",(e)=>{
-if(!isDown) return;
-scroll=startScroll-(e.pageX-startX);
-});
+wrapper.addEventListener("touchstart",(e)=>{startX=e.touches[0].pageX;startScroll=scroll;});
+wrapper.addEventListener("touchmove",(e)=>{scroll=startScroll-(e.touches[0].pageX-startX);});
 
-wrapper.addEventListener("touchstart",(e)=>{
-startX=e.touches[0].pageX;
-startScroll=scroll;
-});
+/* MERCH */
+const merchTrack=document.getElementById("merchTrack");
+const merchCards=[...merchTrack.children];
+merchCards.forEach(card=>merchTrack.appendChild(card.cloneNode(true)));
 
-wrapper.addEventListener("touchmove",(e)=>{
-scroll=startScroll-(e.touches[0].pageX-startX);
-});
+let merchScroll=0;
+
+function merchAnimate(){
+merchScroll+=0.35;
+if(merchScroll>=merchTrack.scrollWidth/2){merchScroll=0;}
+merchTrack.style.transform=`translateX(${-merchScroll}px)`;
+requestAnimationFrame(merchAnimate);
+}
+merchAnimate();
+
+const merchWrapper=document.querySelectorAll(".ebook-wrapper")[1];
+
+let mStartX,mStartScroll,mDown=false;
+
+merchWrapper.addEventListener("mousedown",(e)=>{mDown=true;mStartX=e.pageX;mStartScroll=merchScroll;});
+merchWrapper.addEventListener("mouseup",()=>mDown=false);
+merchWrapper.addEventListener("mousemove",(e)=>{if(!mDown)return;merchScroll=mStartScroll-(e.pageX-mStartX);});
+
+merchWrapper.addEventListener("touchstart",(e)=>{mStartX=e.touches[0].pageX;mStartScroll=merchScroll;});
+merchWrapper.addEventListener("touchmove",(e)=>{merchScroll=mStartScroll-(e.touches[0].pageX-mStartX);});
 
 </script>
 
