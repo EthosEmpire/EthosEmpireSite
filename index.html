@@ -5,99 +5,155 @@
 <meta charset="UTF-8">
 <title>Ethos Empire | Discipline, Self Mastery, Mindset & Personal Growth</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="description" content="Ethos Empire teaches discipline, mindset, confidence, health, and self mastery to help you build your legacy.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://ethosempire.org/">
+
+<meta property="og:title" content="Ethos Empire | Discipline, Self Mastery, Mindset & Personal Growth">
+<meta property="og:description" content="Ethos Empire teaches discipline, mindset, confidence, health, and self mastery to help you build your legacy.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ethosempire.org/">
+<meta property="og:image" content="https://ethosempire.org/preview-image.jpg">
+<meta property="og:image:alt" content="Ethos Empire brand preview image">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ethos Empire | Discipline, Self Mastery, Mindset & Personal Growth">
+<meta name="twitter:description" content="Ethos Empire teaches discipline, mindset, confidence, health, and self mastery to help you build your legacy.">
+<meta name="twitter:image" content="https://ethosempire.org/preview-image.jpg">
+<meta name="twitter:image:alt" content="Ethos Empire brand preview image">
 
 <link rel="icon" href="favicon.png" type="image/png">
+<link rel="icon" href="favicon-48x48.png" sizes="48x48" type="image/png">
 <link rel="shortcut icon" href="favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<link rel="preload" as="image" href="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_699bd5062e6b23a572f2cdf4/d19660684_logoupdate.jpg">
 
 <script src="https://cdn.tailwindcss.com"></script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Ethos Empire",
+  "url": "https://ethosempire.org/",
+  "logo": "https://ethosempire.org/preview-image.jpg",
+  "sameAs": [
+    "https://www.instagram.com/ethosempire.x/",
+    "https://www.tiktok.com/@ethos.empire",
+    "https://www.facebook.com/ethosempire.x",
+    "https://www.youtube.com/@Ethos.Empire.Official",
+    "https://x.com/EthosEmpire_X"
+  ]
+}
+</script>
+
 <style>
+html{
+  scroll-behavior:smooth;
+}
 
 body{
-background:black;
-overflow-x:hidden;
-font-family:system-ui;
+  background:black;
+  overflow-x:hidden;
+  font-family:system-ui;
+  min-height:100vh;
+}
+
+img{
+  max-width:100%;
 }
 
 .gold-text{
-background:linear-gradient(135deg,#8B6914,#C9952A,#F0C040,#C9952A,#8B6914);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-letter-spacing:.15em;
+  background:linear-gradient(135deg,#8B6914,#C9952A,#F0C040,#C9952A,#8B6914);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:.15em;
 }
 
 .fade-up{
-animation:fadeUp 1s ease forwards;
-opacity:0;
+  animation:fadeUp 1s ease forwards;
+  opacity:0;
 }
 
 @keyframes fadeUp{
-from{opacity:0;transform:translateY(30px);}
-to{opacity:1;transform:translateY(0);}
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
 .social-icon{
-width:48px;
-height:48px;
-margin:0 auto 8px;
-transition:transform .25s ease;
+  width:48px;
+  height:48px;
+  margin:0 auto 8px;
+  transition:transform .25s ease;
+  display:block;
+}
+
+.social-link{
+  text-align:center;
+  text-decoration:none;
 }
 
 .social-link:hover .social-icon{
-transform:scale(1.15);
+  transform:scale(1.15);
 }
 
 .ebook-wrapper{
-overflow:hidden;
-width:100%;
-cursor:grab;
-touch-action:pan-y;
+  overflow:hidden;
+  width:100%;
+  cursor:grab;
+  touch-action:pan-y;
+  user-select:none;
 }
 
 .ebook-track{
-display:flex;
-gap:24px;
-width:max-content;
+  display:flex;
+  gap:24px;
+  width:max-content;
+  will-change:transform;
 }
 
 .ebook-card{
-flex:0 0 auto;
-width:140px;
-text-align:center;
+  flex:0 0 auto;
+  width:140px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 .ebook-card img{
-width:140px;
-height:200px;
-object-fit:cover;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,.6);
-transition:transform .3s ease;
+  width:140px;
+  height:200px;
+  object-fit:cover;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.6);
+  transition:transform .3s ease;
+  display:block;
 }
 
 .ebook-card:hover img{
-transform:scale(1.1);
-box-shadow:0 0 25px rgba(255,215,0,.55);
+  transform:scale(1.1);
+  box-shadow:0 0 25px rgba(255,215,0,.55);
 }
 
 .buy-btn{
-background:linear-gradient(to right,#FFD700,#C9952A);
-color:black;
-font-weight:bold;
-padding:6px 14px;
-border-radius:8px;
-font-size:12px;
-margin-top:8px;
-display:inline-block;
+  background:linear-gradient(to right,#FFD700,#C9952A);
+  color:black;
+  font-weight:bold;
+  padding:6px 14px;
+  border-radius:8px;
+  font-size:12px;
+  margin-top:8px;
+  display:inline-block;
+  transition:transform .2s ease;
+  text-decoration:none;
 }
 
 .buy-btn:hover{
-transform:scale(1.05);
+  transform:scale(1.05);
 }
-
 </style>
 
 </head>
@@ -110,8 +166,11 @@ transform:scale(1.05);
 
 <img
 src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/user_699bd5062e6b23a572f2cdf4/d19660684_logoupdate.jpg"
+alt="Ethos Empire logo"
 class="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover mx-auto mb-8"
 style="box-shadow:0 0 60px rgba(255,215,0,0.5)"
+loading="eager"
+decoding="async"
 >
 
 <h1 class="text-5xl md:text-6xl font-extrabold gold-text">
@@ -166,91 +225,92 @@ Your transformation starts here.
 
 <section class="w-full max-w-6xl px-6 mb-14">
 
-<h2 class="text-center text-xs tracking-[0.4em] uppercase mb-10 text-[#C5A55A]">
+<h2 class="text-center text-xs tracking-[0.4em] uppercase mb-4 text-[#C5A55A]">
 Empire Knowledge Library
 </h2>
 
-<div class="ebook-wrapper">
+<p class="text-center text-sm text-[#A07828] mb-8 max-w-2xl mx-auto">
+Self-mastery, discipline, confidence, health, and personal growth ebooks created to help you build your legacy.
+</p>
 
+<div class="ebook-wrapper" id="ebookWrapper">
 <div class="ebook-track" id="ebookTrack">
 
-<!-- BOOKS -->
-
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/builtbymoney">
-<img src="Build by money cover.png">
+<a href="https://ethosempire.gumroad.com/l/builtbymoney" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-built-by-money-ebook-cover.webp" alt="Built by Money ebook about wealth building and financial discipline" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/builtbymoney" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/builtbymoney" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/commandtheroom">
-<img src="Command The Room.png">
+<a href="https://ethosempire.gumroad.com/l/commandtheroom" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-command-the-room-ebook-cover.webp" alt="Command the Room ebook about confidence, presence, and social dominance" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/commandtheroom" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/commandtheroom" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/howtobeconfidence">
-<img src="How to be confidence.png">
+<a href="https://ethosempire.gumroad.com/l/howtobeconfidence" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-confidence-guide-ebook-cover.webp" alt="Confidence guide ebook teaching self-confidence and mindset development" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/howtobeconfidence" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/howtobeconfidence" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/lifelessonsinfaith">
-<img src="Life Lessons In Faith.png">
+<a href="https://ethosempire.gumroad.com/l/lifelessonsinfaith" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-life-lessons-in-faith-ebook-cover.webp" alt="Life lessons in faith ebook about discipline, purpose, and belief" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/lifelessonsinfaith" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/lifelessonsinfaith" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/therelationshipcode">
-<img src="Relationship code.png">
+<a href="https://ethosempire.gumroad.com/l/therelationshipcode" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-relationship-code-ebook-cover.webp" alt="Relationship Code ebook about dating, communication, and attraction" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/therelationshipcode" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/therelationshipcode" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/thearchitechtureofhealth">
-<img src="the architechture of health.png">
+<a href="https://ethosempire.gumroad.com/l/thearchitechtureofhealth" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-architecture-of-health-ebook-cover.webp" alt="Architecture of Health ebook about fitness, nutrition, and wellness" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/thearchitechtureofhealth" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/thearchitechtureofhealth" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/thegymmindset">
-<img src="The Gym Mindset.png">
+<a href="https://ethosempire.gumroad.com/l/thegymmindset" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-gym-mindset-ebook-cover.webp" alt="Gym Mindset ebook about training discipline, strength, and consistency" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/thegymmindset" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/thegymmindset" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/theclearskinguide">
-<img src="The Clear Skin Guide.png">
+<a href="https://ethosempire.gumroad.com/l/theclearskinguide" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-clear-skin-guide-ebook-cover.webp" alt="Clear Skin Guide ebook about skincare routines and healthy skin habits" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/theclearskinguide" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/theclearskinguide" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/thehaircareblueprint">
-<img src="The Hair Care Blueprint.png">
+<a href="https://ethosempire.gumroad.com/l/thehaircareblueprint" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-hair-care-blueprint-ebook-cover.webp" alt="Hair Care Blueprint ebook about hair health, grooming, and styling" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/thehaircareblueprint" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/thehaircareblueprint" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide">
-<img src="The looksmaxxing guide.png">
+<a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-looksmaxxing-guide-ebook-cover.webp" alt="Looksmaxxing Guide ebook about improving appearance, style, and attractiveness" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 <div class="ebook-card">
-<a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming">
-<img src="the phylosophy of becoming.png">
+<a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming" target="_blank" rel="noopener noreferrer">
+<img src="ethos-empire-philosophy-of-becoming-ebook-cover.webp" alt="Philosophy of Becoming ebook about self mastery, mindset, and personal growth" width="140" height="200" loading="lazy" decoding="async">
 </a>
-<a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming" class="buy-btn">Buy</a>
+<a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
 </div>
 
 </div>
@@ -268,24 +328,24 @@ Follow Us
 
 <div class="grid grid-cols-2 md:grid-cols-5 gap-10 text-sm">
 
-<a href="https://www.instagram.com/ethosempire.x/" target="_blank" class="social-link">
-<img src="instagram.png" class="social-icon">Instagram
+<a href="https://www.instagram.com/ethosempire.x/" target="_blank" rel="noopener noreferrer" class="social-link">
+<img src="instagram.png" class="social-icon" alt="Instagram" loading="lazy" decoding="async">Instagram
 </a>
 
-<a href="https://www.tiktok.com/@ethos.empire" target="_blank" class="social-link">
-<img src="tiktok.png" class="social-icon">TikTok
+<a href="https://www.tiktok.com/@ethos.empire" target="_blank" rel="noopener noreferrer" class="social-link">
+<img src="tiktok.png" class="social-icon" alt="TikTok" loading="lazy" decoding="async">TikTok
 </a>
 
-<a href="https://www.facebook.com/ethosempire.x" target="_blank" class="social-link">
-<img src="facebook.png" class="social-icon">Facebook
+<a href="https://www.facebook.com/ethosempire.x" target="_blank" rel="noopener noreferrer" class="social-link">
+<img src="facebook.png" class="social-icon" alt="Facebook" loading="lazy" decoding="async">Facebook
 </a>
 
-<a href="https://www.youtube.com/@Ethos.Empire.Official" target="_blank" class="social-link">
-<img src="Youtube.png" class="social-icon">YouTube
+<a href="https://www.youtube.com/@Ethos.Empire.Official" target="_blank" rel="noopener noreferrer" class="social-link">
+<img src="Youtube.png" class="social-icon" alt="YouTube" loading="lazy" decoding="async">YouTube
 </a>
 
-<a href="https://x.com/EthosEmpire_X" target="_blank" class="social-link">
-<img src="x.png" class="social-icon">X
+<a href="https://x.com/EthosEmpire_X" target="_blank" rel="noopener noreferrer" class="social-link">
+<img src="x.png" class="social-icon" alt="X" loading="lazy" decoding="async">X
 </a>
 
 </div>
@@ -301,14 +361,13 @@ Begin Your Legacy
 </h3>
 
 <p class="text-[#A07828] max-w-md mx-auto mb-6">
-Learn discipline, structure, and purpose.  
+Learn discipline, structure, and purpose.
 Build your legacy the right way.
 </p>
 
-<a href="https://ethos-empire-hub-71dc7e2f.base44.app/" target="_blank">
-<button class="px-8 py-3 rounded-xl font-bold text-black bg-gradient-to-r from-yellow-500 to-yellow-300 hover:scale-105 transition">
+<a href="https://ethos-empire-hub-71dc7e2f.base44.app/" target="_blank" rel="noopener noreferrer"
+class="px-8 py-3 rounded-xl font-bold text-black bg-gradient-to-r from-yellow-500 to-yellow-300 hover:scale-105 transition inline-block">
 Enter the Empire
-</button>
 </a>
 
 </section>
@@ -317,22 +376,61 @@ Enter the Empire
 
 <section class="w-full max-w-6xl px-6 mb-14">
 
-<h2 class="text-center text-xs tracking-[0.4em] uppercase mb-10 text-[#C5A55A]">
+<h2 class="text-center text-xs tracking-[0.4em] uppercase mb-4 text-[#C5A55A]">
 Empire Merch
 </h2>
 
-<div class="ebook-wrapper">
+<p class="text-center text-sm text-[#A07828] mb-8 max-w-2xl mx-auto">
+Minimalist streetwear hoodies by Ethos Empire — premium designs with a gold emblem finish.
+</p>
+
+<div class="ebook-wrapper" id="merchWrapper">
 <div class="ebook-track" id="merchTrack">
 
-<div class="ebook-card"><img src="Hoodie black.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="Hoodie bone.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="Hoodie latte.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="Hoodie lavender.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="Hoodie navy.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="Hoodie oatmeal.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="Hoodie vintage.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="hoodie white.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
-<div class="ebook-card"><img src="Hoodies pink.jpg"><a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" class="buy-btn">Buy</a></div>
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-black-gold-logo.webp" alt="Ethos Empire black hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-bone-gold-logo.webp" alt="Ethos Empire bone hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-latte-gold-logo.webp" alt="Ethos Empire latte hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-lavender-gold-logo.webp" alt="Ethos Empire lavender hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-navy-gold-logo.webp" alt="Ethos Empire navy hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-oatmeal-gold-logo.webp" alt="Ethos Empire oatmeal hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-vintage-gold-logo.webp" alt="Ethos Empire vintage hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-white-gold-logo.webp" alt="Ethos Empire white hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
+
+<div class="ebook-card">
+<img src="ethos-empire-hoodie-pink-gold-logo.webp" alt="Ethos Empire pink hoodie with gold logo minimalist streetwear" width="140" height="200" loading="eager" decoding="async">
+<a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+</div>
 
 </div>
 </div>
@@ -348,60 +446,110 @@ style="background:linear-gradient(to right,transparent,#FFD700,transparent)">
 </footer>
 
 <script>
+function setupMarquee(trackEl, wrapperEl, speed = 0.35) {
+  const originalCards = [...trackEl.children];
 
-/* EBOOK */
-const track=document.getElementById("ebookTrack");
-const cards=[...track.children];
-cards.forEach(card=>track.appendChild(card.cloneNode(true)));
+  originalCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.querySelectorAll("a").forEach(a => {
+      a.setAttribute("tabindex", "-1");
+    });
+    trackEl.appendChild(clone);
+  });
 
-let speed=0.35;
-let scroll=0;
+  let position = 0;
+  let isDragging = false;
+  let startX = 0;
+  let startPosition = 0;
+  let halfWidth = 1;
+  let rafId = null;
 
-function animate(){
-scroll+=speed;
-if(scroll>=track.scrollWidth/2){scroll=0;}
-track.style.transform=`translateX(${-scroll}px)`;
-requestAnimationFrame(animate);
+  const wrap = (value, limit) => {
+    if (!limit || !isFinite(limit)) return 0;
+    value = value % limit;
+    if (value < 0) value += limit;
+    return value;
+  };
+
+  const updateWidth = () => {
+    halfWidth = Math.max(trackEl.scrollWidth / 2, 1);
+  };
+
+  const render = () => {
+    trackEl.style.transform = `translate3d(${-position}px, 0, 0)`;
+  };
+
+  const animate = () => {
+    if (!isDragging) {
+      position = wrap(position + speed, halfWidth);
+      render();
+    }
+    rafId = requestAnimationFrame(animate);
+  };
+
+  const waitForImages = () => {
+    const imgs = [...trackEl.querySelectorAll("img")];
+    return Promise.all(
+      imgs.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.addEventListener("load", resolve, { once: true });
+          img.addEventListener("error", resolve, { once: true });
+        });
+      })
+    );
+  };
+
+  wrapperEl.style.cursor = "grab";
+
+  wrapperEl.addEventListener("pointerdown", (e) => {
+    if (e.target.closest("a")) return;
+    isDragging = true;
+    startX = e.clientX;
+    startPosition = position;
+    wrapperEl.style.cursor = "grabbing";
+    wrapperEl.setPointerCapture(e.pointerId);
+  });
+
+  wrapperEl.addEventListener("pointermove", (e) => {
+    if (!isDragging) return;
+    const delta = e.clientX - startX;
+    position = wrap(startPosition - delta, halfWidth);
+    render();
+  });
+
+  const stopDrag = () => {
+    isDragging = false;
+    wrapperEl.style.cursor = "grab";
+  };
+
+  wrapperEl.addEventListener("pointerup", stopDrag);
+  wrapperEl.addEventListener("pointercancel", stopDrag);
+  wrapperEl.addEventListener("pointerleave", stopDrag);
+
+  waitForImages().then(() => {
+    updateWidth();
+    render();
+    if (!rafId) animate();
+
+    window.addEventListener("resize", () => {
+      updateWidth();
+      position = wrap(position, halfWidth);
+      render();
+    });
+  });
 }
-animate();
 
-const wrapper=document.querySelector(".ebook-wrapper");
+window.addEventListener("load", () => {
+  const ebookTrack = document.getElementById("ebookTrack");
+  const ebookWrapper = document.getElementById("ebookWrapper");
+  const merchTrack = document.getElementById("merchTrack");
+  const merchWrapper = document.getElementById("merchWrapper");
 
-let startX,startScroll,isDown=false;
-
-wrapper.addEventListener("mousedown",(e)=>{isDown=true;startX=e.pageX;startScroll=scroll;});
-wrapper.addEventListener("mouseup",()=>isDown=false);
-wrapper.addEventListener("mousemove",(e)=>{if(!isDown)return;scroll=startScroll-(e.pageX-startX);});
-
-wrapper.addEventListener("touchstart",(e)=>{startX=e.touches[0].pageX;startScroll=scroll;});
-wrapper.addEventListener("touchmove",(e)=>{scroll=startScroll-(e.touches[0].pageX-startX);});
-
-/* MERCH */
-const merchTrack=document.getElementById("merchTrack");
-const merchCards=[...merchTrack.children];
-merchCards.forEach(card=>merchTrack.appendChild(card.cloneNode(true)));
-
-let merchScroll=0;
-
-function merchAnimate(){
-merchScroll+=0.35;
-if(merchScroll>=merchTrack.scrollWidth/2){merchScroll=0;}
-merchTrack.style.transform=`translateX(${-merchScroll}px)`;
-requestAnimationFrame(merchAnimate);
-}
-merchAnimate();
-
-const merchWrapper=document.querySelectorAll(".ebook-wrapper")[1];
-
-let mStartX,mStartScroll,mDown=false;
-
-merchWrapper.addEventListener("mousedown",(e)=>{mDown=true;mStartX=e.pageX;mStartScroll=merchScroll;});
-merchWrapper.addEventListener("mouseup",()=>mDown=false);
-merchWrapper.addEventListener("mousemove",(e)=>{if(!mDown)return;merchScroll=mStartScroll-(e.pageX-mStartX);});
-
-merchWrapper.addEventListener("touchstart",(e)=>{mStartX=e.touches[0].pageX;mStartScroll=merchScroll;});
-merchWrapper.addEventListener("touchmove",(e)=>{merchScroll=mStartScroll-(e.touches[0].pageX-mStartX);});
-
+  setupMarquee(ebookTrack, ebookWrapper, 0.35);
+  setupMarquee(merchTrack, merchWrapper, 0.35);
+});
 </script>
 
 </body>
