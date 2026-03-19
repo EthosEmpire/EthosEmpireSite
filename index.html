@@ -226,16 +226,17 @@
       overflow: hidden;
       width: 100%;
       cursor: grab;
-      touch-action: pan-y;
+      touch-action: pan-x;
       user-select: none;
       overscroll-behavior-x: contain;
       -webkit-overflow-scrolling: touch;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .ebook-carousel {
       overflow: hidden;
       overflow-y: hidden;
-      touch-action: pan-y pinch-zoom;
+      touch-action: pan-x;
       overscroll-behavior-x: contain;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
@@ -243,6 +244,7 @@
       cursor: grab;
       user-select: none;
       scroll-behavior: auto;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .ebook-carousel::-webkit-scrollbar {
@@ -554,6 +556,52 @@
       text-transform: uppercase;
     }
 
+    .ethos-bubble-grid {
+      display: grid;
+    }
+
+    .ethos-bubble-card {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      --shine-x: 50%;
+      --shine-y: 30%;
+    }
+
+    .ethos-bubble-card::before,
+    .ethos-bubble-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .9;
+    }
+
+    .ethos-bubble-card::before {
+      width: 120px;
+      height: 120px;
+      top: -40px;
+      left: -30px;
+      background: radial-gradient(circle at var(--shine-x) var(--shine-y), rgba(255,255,255,.22), rgba(255,255,255,0) 55%);
+      filter: blur(0px);
+      mix-blend-mode: screen;
+    }
+
+    .ethos-bubble-card::after {
+      width: 180px;
+      height: 180px;
+      right: -45px;
+      bottom: -60px;
+      background: radial-gradient(circle at 35% 35%, rgba(255,215,0,.14), rgba(255,215,0,0) 70%);
+      filter: blur(2px);
+    }
+
+    .ethos-bubble-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
     @media (min-width: 768px) {
       .modal-grid {
         grid-template-columns: 1.05fr .95fr;
@@ -611,6 +659,83 @@
       .modal-panel {
         width: min(96vw, 720px);
       }
+
+      .ethos-bubble-grid {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px;
+        margin-left: -6px;
+        margin-right: -6px;
+        padding-left: 6px;
+        padding-right: 6px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        perspective: 1200px;
+        scroll-padding-inline: 6px;
+      }
+
+      .ethos-bubble-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .ethos-bubble-card {
+        flex: 0 0 86%;
+        min-height: 240px;
+        border-radius: 34px;
+        padding: 24px 20px 22px;
+        scroll-snap-align: center;
+        background:
+          linear-gradient(180deg, rgba(18,18,18,0.82), rgba(255,255,255,0.05)),
+          radial-gradient(circle at var(--shine-x) var(--shine-y), rgba(255,255,255,.14), rgba(255,255,255,0) 45%);
+        border: 1px solid rgba(255,215,0,0.16);
+        box-shadow:
+          0 20px 55px rgba(0,0,0,.44),
+          inset 0 1px 0 rgba(255,255,255,.08);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        animation: bubbleFloat 7.5s ease-in-out infinite;
+        transform: translateZ(0);
+      }
+
+      .ethos-bubble-card:nth-child(2) { animation-delay: .18s; }
+      .ethos-bubble-card:nth-child(3) { animation-delay: .36s; }
+      .ethos-bubble-card:nth-child(4) { animation-delay: .54s; }
+
+      .ethos-bubble-card h3 {
+        color: #FFD700;
+        font-size: 1.3rem;
+        line-height: 1.2;
+        text-shadow: 0 2px 4px rgba(0,0,0,.6);
+        margin-bottom: 14px;
+      }
+
+      .ethos-bubble-card p {
+        color: #F7E7B3;
+        font-size: 1rem;
+        line-height: 1.72;
+        text-shadow: 0 2px 3px rgba(0,0,0,.5);
+      }
+
+      .ethos-bubble-card::before {
+        width: 112px;
+        height: 112px;
+        top: -24px;
+        left: -12px;
+      }
+
+      .ethos-bubble-card::after {
+        width: 160px;
+        height: 160px;
+        right: -26px;
+        bottom: -34px;
+      }
+
+      @keyframes bubbleFloat {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-8px) scale(1.015); }
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -631,6 +756,10 @@
       .modal-overlay,
       .modal-cover {
         transition: none;
+        animation: none;
+      }
+
+      .ethos-bubble-card {
         animation: none;
       }
     }
@@ -741,8 +870,12 @@
         What Ethos Empire Is About
       </h2>
 
-      <div class="grid md:grid-cols-2 gap-6">
-        <article class="soft-card rounded-3xl p-8">
+      <p class="md:hidden text-center text-sm text-[#A07828] mb-5 leading-relaxed">
+        Swipe the bubbles to explore.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 ethos-bubble-grid">
+        <article class="soft-card rounded-3xl p-8 ethos-bubble-card">
           <h3 class="text-2xl font-bold text-[#FFD700] mb-4">Discipline that lasts</h3>
           <p class="text-[#D4AF37] leading-relaxed">
             Discipline is the foundation of progress. Without discipline, goals stay ideas.
@@ -752,7 +885,7 @@
           </p>
         </article>
 
-        <article class="soft-card rounded-3xl p-8">
+        <article class="soft-card rounded-3xl p-8 ethos-bubble-card">
           <h3 class="text-2xl font-bold text-[#FFD700] mb-4">Confidence with substance</h3>
           <p class="text-[#D4AF37] leading-relaxed">
             Confidence is not about pretending to be perfect. It comes from real progress.
@@ -762,7 +895,7 @@
           </p>
         </article>
 
-        <article class="soft-card rounded-3xl p-8">
+        <article class="soft-card rounded-3xl p-8 ethos-bubble-card">
           <h3 class="text-2xl font-bold text-[#FFD700] mb-4">Health and self-care</h3>
           <p class="text-[#D4AF37] leading-relaxed">
             Your body affects your energy, mood, and discipline. That is why health matters.
@@ -771,7 +904,7 @@
           </p>
         </article>
 
-        <article class="soft-card rounded-3xl p-8">
+        <article class="soft-card rounded-3xl p-8 ethos-bubble-card">
           <h3 class="text-2xl font-bold text-[#FFD700] mb-4">Legacy and personal growth</h3>
           <p class="text-[#D4AF37] leading-relaxed">
             A legacy is built through repeated choices. The books and products here are designed to support
@@ -1235,9 +1368,13 @@ function setupMarquee(trackEl, wrapperEl, speed = 18) {
   let position = 0;
   let loopWidth = 1;
   let isDragging = false;
+  let pointerId = null;
   let startX = 0;
-  let startPosition = 0;
-  let hasDragged = false;
+  let lastX = 0;
+  let lastMoveTime = 0;
+  let velocity = 0;
+  let momentum = 0;
+  let dragged = false;
 
   const originalCards = [...trackEl.children];
 
@@ -1254,7 +1391,7 @@ function setupMarquee(trackEl, wrapperEl, speed = 18) {
   };
 
   const updateWidth = () => {
-    loopWidth = trackEl.scrollWidth / 2;
+    loopWidth = Math.max(trackEl.scrollWidth / 2, 1);
   };
 
   const render = () => {
@@ -1263,45 +1400,124 @@ function setupMarquee(trackEl, wrapperEl, speed = 18) {
 
   const animate = () => {
     if (!isDragging) {
-      position = wrap(position + speed * 0.02, loopWidth);
-      render();
+      position = wrap(position + speed * 0.02 + momentum, loopWidth);
+      momentum *= 0.94;
+
+      if (Math.abs(momentum) < 0.001) {
+        momentum = 0;
+      }
     }
+
+    render();
     requestAnimationFrame(animate);
   };
 
   wrapperEl.addEventListener("pointerdown", (e) => {
-    if (e.target.closest("a")) return;
+    if (e.target.closest("a,button")) return;
+    if (isDragging) return;
+
     isDragging = true;
-    hasDragged = false;
-    startX = e.clientX;
-    startPosition = position;
+    pointerId = e.pointerId;
+    startX = lastX = e.clientX;
+    lastMoveTime = performance.now();
+    velocity = 0;
+    momentum = 0;
+    dragged = false;
     wrapperEl.style.cursor = "grabbing";
+
+    if (wrapperEl.setPointerCapture) {
+      try {
+        wrapperEl.setPointerCapture(pointerId);
+      } catch (_) {}
+    }
   });
 
-  window.addEventListener("pointermove", (e) => {
-    if (!isDragging) return;
-    const delta = e.clientX - startX;
-    if (Math.abs(delta) > 5) hasDragged = true;
-    position = wrap(startPosition - delta, loopWidth);
+  wrapperEl.addEventListener("pointermove", (e) => {
+    if (!isDragging || e.pointerId !== pointerId) return;
+
+    const delta = e.clientX - lastX;
+    if (Math.abs(e.clientX - startX) > 4) dragged = true;
+
+    lastX = e.clientX;
+    position = wrap(position - delta, loopWidth);
+
+    const now = performance.now();
+    const dt = Math.max(now - lastMoveTime, 16);
+    velocity = (delta / dt) * 16;
+    lastMoveTime = now;
+
     render();
   });
 
-  window.addEventListener("pointerup", () => {
+  const finishDrag = (e) => {
+    if (!isDragging) return;
+    if (e && e.pointerId !== pointerId) return;
+
     isDragging = false;
     wrapperEl.style.cursor = "grab";
-    setTimeout(() => hasDragged = false, 0);
+
+    const capped = Math.max(-2.4, Math.min(2.4, -velocity * 0.85));
+    momentum = capped;
+
+    if (pointerId !== null && wrapperEl.releasePointerCapture) {
+      try {
+        wrapperEl.releasePointerCapture(pointerId);
+      } catch (_) {}
+    }
+
+    pointerId = null;
+
+    setTimeout(() => {
+      dragged = false;
+    }, 0);
+  };
+
+  wrapperEl.addEventListener("pointerup", finishDrag);
+  wrapperEl.addEventListener("pointercancel", finishDrag);
+  wrapperEl.addEventListener("pointerleave", (e) => {
+    if (isDragging) finishDrag(e);
   });
 
   wrapperEl.addEventListener("click", (e) => {
-    if (hasDragged) {
+    if (dragged) {
       e.preventDefault();
       e.stopPropagation();
     }
   }, true);
 
+  wrapperEl.addEventListener("dragstart", (e) => {
+    e.preventDefault();
+  });
+
   updateWidth();
   render();
   animate();
+
+  window.addEventListener("resize", () => {
+    updateWidth();
+    position = wrap(position, loopWidth);
+    render();
+  });
+}
+
+function setupBubbleShine() {
+  const grid = document.querySelector(".ethos-bubble-grid");
+  if (!grid || window.innerWidth > 767) return;
+
+  const cards = grid.querySelectorAll(".ethos-bubble-card");
+
+  cards.forEach((card) => {
+    const updateShine = (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty("--shine-x", `${Math.max(0, Math.min(100, x))}%`);
+      card.style.setProperty("--shine-y", `${Math.max(0, Math.min(100, y))}%`);
+    };
+
+    card.addEventListener("pointermove", updateShine);
+    card.addEventListener("pointerdown", updateShine);
+  });
 }
 
 window.addEventListener("load", () => {
@@ -1316,6 +1532,8 @@ window.addEventListener("load", () => {
     document.getElementById("merchWrapper"),
     16
   );
+
+  setupBubbleShine();
 
   const ebookModal = document.getElementById("ebookModal");
   const ebookModalClose = document.getElementById("ebookModalClose");
