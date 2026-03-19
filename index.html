@@ -232,13 +232,37 @@
       -webkit-overflow-scrolling: touch;
     }
 
+    .ebook-carousel {
+      overflow: hidden;
+      overflow-y: hidden;
+      touch-action: pan-y pinch-zoom;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      user-select: none;
+      scroll-behavior: auto;
+    }
+
+    .ebook-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
     .ebook-track {
       display: flex;
       gap: 24px;
       width: max-content;
+      align-items: flex-start;
       will-change: transform;
       transform: translate3d(0, 0, 0);
       backface-visibility: hidden;
+    }
+
+    .ebook-carousel .ebook-track {
+      will-change: auto;
+      transform: none;
+      backface-visibility: visible;
     }
 
     .ebook-card {
@@ -248,6 +272,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
 
     .ebook-card img {
@@ -280,6 +305,7 @@
       text-decoration: none;
       letter-spacing: .04em;
       box-shadow: 0 10px 20px rgba(201,149,42,.15);
+      cursor: pointer;
     }
 
     .buy-btn:hover {
@@ -450,6 +476,8 @@
       display: flex;
       justify-content: center;
       margin-top: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .modal-buy {
@@ -474,6 +502,50 @@
       box-shadow: 0 18px 34px rgba(201,149,42,.26);
     }
 
+    .modal-social {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .modal-social-text {
+      color: #A78B42;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      margin-bottom: 14px;
+    }
+
+    .modal-social-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .modal-social-link {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #D4AF37;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .modal-social-link img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 14px rgba(255,215,0,.12));
+      transition: transform .2s ease;
+    }
+
+    .modal-social-link:hover img {
+      transform: scale(1.08);
+    }
+
     .modal-meta {
       color: #A78B42;
       font-size: .8rem;
@@ -495,6 +567,14 @@
       }
 
       .modal-actions {
+        justify-content: flex-start;
+      }
+
+      .modal-social {
+        text-align: left;
+      }
+
+      .modal-social-row {
         justify-content: flex-start;
       }
 
@@ -711,84 +791,84 @@
         Self-mastery, discipline, confidence, health, grooming, relationships, and personal growth ebooks created to help you build your legacy.
       </p>
 
-      <div class="ebook-wrapper soft-card rounded-3xl p-5 md:p-8" id="ebookWrapper">
+      <div class="ebook-wrapper ebook-carousel soft-card rounded-3xl p-5 md:p-8" id="ebookWrapper">
         <div class="ebook-track" id="ebookTrack">
 
           <div class="ebook-card" data-book-index="0">
             <a href="https://ethosempire.gumroad.com/l/builtbymoney" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-built-by-money-ebook-cover.webp" alt="Built by Money ebook about wealth building and financial discipline" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/builtbymoney" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="1">
             <a href="https://ethosempire.gumroad.com/l/commandtheroom" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-command-the-room-ebook-cover.webp" alt="Command the Room ebook about confidence, presence, and social dominance" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/commandtheroom" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="2">
             <a href="https://ethosempire.gumroad.com/l/howtobeconfidence" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-confidence-guide-ebook-cover.webp" alt="Confidence guide ebook teaching self-confidence and mindset development" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/howtobeconfidence" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="3">
             <a href="https://ethosempire.gumroad.com/l/lifelessonsinfaith" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-life-lessons-in-faith-ebook-cover.webp" alt="Life Lessons in Faith ebook about discipline, purpose, and belief" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/lifelessonsinfaith" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="4">
             <a href="https://ethosempire.gumroad.com/l/therelationshipcode" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-relationship-code-ebook-cover.webp" alt="Relationship Code ebook about dating, communication, and attraction" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/therelationshipcode" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="5">
             <a href="https://ethosempire.gumroad.com/l/thearchitechtureofhealth" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-architecture-of-health-ebook-cover.webp" alt="Architecture of Health ebook about fitness, nutrition, and wellness" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/thearchitechtureofhealth" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="6">
             <a href="https://ethosempire.gumroad.com/l/thegymmindset" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-gym-mindset-ebook-cover.webp" alt="Gym Mindset ebook about training discipline, strength, and consistency" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/thegymmindset" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="7">
             <a href="https://ethosempire.gumroad.com/l/theclearskinguide" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-clear-skin-guide-ebook-cover.webp" alt="Clear Skin Guide ebook about skincare routines and healthy skin habits" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/theclearskinguide" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="8">
             <a href="https://ethosempire.gumroad.com/l/thehaircareblueprint" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-hair-care-blueprint-ebook-cover.webp" alt="Hair Care Blueprint ebook about hair health, grooming, and styling" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/thehaircareblueprint" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="9">
             <a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-looksmaxxing-guide-ebook-cover.webp" alt="Looksmaxxing Guide ebook about improving appearance, style, and attractiveness" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
           <div class="ebook-card" data-book-index="10">
             <a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming" target="_blank" rel="noopener noreferrer">
               <img src="ethos-empire-philosophy-of-becoming-ebook-cover.webp" alt="Philosophy of Becoming ebook about self mastery, mindset, and personal growth" width="160" height="226" loading="lazy" decoding="async" draggable="false">
             </a>
-            <a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
         </div>
@@ -852,49 +932,49 @@
       <div class="ebook-wrapper soft-card rounded-3xl p-5 md:p-8" id="merchWrapper">
         <div class="ebook-track" id="merchTrack">
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="0">
             <img src="ethos-empire-hoodie-black-gold-logo.webp" alt="Ethos Empire black hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="1">
             <img src="ethos-empire-hoodie-bone-gold-logo.webp" alt="Ethos Empire bone hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="2">
             <img src="ethos-empire-hoodie-latte-gold-logo.webp" alt="Ethos Empire latte hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="3">
             <img src="ethos-empire-hoodie-lavender-gold-logo.webp" alt="Ethos Empire lavender hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="4">
             <img src="ethos-empire-hoodie-navy-gold-logo.webp" alt="Ethos Empire navy hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="5">
             <img src="ethos-empire-hoodie-oatmeal-gold-logo.webp" alt="Ethos Empire oatmeal hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="6">
             <img src="ethos-empire-hoodie-vintage-gold-logo.webp" alt="Ethos Empire vintage hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="7">
             <img src="ethos-empire-hoodie-white-gold-logo.webp" alt="Ethos Empire white hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
-          <div class="ebook-card">
+          <div class="ebook-card" data-merch-index="8">
             <img src="ethos-empire-hoodie-pink-gold-logo.webp" alt="Ethos Empire pink hoodie with gold logo minimalist streetwear" width="160" height="226" loading="eager" decoding="async" draggable="false">
-            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
+            <a href="#" class="buy-btn">Buy</a>
           </div>
 
         </div>
@@ -971,352 +1051,435 @@
     </div>
   </div>
 
-  <script>
-    const ebookData = [
-      {
-        title: "Built by Money",
-        desc: "Learn how to build financial discipline, control your spending, and develop a long-term wealth mindset that helps you stay focused on growth.",
-        image: "ethos-empire-built-by-money-ebook-cover.webp",
-        alt: "Built by Money ebook cover",
-        link: "https://ethosempire.gumroad.com/l/builtbymoney"
-      },
-      {
-        title: "Command the Room",
-        desc: "Build confidence, presence, and social strength so you can carry yourself with more authority in any room you walk into.",
-        image: "ethos-empire-command-the-room-ebook-cover.webp",
-        alt: "Command the Room ebook cover",
-        link: "https://ethosempire.gumroad.com/l/commandtheroom"
-      },
-      {
-        title: "Confidence Guide",
-        desc: "Develop real confidence through better habits, stronger self-belief, and a sharper mindset that carries into everyday life.",
-        image: "ethos-empire-confidence-guide-ebook-cover.webp",
-        alt: "Confidence Guide ebook cover",
-        link: "https://ethosempire.gumroad.com/l/howtobeconfidence"
-      },
-      {
-        title: "Life Lessons in Faith",
-        desc: "Explore purpose, discipline, and belief with a guide that connects inner strength to a more grounded way of living.",
-        image: "ethos-empire-life-lessons-in-faith-ebook-cover.webp",
-        alt: "Life Lessons in Faith ebook cover",
-        link: "https://ethosempire.gumroad.com/l/lifelessonsinfaith"
-      },
-      {
-        title: "The Relationship Code",
-        desc: "Learn how to communicate better, build attraction, and approach relationships with more clarity and confidence.",
-        image: "ethos-empire-relationship-code-ebook-cover.webp",
-        alt: "The Relationship Code ebook cover",
-        link: "https://ethosempire.gumroad.com/l/therelationshipcode"
-      },
-      {
-        title: "The Architecture of Health",
-        desc: "Create stronger health habits with a practical guide focused on fitness, nutrition, and wellness routines that last.",
-        image: "ethos-empire-architecture-of-health-ebook-cover.webp",
-        alt: "The Architecture of Health ebook cover",
-        link: "https://ethosempire.gumroad.com/l/thearchitechtureofhealth"
-      },
-      {
-        title: "The Gym Mindset",
-        desc: "Train with discipline, consistency, and intensity so your workouts turn into real progress instead of temporary motivation.",
-        image: "ethos-empire-gym-mindset-ebook-cover.webp",
-        alt: "The Gym Mindset ebook cover",
-        link: "https://ethosempire.gumroad.com/l/thegymmindset"
-      },
-      {
-        title: "The Clear Skin Guide",
-        desc: "Build a simple skincare routine and healthy skin habits that support a cleaner, sharper, more confident look.",
-        image: "ethos-empire-clear-skin-guide-ebook-cover.webp",
-        alt: "The Clear Skin Guide ebook cover",
-        link: "https://ethosempire.gumroad.com/l/theclearskinguide"
-      },
-      {
-        title: "The Hair Care Blueprint",
-        desc: "Improve hair health, grooming, and styling with a guide built to help you look more put together every day.",
-        image: "ethos-empire-hair-care-blueprint-ebook-cover.webp",
-        alt: "The Hair Care Blueprint ebook cover",
-        link: "https://ethosempire.gumroad.com/l/thehaircareblueprint"
-      },
-      {
-        title: "Looksmaxxing Guide",
-        desc: "Level up your appearance with practical advice on style, grooming, and attraction that helps you look your best.",
-        image: "ethos-empire-looksmaxxing-guide-ebook-cover.webp",
-        alt: "Looksmaxxing Guide ebook cover",
-        link: "https://ethosempire.gumroad.com/l/thelooksmaxxingguide"
-      },
-      {
-        title: "The Philosophy of Becoming",
-        desc: "A mindset-focused guide about self-mastery, growth, and becoming the person you are meant to be through consistent action.",
-        image: "ethos-empire-philosophy-of-becoming-ebook-cover.webp",
-        alt: "The Philosophy of Becoming ebook cover",
-        link: "https://ethosempire.gumroad.com/l/thephilosophyofbecoming"
-      }
-    ];
+  <div id="merchModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="merchModalTitle">
+      <button class="modal-close" id="merchModalClose" aria-label="Close merch popup">×</button>
 
-    function setupMarquee(trackEl, wrapperEl, options = {}) {
-      if (!trackEl || !wrapperEl) return;
+      <div class="modal-grid">
+        <div class="modal-cover-wrap">
+          <button class="modal-nav modal-prev" id="merchPrevBtn" aria-label="Previous hoodie">‹</button>
+          <img id="merchModalCover" class="modal-cover" src="" alt="">
+          <button class="modal-nav modal-next" id="merchNextBtn" aria-label="Next hoodie">›</button>
+        </div>
 
-      const mobileQuery = window.matchMedia("(max-width: 767px)");
-      const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        <div class="px-1 md:px-2">
+          <p class="modal-meta mb-3">Empire Merch</p>
+          <h3 id="merchModalTitle" class="modal-title">Hoodie Name</h3>
 
-      const desktopSpeed = typeof options.desktopSpeed === "number" ? options.desktopSpeed : 18;
-      const mobileSpeed = typeof options.mobileSpeed === "number" ? options.mobileSpeed : 12;
-      const reducedMultiplier = typeof options.reducedMultiplier === "number" ? options.reducedMultiplier : 0.7;
+          <div class="modal-actions">
+            <a id="merchModalBuy" href="#" target="_blank" rel="noopener noreferrer" class="modal-buy">
+              Buy Now
+            </a>
+          </div>
 
-      let speed = mobileQuery.matches ? mobileSpeed : desktopSpeed;
-      let position = 0;
-      let loopWidth = 1;
-      let isDragging = false;
-      let startX = 0;
-      let startPosition = 0;
-      let rafId = null;
-      let lastTs = null;
-      let hasDragged = false;
+          <div class="modal-social">
+            <p class="modal-social-text">Follow us on social media</p>
+            <div class="modal-social-row">
+              <a href="https://www.instagram.com/ethosempire.x/" target="_blank" rel="noopener noreferrer" class="modal-social-link">
+                <img src="Instagram-transparent.png" alt="Instagram">
+              </a>
+              <a href="https://www.tiktok.com/@ethos.empire" target="_blank" rel="noopener noreferrer" class="modal-social-link">
+                <img src="Tiktok-transparent.png" alt="TikTok">
+              </a>
+              <a href="https://www.youtube.com/@Ethos.Empire.Official" target="_blank" rel="noopener noreferrer" class="modal-social-link">
+                <img src="Youtube-transparent.png" alt="YouTube">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-      const originalCards = [...trackEl.children];
+<script>
+const ebookData = [
+  {
+    title: "Built by Money",
+    desc: "Learn how to build financial discipline, control your spending, and develop a long-term wealth mindset that helps you stay focused on growth.",
+    image: "ethos-empire-built-by-money-ebook-cover.webp",
+    alt: "Built by Money ebook cover",
+    link: "https://ethosempire.gumroad.com/l/builtbymoney"
+  },
+  {
+    title: "Command the Room",
+    desc: "Build confidence, presence, and social strength so you can carry yourself with more authority in any room you walk into.",
+    image: "ethos-empire-command-the-room-ebook-cover.webp",
+    alt: "Command the Room ebook cover",
+    link: "https://ethosempire.gumroad.com/l/commandtheroom"
+  },
+  {
+    title: "Confidence Guide",
+    desc: "Develop real confidence through better habits, stronger self-belief, and a sharper mindset that carries into everyday life.",
+    image: "ethos-empire-confidence-guide-ebook-cover.webp",
+    alt: "Confidence Guide ebook cover",
+    link: "https://ethosempire.gumroad.com/l/howtobeconfidence"
+  },
+  {
+    title: "Life Lessons in Faith",
+    desc: "Explore purpose, discipline, and belief with a guide that connects inner strength to a more grounded way of living.",
+    image: "ethos-empire-life-lessons-in-faith-ebook-cover.webp",
+    alt: "Life Lessons in Faith ebook cover",
+    link: "https://ethosempire.gumroad.com/l/lifelessonsinfaith"
+  },
+  {
+    title: "The Relationship Code",
+    desc: "Learn how to communicate better, build attraction, and approach relationships with more clarity and confidence.",
+    image: "ethos-empire-relationship-code-ebook-cover.webp",
+    alt: "The Relationship Code ebook cover",
+    link: "https://ethosempire.gumroad.com/l/therelationshipcode"
+  },
+  {
+    title: "The Architecture of Health",
+    desc: "Create stronger health habits with a practical guide focused on fitness, nutrition, and wellness routines that last.",
+    image: "ethos-empire-architecture-of-health-ebook-cover.webp",
+    alt: "The Architecture of Health ebook cover",
+    link: "https://ethosempire.gumroad.com/l/thearchitechtureofhealth"
+  },
+  {
+    title: "The Gym Mindset",
+    desc: "Train with discipline, consistency, and intensity so your workouts turn into real progress instead of temporary motivation.",
+    image: "ethos-empire-gym-mindset-ebook-cover.webp",
+    alt: "The Gym Mindset ebook cover",
+    link: "https://ethosempire.gumroad.com/l/thegymmindset"
+  },
+  {
+    title: "The Clear Skin Guide",
+    desc: "Build a simple skincare routine and healthy skin habits that support a cleaner, sharper, more confident look.",
+    image: "ethos-empire-clear-skin-guide-ebook-cover.webp",
+    alt: "The Clear Skin Guide ebook cover",
+    link: "https://ethosempire.gumroad.com/l/theclearskinguide"
+  },
+  {
+    title: "The Hair Care Blueprint",
+    desc: "Improve hair health, grooming, and styling with a guide built to help you look more put together every day.",
+    image: "ethos-empire-hair-care-blueprint-ebook-cover.webp",
+    alt: "The Hair Care Blueprint ebook cover",
+    link: "https://ethosempire.gumroad.com/l/thehaircareblueprint"
+  },
+  {
+    title: "Looksmaxxing Guide",
+    desc: "Level up your appearance with practical advice on style, grooming, and attraction that helps you look your best.",
+    image: "ethos-empire-looksmaxxing-guide-ebook-cover.webp",
+    alt: "Looksmaxxing Guide ebook cover",
+    link: "https://ethosempire.gumroad.com/l/thelooksmaxxingguide"
+  },
+  {
+    title: "The Philosophy of Becoming",
+    desc: "A mindset-focused guide about self-mastery, growth, and becoming the person you are meant to be through consistent action.",
+    image: "ethos-empire-philosophy-of-becoming-ebook-cover.webp",
+    alt: "The Philosophy of Becoming ebook cover",
+    link: "https://ethosempire.gumroad.com/l/thephilosophyofbecoming"
+  }
+];
 
-      originalCards.forEach(card => {
-        const clone = card.cloneNode(true);
-        clone.setAttribute("aria-hidden", "true");
-        clone.querySelectorAll("a, button").forEach(el => {
-          el.setAttribute("tabindex", "-1");
-        });
-        trackEl.appendChild(clone);
-      });
+const merchData = [
+  {
+    title: "Black Hoodie",
+    image: "ethos-empire-hoodie-black-gold-logo.webp",
+    alt: "Ethos Empire black hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "Bone Hoodie",
+    image: "ethos-empire-hoodie-bone-gold-logo.webp",
+    alt: "Ethos Empire bone hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "Latte Hoodie",
+    image: "ethos-empire-hoodie-latte-gold-logo.webp",
+    alt: "Ethos Empire latte hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "Lavender Hoodie",
+    image: "ethos-empire-hoodie-lavender-gold-logo.webp",
+    alt: "Ethos Empire lavender hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "Navy Hoodie",
+    image: "ethos-empire-hoodie-navy-gold-logo.webp",
+    alt: "Ethos Empire navy hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "Oatmeal Hoodie",
+    image: "ethos-empire-hoodie-oatmeal-gold-logo.webp",
+    alt: "Ethos Empire oatmeal hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "Vintage Hoodie",
+    image: "ethos-empire-hoodie-vintage-gold-logo.webp",
+    alt: "Ethos Empire vintage hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "White Hoodie",
+    image: "ethos-empire-hoodie-white-gold-logo.webp",
+    alt: "Ethos Empire white hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  },
+  {
+    title: "Pink Hoodie",
+    image: "ethos-empire-hoodie-pink-gold-logo.webp",
+    alt: "Ethos Empire pink hoodie with gold logo minimalist streetwear",
+    link: "https://ethosempireo.printful.me/product/ethos-unisex-hoodie"
+  }
+];
 
-      const wrap = (value, limit) => {
-        if (!limit || !isFinite(limit)) return 0;
-        value = value % limit;
-        if (value < 0) value += limit;
-        return value;
-      };
+function setupMarquee(trackEl, wrapperEl, speed = 18) {
+  if (!trackEl || !wrapperEl) return;
 
-      const updateWidth = () => {
-        loopWidth = Math.max(trackEl.scrollWidth / 2, 1);
-      };
+  let position = 0;
+  let loopWidth = 1;
+  let isDragging = false;
+  let startX = 0;
+  let startPosition = 0;
+  let hasDragged = false;
 
-      const render = () => {
-        trackEl.style.transform = `translate3d(${-position}px, 0, 0)`;
-      };
+  const originalCards = [...trackEl.children];
 
-      const waitForImages = () => {
-        const imgs = [...trackEl.querySelectorAll("img")];
-        return Promise.all(
-          imgs.map(img => {
-            if (img.complete) return Promise.resolve();
-            return new Promise(resolve => {
-              img.addEventListener("load", resolve, { once: true });
-              img.addEventListener("error", resolve, { once: true });
-            });
-          })
-        );
-      };
+  originalCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    trackEl.appendChild(clone);
+  });
 
-      const updateSpeed = () => {
-        speed = mobileQuery.matches ? mobileSpeed : desktopSpeed;
-      };
+  const wrap = (value, limit) => {
+    value = value % limit;
+    if (value < 0) value += limit;
+    return value;
+  };
 
-      const currentSpeed = () => {
-        const base = mobileQuery.matches ? mobileSpeed : desktopSpeed;
-        return reducedMotionQuery.matches ? base * reducedMultiplier : base;
-      };
+  const updateWidth = () => {
+    loopWidth = trackEl.scrollWidth / 2;
+  };
 
-      const animate = (ts) => {
-        if (lastTs === null) lastTs = ts;
-        const delta = Math.min(32, ts - lastTs) / 1000;
-        lastTs = ts;
+  const render = () => {
+    trackEl.style.transform = `translate3d(${-position}px,0,0)`;
+  };
 
-        if (!isDragging) {
-          position = wrap(position + (currentSpeed() * delta), loopWidth);
-          render();
-        }
+  const animate = () => {
+    if (!isDragging) {
+      position = wrap(position + speed * 0.02, loopWidth);
+      render();
+    }
+    requestAnimationFrame(animate);
+  };
 
-        rafId = requestAnimationFrame(animate);
-      };
+  wrapperEl.addEventListener("pointerdown", (e) => {
+    if (e.target.closest("a")) return;
+    isDragging = true;
+    hasDragged = false;
+    startX = e.clientX;
+    startPosition = position;
+    wrapperEl.style.cursor = "grabbing";
+  });
 
-      const startDrag = (clientX, pointerId = null) => {
-        isDragging = true;
-        hasDragged = false;
-        startX = clientX;
-        startPosition = position;
-        wrapperEl.style.cursor = "grabbing";
+  window.addEventListener("pointermove", (e) => {
+    if (!isDragging) return;
+    const delta = e.clientX - startX;
+    if (Math.abs(delta) > 5) hasDragged = true;
+    position = wrap(startPosition - delta, loopWidth);
+    render();
+  });
 
-        if (pointerId !== null) {
-          try { wrapperEl.setPointerCapture(pointerId); } catch (_) {}
-        }
-      };
+  window.addEventListener("pointerup", () => {
+    isDragging = false;
+    wrapperEl.style.cursor = "grab";
+    setTimeout(() => hasDragged = false, 0);
+  });
 
-      const moveDrag = (clientX) => {
-        if (!isDragging) return;
-        const delta = clientX - startX;
-        if (Math.abs(delta) > 5) hasDragged = true;
-        position = wrap(startPosition - delta, loopWidth);
-        render();
-      };
+  wrapperEl.addEventListener("click", (e) => {
+    if (hasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
 
-      const stopDrag = () => {
-        isDragging = false;
-        wrapperEl.style.cursor = "grab";
-        setTimeout(() => { hasDragged = false; }, 0);
-      };
+  updateWidth();
+  render();
+  animate();
+}
 
-      const supportsPointer = "PointerEvent" in window;
+window.addEventListener("load", () => {
+  setupMarquee(
+    document.getElementById("ebookTrack"),
+    document.getElementById("ebookWrapper"),
+    20
+  );
 
-      wrapperEl.style.cursor = "grab";
+  setupMarquee(
+    document.getElementById("merchTrack"),
+    document.getElementById("merchWrapper"),
+    16
+  );
 
-      if (supportsPointer) {
-        wrapperEl.addEventListener("pointerdown", (e) => {
-          if (e.button !== 0) return;
-          if (e.target.closest("a")) return;
-          startDrag(e.clientX, e.pointerId);
-        });
+  const ebookModal = document.getElementById("ebookModal");
+  const ebookModalClose = document.getElementById("ebookModalClose");
+  const ebookModalCover = document.getElementById("ebookModalCover");
+  const ebookModalTitle = document.getElementById("ebookModalTitle");
+  const ebookModalDesc = document.getElementById("ebookModalDesc");
+  const ebookModalBuy = document.getElementById("ebookModalBuy");
+  const ebookModalMeta = document.getElementById("ebookModalMeta");
+  const ebookPrevBtn = document.getElementById("ebookPrevBtn");
+  const ebookNextBtn = document.getElementById("ebookNextBtn");
+  const ebookWrapper = document.getElementById("ebookWrapper");
 
-        wrapperEl.addEventListener("pointermove", (e) => {
-          if (!isDragging) return;
-          moveDrag(e.clientX);
-        });
+  const merchModal = document.getElementById("merchModal");
+  const merchModalClose = document.getElementById("merchModalClose");
+  const merchModalCover = document.getElementById("merchModalCover");
+  const merchModalTitle = document.getElementById("merchModalTitle");
+  const merchModalBuy = document.getElementById("merchModalBuy");
+  const merchPrevBtn = document.getElementById("merchPrevBtn");
+  const merchNextBtn = document.getElementById("merchNextBtn");
+  const merchWrapper = document.getElementById("merchWrapper");
 
-        wrapperEl.addEventListener("pointerup", stopDrag);
-        wrapperEl.addEventListener("pointercancel", stopDrag);
-        wrapperEl.addEventListener("pointerleave", stopDrag);
-      } else {
-        wrapperEl.addEventListener("touchstart", (e) => {
-          if (e.target.closest("a")) return;
-          const touch = e.touches[0];
-          if (!touch) return;
-          startDrag(touch.clientX);
-        }, { passive: true });
+  let currentEbookIndex = 0;
+  let currentMerchIndex = 0;
+  let activeModal = null;
 
-        wrapperEl.addEventListener("touchmove", (e) => {
-          if (!isDragging) return;
-          const touch = e.touches[0];
-          if (!touch) return;
-          moveDrag(touch.clientX);
-        }, { passive: true });
+  function normalizeIndex(index, length) {
+    return (index + length) % length;
+  }
 
-        wrapperEl.addEventListener("touchend", stopDrag);
-        wrapperEl.addEventListener("touchcancel", stopDrag);
-      }
+  function renderEbook(index) {
+    const safeIndex = normalizeIndex(index, ebookData.length);
+    const book = ebookData[safeIndex];
+    currentEbookIndex = safeIndex;
+    ebookModalCover.src = book.image;
+    ebookModalCover.alt = book.alt;
+    ebookModalTitle.textContent = book.title;
+    ebookModalDesc.textContent = book.desc;
+    ebookModalBuy.href = book.link;
+    ebookModalMeta.textContent = "Empire Knowledge Library";
+  }
 
-      wrapperEl.addEventListener("click", (e) => {
-        if (hasDragged) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      }, true);
+  function renderMerch(index) {
+    const safeIndex = normalizeIndex(index, merchData.length);
+    const item = merchData[safeIndex];
+    currentMerchIndex = safeIndex;
+    merchModalCover.src = item.image;
+    merchModalCover.alt = item.alt;
+    merchModalTitle.textContent = item.title;
+    merchModalBuy.href = item.link;
+  }
 
-      if (typeof mobileQuery.addEventListener === "function") {
-        mobileQuery.addEventListener("change", updateSpeed);
-      } else if (typeof mobileQuery.addListener === "function") {
-        mobileQuery.addListener(updateSpeed);
-      }
+  function openEbookModal(index) {
+    renderEbook(index);
+    ebookModal.classList.add("open");
+    ebookModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    activeModal = "ebook";
+  }
 
-      waitForImages().then(() => {
-        updateWidth();
-        render();
+  function openMerchModal(index) {
+    renderMerch(index);
+    merchModal.classList.add("open");
+    merchModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    activeModal = "merch";
+  }
 
-        if (!rafId) rafId = requestAnimationFrame(animate);
+  function closeAllModals() {
+    ebookModal.classList.remove("open");
+    ebookModal.setAttribute("aria-hidden", "true");
+    merchModal.classList.remove("open");
+    merchModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    activeModal = null;
+  }
 
-        window.addEventListener("resize", () => {
-          updateWidth();
-          updateSpeed();
-          position = wrap(position, loopWidth);
-          render();
-        });
-      });
+  function ebookNext() {
+    openEbookModal(currentEbookIndex + 1);
+  }
+
+  function ebookPrev() {
+    openEbookModal(currentEbookIndex - 1);
+  }
+
+  function merchNext() {
+    openMerchModal(currentMerchIndex + 1);
+  }
+
+  function merchPrev() {
+    openMerchModal(currentMerchIndex - 1);
+  }
+
+  ebookWrapper.addEventListener("click", (e) => {
+    const card = e.target.closest(".ebook-card");
+    if (!card) return;
+
+    const index = parseInt(card.dataset.bookIndex, 10);
+    if (Number.isNaN(index)) return;
+
+    e.preventDefault();
+    openEbookModal(index);
+  });
+
+  merchWrapper.addEventListener("click", (e) => {
+    const card = e.target.closest(".ebook-card");
+    if (!card) return;
+
+    const index = parseInt(card.dataset.merchIndex, 10);
+    if (Number.isNaN(index)) return;
+
+    e.preventDefault();
+    openMerchModal(index);
+  });
+
+  ebookPrevBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    ebookPrev();
+  });
+
+  ebookNextBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    ebookNext();
+  });
+
+  merchPrevBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    merchPrev();
+  });
+
+  merchNextBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    merchNext();
+  });
+
+  ebookModalClose.addEventListener("click", closeAllModals);
+  merchModalClose.addEventListener("click", closeAllModals);
+
+  ebookModal.addEventListener("click", (e) => {
+    if (e.target === ebookModal) closeAllModals();
+  });
+
+  merchModal.addEventListener("click", (e) => {
+    if (e.target === merchModal) closeAllModals();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!activeModal) return;
+
+    if (e.key === "Escape") {
+      closeAllModals();
+      return;
     }
 
-    window.addEventListener("load", () => {
-      setupMarquee(document.getElementById("ebookTrack"), document.getElementById("ebookWrapper"), {
-        desktopSpeed: 22,
-        mobileSpeed: 16,
-        reducedMultiplier: 0.75
-      });
+    if (activeModal === "ebook") {
+      if (e.key === "ArrowLeft") ebookPrev();
+      if (e.key === "ArrowRight") ebookNext();
+    }
 
-      setupMarquee(document.getElementById("merchTrack"), document.getElementById("merchWrapper"), {
-        desktopSpeed: 18,
-        mobileSpeed: 8,
-        reducedMultiplier: 0.75
-      });
-
-      const modal = document.getElementById("ebookModal");
-      const modalClose = document.getElementById("ebookModalClose");
-      const modalCover = document.getElementById("ebookModalCover");
-      const modalTitle = document.getElementById("ebookModalTitle");
-      const modalDesc = document.getElementById("ebookModalDesc");
-      const modalBuy = document.getElementById("ebookModalBuy");
-      const modalPrev = document.getElementById("ebookPrevBtn");
-      const modalNext = document.getElementById("ebookNextBtn");
-      const ebookWrapper = document.getElementById("ebookWrapper");
-      const body = document.body;
-
-      let currentIndex = 0;
-      let lastFocusedElement = null;
-
-      function renderBook(index) {
-        const normalized = (index + ebookData.length) % ebookData.length;
-        const book = ebookData[normalized];
-        currentIndex = normalized;
-        modalCover.src = book.image;
-        modalCover.alt = book.alt || book.title;
-        modalTitle.textContent = book.title;
-        modalDesc.textContent = book.desc;
-        modalBuy.href = book.link;
-      }
-
-      function openModal(index) {
-        lastFocusedElement = document.activeElement;
-        renderBook(index);
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-        body.style.overflow = "hidden";
-        setTimeout(() => modalClose.focus(), 0);
-      }
-
-      function closeModal() {
-        modal.classList.remove("open");
-        modal.setAttribute("aria-hidden", "true");
-        body.style.overflow = "";
-        if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-          lastFocusedElement.focus();
-        }
-      }
-
-      function nextBook() {
-        renderBook(currentIndex + 1);
-      }
-
-      function prevBook() {
-        renderBook(currentIndex - 1);
-      }
-
-      ebookWrapper.addEventListener("click", (e) => {
-        const card = e.target.closest(".ebook-card");
-        if (!card) return;
-
-        const index = parseInt(card.dataset.bookIndex, 10);
-        if (Number.isNaN(index)) return;
-
-        if (e.target.closest("a") || e.target.tagName === "IMG" || e.target.closest(".ebook-card")) {
-          e.preventDefault();
-          openModal(index);
-        }
-      });
-
-      modalClose.addEventListener("click", closeModal);
-      modalPrev.addEventListener("click", prevBook);
-      modalNext.addEventListener("click", nextBook);
-
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (!modal.classList.contains("open")) return;
-        if (e.key === "Escape") closeModal();
-        if (e.key === "ArrowRight") nextBook();
-        if (e.key === "ArrowLeft") prevBook();
-      });
-    });
-  </script>
+    if (activeModal === "merch") {
+      if (e.key === "ArrowLeft") merchPrev();
+      if (e.key === "ArrowRight") merchNext();
+    }
+  });
+});
+</script>
 </body>
 </html>
