@@ -6,93 +6,140 @@
   <!-- Homepage -->
   <url>
     <loc>https://ethosempire.org/</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
 
   <!-- Architecture of Health -->
   <url>
     <loc>https://ethosempire.org/ebooks/architecture-of-health.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-architecture-of-health-ebook-cover.webp</image:loc>
+      <image:title>Architecture of Health Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Built by Money -->
   <url>
     <loc>https://ethosempire.org/ebooks/built-by-money.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-built-by-money-ebook-cover.webp</image:loc>
+      <image:title>Built by Money Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Clear Skin Guide -->
   <url>
     <loc>https://ethosempire.org/ebooks/clear-skin-guide.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-clear-skin-guide-ebook-cover.webp</image:loc>
+      <image:title>Clear Skin Guide Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Command the Room -->
   <url>
     <loc>https://ethosempire.org/ebooks/command-the-room.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-command-the-room-ebook-cover.webp</image:loc>
+      <image:title>Command the Room Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Confidence Guide -->
   <url>
     <loc>https://ethosempire.org/ebooks/confidence-guide.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-confidence-guide-ebook-cover.webp</image:loc>
+      <image:title>Confidence Guide Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Gym Mindset -->
   <url>
     <loc>https://ethosempire.org/ebooks/the-gym-mindset.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-gym-mindset-ebook-cover.webp</image:loc>
+      <image:title>Gym Mindset Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Hair Care Blueprint -->
   <url>
     <loc>https://ethosempire.org/ebooks/hair-care-blueprint.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-hair-care-blueprint-ebook-cover.webp</image:loc>
+      <image:title>Hair Care Blueprint Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Life Lessons in Faith -->
   <url>
     <loc>https://ethosempire.org/ebooks/life-lessons-in-faith.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-life-lessons-in-faith-ebook-cover.webp</image:loc>
+      <image:title>Life Lessons in Faith Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Looksmaxxing Guide -->
   <url>
     <loc>https://ethosempire.org/ebooks/looksmaxxing-guide.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-looksmaxxing-guide-ebook-cover.webp</image:loc>
+      <image:title>Looksmaxxing Guide Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Philosophy of Becoming -->
   <url>
     <loc>https://ethosempire.org/ebooks/philosophy-of-becoming.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-philosophy-of-becoming-ebook-cover.webp</image:loc>
+      <image:title>The Philosophy of Becoming Ebook Cover</image:title>
     </image:image>
   </url>
 
   <!-- Relationship Code -->
   <url>
     <loc>https://ethosempire.org/ebooks/relationship-code.html</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-relationship-code-ebook-cover.webp</image:loc>
+      <image:title>Relationship Code Ebook Cover</image:title>
     </image:image>
   </url>
 
