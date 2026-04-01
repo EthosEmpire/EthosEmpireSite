@@ -3,15 +3,22 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Homepage -->
+  <!-- Homepage with Logo -->
   <url>
     <loc>https://ethosempire.org/</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/ethos-empire-logo.webp</image:loc>
+      <image:title>Ethos Empire official logo</image:title>
+      <image:caption>Ethos Empire official logo</image:caption>
+    </image:image>
   </url>
 
-  <!-- Architecture of Health -->
+  <!-- Ebooks -->
+
   <url>
     <loc>https://ethosempire.org/ebooks/architecture-of-health.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -20,10 +27,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-architecture-of-health-ebook-cover.webp</image:loc>
       <image:title>Architecture of Health Ebook Cover</image:title>
+      <image:caption>Architecture of Health ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Built by Money -->
   <url>
     <loc>https://ethosempire.org/ebooks/built-by-money.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -32,10 +39,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-built-by-money-ebook-cover.webp</image:loc>
       <image:title>Built by Money Ebook Cover</image:title>
+      <image:caption>Built by Money ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Clear Skin Guide -->
   <url>
     <loc>https://ethosempire.org/ebooks/clear-skin-guide.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -44,10 +51,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-clear-skin-guide-ebook-cover.webp</image:loc>
       <image:title>Clear Skin Guide Ebook Cover</image:title>
+      <image:caption>Clear Skin Guide ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Command the Room -->
   <url>
     <loc>https://ethosempire.org/ebooks/command-the-room.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -56,10 +63,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-command-the-room-ebook-cover.webp</image:loc>
       <image:title>Command the Room Ebook Cover</image:title>
+      <image:caption>Command the Room ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Confidence Guide -->
   <url>
     <loc>https://ethosempire.org/ebooks/confidence-guide.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -68,10 +75,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-confidence-guide-ebook-cover.webp</image:loc>
       <image:title>Confidence Guide Ebook Cover</image:title>
+      <image:caption>Confidence Guide ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Gym Mindset -->
   <url>
     <loc>https://ethosempire.org/ebooks/the-gym-mindset.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -80,10 +87,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-gym-mindset-ebook-cover.webp</image:loc>
       <image:title>Gym Mindset Ebook Cover</image:title>
+      <image:caption>Gym Mindset ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Hair Care Blueprint -->
   <url>
     <loc>https://ethosempire.org/ebooks/hair-care-blueprint.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -92,10 +99,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-hair-care-blueprint-ebook-cover.webp</image:loc>
       <image:title>Hair Care Blueprint Ebook Cover</image:title>
+      <image:caption>Hair Care Blueprint ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Life Lessons in Faith -->
   <url>
     <loc>https://ethosempire.org/ebooks/life-lessons-in-faith.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -104,10 +111,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-life-lessons-in-faith-ebook-cover.webp</image:loc>
       <image:title>Life Lessons in Faith Ebook Cover</image:title>
+      <image:caption>Life Lessons in Faith ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Looksmaxxing Guide -->
   <url>
     <loc>https://ethosempire.org/ebooks/looksmaxxing-guide.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -116,10 +123,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-looksmaxxing-guide-ebook-cover.webp</image:loc>
       <image:title>Looksmaxxing Guide Ebook Cover</image:title>
+      <image:caption>Looksmaxxing Guide ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Philosophy of Becoming -->
   <url>
     <loc>https://ethosempire.org/ebooks/philosophy-of-becoming.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -128,10 +135,10 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-philosophy-of-becoming-ebook-cover.webp</image:loc>
       <image:title>The Philosophy of Becoming Ebook Cover</image:title>
+      <image:caption>The Philosophy of Becoming ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
-  <!-- Relationship Code -->
   <url>
     <loc>https://ethosempire.org/ebooks/relationship-code.html</loc>
     <lastmod>2026-03-31</lastmod>
@@ -140,6 +147,7 @@
     <image:image>
       <image:loc>https://ethosempire.org/ethos-empire-relationship-code-ebook-cover.webp</image:loc>
       <image:title>Relationship Code Ebook Cover</image:title>
+      <image:caption>Relationship Code ebook cover by Ethos Empire</image:caption>
     </image:image>
   </url>
 
