@@ -1,0 +1,10 @@
+{
+  "name": "ethos-empire",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ethos Empire static website",
+  "scripts": {
+    "build": "echo \"No build step is configured yet. This is a static HTML/CSS/JS site.\"",
+    "dev": "echo \"Use VS Code Live Server or upload to GitHub Pages to preview the site.\""
+  }
+}
