@@ -531,6 +531,26 @@ function applyCarouselStabilityStyles() {
     .ebook-card.is-centered img {
       transform: none !important;
     }
+
+    @media (max-width: 767px) {
+      .ethos-bubble-card,
+      .ethos-bubble-card:hover,
+      .ethos-bubble-card.is-active,
+      .ethos-bubble-card.is-dim {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+
+      .ethos-bubble-card h3,
+      .ethos-bubble-card:hover h3,
+      .ethos-bubble-card.is-active h3,
+      .ethos-bubble-card p,
+      .ethos-bubble-card:hover p,
+      .ethos-bubble-card.is-active p {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
   `;
 
   document.head.appendChild(style);
@@ -737,41 +757,69 @@ function setupInfiniteCarousel(config) {
     });
   };
 
-  controller.updateFocus = updateFocus;
-  carouselControllers.set(wrapper, controller);
-
-  refreshCarouselMetrics(controller);
-  normalizeInfiniteScroll(controller);
-  updateFocus();
-
-  const tick = () => {
-    if (!prefersReducedMotion) {
-      wrapper.scrollLeft += controller.speed * controller.direction;
-      normalizeInfiniteScroll(controller);
-    }
-
-    controller.rafId = requestAnimationFrame(tick);
+  const refreshAndNormalize = () => {
+    refreshCarouselMetrics(controller);
+    normalizeInfiniteScroll(controller);
+    updateFocus();
   };
 
-  if (!prefersReducedMotion) {
-    controller.rafId = requestAnimationFrame(tick);
-  }
+  const step = () => {
+    if (prefersReducedMotion) {
+      controller.rafId = 0;
+      return;
+    }
+
+    if (!controller.setWidth) {
+      refreshCarouselMetrics(controller);
+    }
+
+    wrapper.scrollLeft += controller.speed * controller.direction;
+    normalizeInfiniteScroll(controller);
+    controller.rafId = requestAnimationFrame(step);
+  };
+
+  const restartLoop = () => {
+    if (prefersReducedMotion) return;
+    refreshAndNormalize();
+
+    if (controller.rafId) {
+      cancelAnimationFrame(controller.rafId);
+      controller.rafId = 0;
+    }
+
+    controller.rafId = requestAnimationFrame(step);
+  };
+
+  controller.updateFocus = updateFocus;
+  controller.restartLoop = restartLoop;
+  carouselControllers.set(wrapper, controller);
+
+  refreshAndNormalize();
+  restartLoop();
 
   wrapper.addEventListener("scroll", () => {
     normalizeInfiniteScroll(controller);
     updateFocus();
   }, { passive: true });
 
-  window.addEventListener("resize", () => {
-    refreshCarouselMetrics(controller);
-    normalizeInfiniteScroll(controller);
-    updateFocus();
+  wrapper.addEventListener("touchend", restartLoop, { passive: true });
+  wrapper.addEventListener("touchcancel", restartLoop, { passive: true });
+
+  window.addEventListener("resize", restartLoop);
+  window.addEventListener("orientationchange", restartLoop);
+  window.addEventListener("load", restartLoop);
+  window.addEventListener("pageshow", restartLoop);
+  window.addEventListener("focus", restartLoop);
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) restartLoop();
   });
 
-  window.addEventListener("load", () => {
-    refreshCarouselMetrics(controller);
-    normalizeInfiniteScroll(controller);
-    updateFocus();
+  track.querySelectorAll("img").forEach((img) => {
+    if (!img.complete) {
+      img.addEventListener("load", restartLoop);
+      img.addEventListener("error", restartLoop);
+    }
   });
 
   wrapper.querySelectorAll(controller.itemSelector).forEach((card) => {
@@ -1106,21 +1154,63 @@ function setupBubbleCards() {
   const cards = document.querySelectorAll(".ethos-bubble-card");
   if (cards.length === 0) return;
 
+  const isMobileTouch = () =>
+    window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
+
+  const resetMobileState = () => {
+    cards.forEach((card) => {
+      card.classList.remove("is-active", "is-dim");
+    });
+  };
+
+  if (isMobileTouch()) {
+    resetMobileState();
+    window.addEventListener("resize", () => {
+      if (isMobileTouch()) {
+        resetMobileState();
+      } else {
+        updateActiveBubbleCard();
+      }
+    });
+    return;
+  }
+
   cards.forEach((card) => {
     card.addEventListener("pointerenter", () => {
+      if (isMobileTouch()) return;
       cards.forEach((item) => item.classList.toggle("is-dim", item !== card));
       card.classList.add("is-active");
     });
 
     card.addEventListener("pointerleave", () => {
+      if (isMobileTouch()) {
+        resetMobileState();
+        return;
+      }
       updateActiveBubbleCard();
     });
   });
 
   const bubbleGrid = document.querySelector(".ethos-bubble-grid");
-  bubbleGrid?.addEventListener("scroll", () => requestAnimationFrame(updateActiveBubbleCard), { passive: true });
-  window.addEventListener("resize", updateActiveBubbleCard);
-  window.addEventListener("scroll", () => requestAnimationFrame(updateActiveBubbleCard), { passive: true });
+  bubbleGrid?.addEventListener("scroll", () => {
+    if (!isMobileTouch()) {
+      requestAnimationFrame(updateActiveBubbleCard);
+    }
+  }, { passive: true });
+
+  window.addEventListener("resize", () => {
+    if (isMobileTouch()) {
+      resetMobileState();
+    } else {
+      updateActiveBubbleCard();
+    }
+  });
+
+  window.addEventListener("scroll", () => {
+    if (!isMobileTouch()) {
+      requestAnimationFrame(updateActiveBubbleCard);
+    }
+  }, { passive: true });
 
   updateActiveBubbleCard();
 }
