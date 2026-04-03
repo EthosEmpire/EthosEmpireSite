@@ -754,6 +754,7 @@ function setupInfiniteCarousel(config) {
     dots: createCarouselDots(wrapper, config.items.length),
     itemSelector: ".ebook-card",
     rafId: 0,
+    timerId: 0,
     setWidth: 0,
     initialized: false,
     focusRaf: 0,
@@ -763,6 +764,33 @@ function setupInfiniteCarousel(config) {
   };
 
   let restartTimer = 0;
+
+  const isPhoneLike = () =>
+    window.matchMedia("(max-width: 767px)").matches ||
+    window.matchMedia("(pointer: coarse)").matches;
+
+  const shouldRunAutoplay = () => {
+    if (!prefersReducedMotion) {
+      return true;
+    }
+
+    return Boolean(config.enableMobileAutoplay && isPhoneLike());
+  };
+
+  const shouldUsePhoneTimer = () =>
+    Boolean(config.usePhoneTimerFallback && isPhoneLike());
+
+  const clearMotion = () => {
+    if (controller.rafId) {
+      cancelAnimationFrame(controller.rafId);
+      controller.rafId = 0;
+    }
+
+    if (controller.timerId) {
+      window.clearInterval(controller.timerId);
+      controller.timerId = 0;
+    }
+  };
 
   const updateFocus = () => {
     cancelAnimationFrame(controller.focusRaf);
@@ -777,49 +805,68 @@ function setupInfiniteCarousel(config) {
     updateFocus();
   };
 
-  const step = (now = performance.now()) => {
-    if (prefersReducedMotion) {
-      controller.rafId = 0;
-      return;
-    }
-
+  const moveFrame = () => {
     if (!controller.setWidth) {
       refreshCarouselMetrics(controller);
     }
 
     if (!controller.setWidth) {
-      controller.rafId = requestAnimationFrame(step);
       return;
     }
 
     if (
       controller.isInteracting ||
       controller.isPaused ||
-      now < controller.resumeAt
+      performance.now() < controller.resumeAt
     ) {
-      controller.rafId = requestAnimationFrame(step);
       return;
     }
 
     wrapper.scrollLeft += controller.speed * controller.direction;
     normalizeInfiniteScroll(controller);
+  };
+
+  const step = () => {
+    if (!shouldRunAutoplay() || shouldUsePhoneTimer()) {
+      controller.rafId = 0;
+      return;
+    }
+
+    moveFrame();
     controller.rafId = requestAnimationFrame(step);
   };
 
-  const restartLoop = () => {
-    if (prefersReducedMotion) return;
-    refreshAndNormalize();
+  const startPhoneTimer = () => {
+    if (!shouldRunAutoplay() || !shouldUsePhoneTimer()) {
+      return;
+    }
 
-    if (controller.rafId) {
-      cancelAnimationFrame(controller.rafId);
-      controller.rafId = 0;
+    if (controller.timerId) {
+      window.clearInterval(controller.timerId);
+    }
+
+    controller.timerId = window.setInterval(() => {
+      moveFrame();
+    }, 16);
+  };
+
+  const restartLoop = () => {
+    refreshAndNormalize();
+    clearMotion();
+
+    if (!shouldRunAutoplay()) {
+      return;
+    }
+
+    if (shouldUsePhoneTimer()) {
+      startPhoneTimer();
+      return;
     }
 
     controller.rafId = requestAnimationFrame(step);
   };
 
   const requestRestart = (delay = 80) => {
-    if (prefersReducedMotion) return;
     window.clearTimeout(restartTimer);
     restartTimer = window.setTimeout(() => {
       restartLoop();
@@ -1396,12 +1443,18 @@ window.addEventListener("DOMContentLoaded", () => {
   renderEbookCards();
   renderMerchCards();
 
-  setupInfiniteCarousel({
+  const isPhoneLike =
+    window.matchMedia("(max-width: 767px)").matches ||
+    window.matchMedia("(pointer: coarse)").matches;
+
+  const ebookCarousel = setupInfiniteCarousel({
     wrapperId: "ebookWrapper",
     trackId: "ebookTrack",
     items: ebookData,
-    speed: 0.55,
-    direction: 1
+    speed: isPhoneLike ? 0.62 : 0.55,
+    direction: 1,
+    enableMobileAutoplay: true,
+    usePhoneTimerFallback: true
   });
 
   setupInfiniteCarousel({
@@ -1409,8 +1462,33 @@ window.addEventListener("DOMContentLoaded", () => {
     trackId: "merchTrack",
     items: merchData,
     speed: 0.55,
-    direction: -1
+    direction: -1,
+    enableMobileAutoplay: true
   });
+
+  const nudgeEbookAutoplay = () => {
+    if (!ebookCarousel) return;
+    ebookCarousel.isPaused = false;
+    ebookCarousel.resumeAt = 0;
+    ebookCarousel.isInteracting = false;
+    ebookCarousel.restartLoop?.();
+  };
+
+  if (isPhoneLike) {
+    window.setTimeout(nudgeEbookAutoplay, 180);
+    window.setTimeout(nudgeEbookAutoplay, 700);
+    window.setTimeout(nudgeEbookAutoplay, 1400);
+
+    window.addEventListener("pageshow", () => {
+      window.setTimeout(nudgeEbookAutoplay, 120);
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        window.setTimeout(nudgeEbookAutoplay, 120);
+      }
+    });
+  }
 
   setupModalControls();
   setupRevealAnimations();
