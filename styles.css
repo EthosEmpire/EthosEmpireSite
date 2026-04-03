@@ -872,6 +872,20 @@ summary:focus-visible {
   filter: blur(7px);
 }
 
+.modal-overlay.open .modal-panel .modal-meta,
+.modal-overlay.open .modal-panel .modal-title,
+.modal-overlay.open .modal-panel .modal-desc,
+.modal-overlay.open .modal-panel .modal-actions,
+.modal-overlay.open .modal-panel .modal-social {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease,
+    filter 260ms ease;
+}
+
 .modal-overlay.open .modal-panel.modal-animate .modal-meta,
 .modal-overlay.open .modal-panel.modal-animate .modal-title,
 .modal-overlay.open .modal-panel.modal-animate .modal-desc,
@@ -1429,7 +1443,7 @@ details[open] summary::after {
   scroll-behavior: auto !important;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y pinch-zoom;
+  touch-action: pan-x pinch-zoom;
 }
 
 .ebook-track {
