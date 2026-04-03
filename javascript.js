@@ -747,7 +747,13 @@ function setupInfiniteCarousel(config) {
     rafId: 0,
     setWidth: 0,
     initialized: false,
-    focusRaf: 0
+    focusRaf: 0,
+    resumeTimers: []
+  };
+
+  const clearResumeTimers = () => {
+    controller.resumeTimers.forEach((timer) => window.clearTimeout(timer));
+    controller.resumeTimers = [];
   };
 
   const updateFocus = () => {
@@ -763,6 +769,9 @@ function setupInfiniteCarousel(config) {
     updateFocus();
   };
 
+  const getActiveSpeed = () =>
+    window.innerWidth < 768 ? controller.speed * 1.28 : controller.speed;
+
   const step = () => {
     if (prefersReducedMotion) {
       controller.rafId = 0;
@@ -773,13 +782,14 @@ function setupInfiniteCarousel(config) {
       refreshCarouselMetrics(controller);
     }
 
-    wrapper.scrollLeft += controller.speed * controller.direction;
+    wrapper.scrollLeft += getActiveSpeed() * controller.direction;
     normalizeInfiniteScroll(controller);
     controller.rafId = requestAnimationFrame(step);
   };
 
   const restartLoop = () => {
     if (prefersReducedMotion) return;
+    clearResumeTimers();
     refreshAndNormalize();
 
     if (controller.rafId) {
@@ -788,6 +798,16 @@ function setupInfiniteCarousel(config) {
     }
 
     controller.rafId = requestAnimationFrame(step);
+  };
+
+  const queueMobileResume = () => {
+    clearResumeTimers();
+    const delays = [0, 90, 220, 420];
+
+    delays.forEach((delay) => {
+      const timer = window.setTimeout(restartLoop, delay);
+      controller.resumeTimers.push(timer);
+    });
   };
 
   controller.updateFocus = updateFocus;
@@ -802,17 +822,24 @@ function setupInfiniteCarousel(config) {
     updateFocus();
   }, { passive: true });
 
-  wrapper.addEventListener("touchend", restartLoop, { passive: true });
-  wrapper.addEventListener("touchcancel", restartLoop, { passive: true });
+  wrapper.addEventListener("touchstart", () => {
+    if (controller.rafId) {
+      cancelAnimationFrame(controller.rafId);
+      controller.rafId = 0;
+    }
+  }, { passive: true });
+
+  wrapper.addEventListener("touchend", queueMobileResume, { passive: true });
+  wrapper.addEventListener("touchcancel", queueMobileResume, { passive: true });
 
   window.addEventListener("resize", restartLoop);
-  window.addEventListener("orientationchange", restartLoop);
+  window.addEventListener("orientationchange", queueMobileResume);
   window.addEventListener("load", restartLoop);
-  window.addEventListener("pageshow", restartLoop);
-  window.addEventListener("focus", restartLoop);
+  window.addEventListener("pageshow", queueMobileResume);
+  window.addEventListener("focus", queueMobileResume);
 
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) restartLoop();
+    if (!document.hidden) queueMobileResume();
   });
 
   track.querySelectorAll("img").forEach((img) => {
@@ -1289,7 +1316,7 @@ window.addEventListener("DOMContentLoaded", () => {
     wrapperId: "ebookWrapper",
     trackId: "ebookTrack",
     items: ebookData,
-    speed: 0.55,
+    speed: 0.58,
     direction: 1
   });
 
