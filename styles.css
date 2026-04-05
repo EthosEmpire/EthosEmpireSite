@@ -1434,7 +1434,7 @@ details[open] summary::after {
 .ebook-wrapper {
   scroll-behavior: auto !important;
   overscroll-behavior-x: contain;
-  touch-action: pan-x pan-y;
+  touch-action: pan-y;
 }
 
 .ebook-track {

@@ -544,7 +544,7 @@ function setupDragScroll(el) {
       originalEvent.preventDefault();
     }
 
-    const multiplier = window.innerWidth < 768 ? 0.96 : 0.92;
+    const multiplier = kind === "touch" ? 1 : 0.92;
     el.scrollLeft -= deltaX * multiplier;
 
     if (controller) {
