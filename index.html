@@ -36,7 +36,6 @@
   <link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512x512.png">
   <link rel="apple-touch-icon" href="images/favicon-192x192.png">
 
-  <link rel="preconnect" href="https://ethosempire.org" crossorigin>
   <link rel="preload" as="image" href="images/ethos-empire-logo.webp">
   <link rel="image_src" href="https://ethosempire.org/images/ethos-empire-logo.webp">
 
@@ -275,7 +274,7 @@
   }
   </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="tailwind.css">
   <link rel="stylesheet" href="styles.css?v=3">
 </head>
 
@@ -291,6 +290,7 @@
       class="intro-backdrop-logo"
       width="900"
       height="900"
+      fetchpriority="high"
     >
 
     <div class="intro-glow" aria-hidden="true"></div>
