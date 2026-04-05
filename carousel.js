@@ -320,23 +320,28 @@ function refreshCarouselMetrics(controller) {
   controller.setWidth = Math.max(step * controller.count, 0);
 
   if (!controller.initialized && controller.setWidth > 0) {
-    controller.wrapper.scrollLeft = controller.setWidth;
+    controller.scrollPos = controller.setWidth;
+    controller.wrapper.scrollLeft = controller.scrollPos;
     controller.initialized = true;
   }
 }
 
-function normalizeInfiniteScroll(controller) {
-  if (!controller?.wrapper || !controller.setWidth) return;
+function normalizePosition(controller) {
+  if (!controller || !controller.setWidth) return;
 
-  const min = controller.setWidth * 0.35;
-  const max = controller.setWidth * 1.65;
-  const current = controller.wrapper.scrollLeft;
+  const min = controller.setWidth * 0.4;
+  const max = controller.setWidth * 1.6;
 
-  if (current < min) {
-    controller.wrapper.scrollLeft = current + controller.setWidth;
-  } else if (current > max) {
-    controller.wrapper.scrollLeft = current - controller.setWidth;
+  if (controller.scrollPos < min) {
+    controller.scrollPos += controller.setWidth;
+  } else if (controller.scrollPos > max) {
+    controller.scrollPos -= controller.setWidth;
   }
+}
+
+function applyScroll(controller) {
+  if (!controller?.wrapper) return;
+  controller.wrapper.scrollLeft = Math.round(controller.scrollPos);
 }
 
 function scheduleCarouselResume(controller, delay = 1200) {
@@ -357,32 +362,21 @@ function setupInfiniteCarousel(config) {
     speed: config.speed,
     direction: config.direction,
     rafId: 0,
-    timerId: 0,
     setWidth: 0,
     initialized: false,
     focusRaf: 0,
     isPaused: false,
     resumeAt: 0,
-    isInteracting: false
+    isInteracting: false,
+    scrollPos: 0
   };
 
   let restartTimer = 0;
-
-  const isPhoneLike = () =>
-    window.matchMedia("(max-width: 767px)").matches ||
-    window.matchMedia("(pointer: coarse)").matches;
-
-  const shouldUsePhoneTimer = () =>
-    Boolean(config.usePhoneTimerFallback && isPhoneLike());
 
   const clearMotion = () => {
     if (controller.rafId) {
       cancelAnimationFrame(controller.rafId);
       controller.rafId = 0;
-    }
-    if (controller.timerId) {
-      clearInterval(controller.timerId);
-      controller.timerId = 0;
     }
   };
 
@@ -395,60 +389,28 @@ function setupInfiniteCarousel(config) {
 
   const refreshAndNormalize = () => {
     refreshCarouselMetrics(controller);
-    normalizeInfiniteScroll(controller);
+    normalizePosition(controller);
+    applyScroll(controller);
     updateFocus();
   };
 
-  const moveFrame = () => {
+  const step = () => {
     if (!controller.setWidth) {
       refreshCarouselMetrics(controller);
     }
 
-    if (!controller.setWidth) return;
-
-    if (
-      controller.isInteracting ||
-      controller.isPaused ||
-      performance.now() < controller.resumeAt
-    ) {
-      return;
+    if (controller.setWidth && !controller.isInteracting && !controller.isPaused && performance.now() >= controller.resumeAt) {
+      controller.scrollPos += controller.speed * controller.direction;
+      normalizePosition(controller);
+      applyScroll(controller);
     }
 
-    wrapper.scrollLeft += controller.speed * controller.direction;
-    normalizeInfiniteScroll(controller);
-  };
-
-  const step = () => {
-    if (shouldUsePhoneTimer()) {
-      controller.rafId = 0;
-      return;
-    }
-
-    moveFrame();
     controller.rafId = requestAnimationFrame(step);
-  };
-
-  const startPhoneTimer = () => {
-    if (!shouldUsePhoneTimer()) return;
-
-    if (controller.timerId) {
-      clearInterval(controller.timerId);
-    }
-
-    controller.timerId = setInterval(() => {
-      moveFrame();
-    }, 16);
   };
 
   const restartLoop = () => {
     refreshAndNormalize();
     clearMotion();
-
-    if (shouldUsePhoneTimer()) {
-      startPhoneTimer();
-      return;
-    }
-
     controller.rafId = requestAnimationFrame(step);
   };
 
@@ -464,9 +426,14 @@ function setupInfiniteCarousel(config) {
   refreshAndNormalize();
   restartLoop();
 
+  let scrollSyncRaf = 0;
   wrapper.addEventListener("scroll", () => {
-    normalizeInfiniteScroll(controller);
-    updateFocus();
+    cancelAnimationFrame(scrollSyncRaf);
+    scrollSyncRaf = requestAnimationFrame(() => {
+      if (!controller.isInteracting) {
+        updateFocus();
+      }
+    });
   }, { passive: true });
 
   window.addEventListener("resize", () => requestRestart(90));
@@ -475,7 +442,9 @@ function setupInfiniteCarousel(config) {
   window.addEventListener("pageshow", () => requestRestart(80));
 
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) {
+    if (document.hidden) {
+      clearMotion();
+    } else {
       requestRestart(80);
     }
   });
@@ -512,18 +481,22 @@ function setupDragScroll(el) {
     if (!controller) return;
     controller.isInteracting = true;
     controller.isPaused = true;
+    controller.scrollPos = el.scrollLeft;
   };
 
   const finishInteraction = (delay = 1200) => {
     if (!controller) return;
     controller.isInteracting = false;
-    normalizeInfiniteScroll(controller);
+    controller.scrollPos = el.scrollLeft;
+    normalizePosition(controller);
+    applyScroll(controller);
     controller.updateFocus?.();
     scheduleCarouselResume(controller, delay);
 
     const restartAfterRelease = () => {
       controller.isPaused = false;
       controller.resumeAt = 0;
+      controller.scrollPos = controller.wrapper.scrollLeft;
       controller.restartLoop?.();
     };
 
@@ -571,10 +544,11 @@ function setupDragScroll(el) {
       originalEvent.preventDefault();
     }
 
-    el.scrollLeft -= deltaX * (window.innerWidth < 768 ? 0.96 : 0.92);
+    const multiplier = window.innerWidth < 768 ? 0.96 : 0.92;
+    el.scrollLeft -= deltaX * multiplier;
 
     if (controller) {
-      normalizeInfiniteScroll(controller);
+      controller.scrollPos = el.scrollLeft;
       controller.updateFocus?.();
     }
   };
@@ -664,8 +638,7 @@ function initCarousels() {
     trackId: "ebookTrack",
     items: ebookData,
     speed: isPhoneLike ? 0.62 : 0.55,
-    direction: 1,
-    usePhoneTimerFallback: true
+    direction: 1
   });
 
   const merchCarousel = setupInfiniteCarousel({
@@ -673,8 +646,7 @@ function initCarousels() {
     trackId: "merchTrack",
     items: merchData,
     speed: isPhoneLike ? 0.58 : 0.55,
-    direction: -1,
-    usePhoneTimerFallback: true
+    direction: -1
   });
 
   const nudge = (controller) => {
@@ -685,24 +657,22 @@ function initCarousels() {
     controller.restartLoop?.();
   };
 
-  if (isPhoneLike) {
-    [180, 700, 1400].forEach((delay) => {
-      setTimeout(() => nudge(ebookCarousel), delay);
-      setTimeout(() => nudge(merchCarousel), delay);
-    });
+  [200, 800, 1600].forEach((delay) => {
+    setTimeout(() => nudge(ebookCarousel), delay);
+    setTimeout(() => nudge(merchCarousel), delay);
+  });
 
-    window.addEventListener("pageshow", () => {
-      setTimeout(() => nudge(ebookCarousel), 120);
-      setTimeout(() => nudge(merchCarousel), 120);
-    });
+  window.addEventListener("pageshow", () => {
+    setTimeout(() => nudge(ebookCarousel), 100);
+    setTimeout(() => nudge(merchCarousel), 100);
+  });
 
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) {
-        setTimeout(() => nudge(ebookCarousel), 120);
-        setTimeout(() => nudge(merchCarousel), 120);
-      }
-    });
-  }
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      setTimeout(() => nudge(ebookCarousel), 100);
+      setTimeout(() => nudge(merchCarousel), 100);
+    }
+  });
 
   setupDragScroll(document.getElementById("ebookWrapper"));
   setupDragScroll(document.getElementById("merchWrapper"));
