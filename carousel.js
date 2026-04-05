@@ -476,23 +476,32 @@ function setupDragScroll(el) {
   let moved = false;
   let dragIntent = null;
   let suppressClickUntil = 0;
+  let dragPos = 0;
 
   const beginInteraction = () => {
     if (!controller) return;
+    // Stop the animation loop completely during drag
+    if (controller.rafId) {
+      cancelAnimationFrame(controller.rafId);
+      controller.rafId = 0;
+    }
     controller.isInteracting = true;
     controller.isPaused = true;
-    controller.scrollPos = el.scrollLeft;
+    // Capture position once, never read scrollLeft again during drag
+    dragPos = el.scrollLeft;
   };
 
   const finishInteraction = (delay = 1200) => {
     if (!controller) return;
     controller.isInteracting = false;
-    controller.scrollPos = el.scrollLeft;
+    // Sync our tracked position back
+    controller.scrollPos = dragPos;
     normalizePosition(controller);
     applyScroll(controller);
     controller.updateFocus?.();
     scheduleCarouselResume(controller, delay);
 
+    // Restart the animation loop
     const restartAfterRelease = () => {
       controller.isPaused = false;
       controller.resumeAt = 0;
@@ -525,13 +534,17 @@ function setupDragScroll(el) {
     const totalDeltaY = clientY - startClientY;
 
     if (kind === "touch" && dragIntent === null) {
-      if (Math.abs(totalDeltaX) < 8 && Math.abs(totalDeltaY) < 8) return;
-      dragIntent = Math.abs(totalDeltaX) > Math.abs(totalDeltaY)
+      if (Math.abs(totalDeltaX) < 5 && Math.abs(totalDeltaY) < 5) return;
+      dragIntent = Math.abs(totalDeltaX) >= Math.abs(totalDeltaY)
         ? "horizontal"
         : "vertical";
     }
 
     if (dragIntent === "vertical") return;
+
+    if (kind === "touch" && originalEvent?.cancelable) {
+      originalEvent.preventDefault();
+    }
 
     const deltaX = clientX - lastClientX;
     lastClientX = clientX;
@@ -540,17 +553,16 @@ function setupDragScroll(el) {
       moved = true;
     }
 
-    if (kind === "touch" && originalEvent?.cancelable) {
-      originalEvent.preventDefault();
+    // Track position locally — write only, never read back
+    dragPos -= deltaX;
+
+    // Keep in loop range so infinite scroll is seamless during fast swipes
+    if (controller && controller.setWidth > 0) {
+      if (dragPos < controller.setWidth * 0.3) dragPos += controller.setWidth;
+      if (dragPos > controller.setWidth * 1.7) dragPos -= controller.setWidth;
     }
 
-    const multiplier = kind === "touch" ? 1 : 0.92;
-    el.scrollLeft -= deltaX * multiplier;
-
-    if (controller) {
-      controller.scrollPos = el.scrollLeft;
-      controller.updateFocus?.();
-    }
+    el.scrollLeft = dragPos;
   };
 
   const end = () => {
