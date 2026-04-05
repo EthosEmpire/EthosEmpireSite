@@ -100,7 +100,7 @@
   </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 
 <body class="flex flex-col items-center">
@@ -149,7 +149,13 @@
     Skip to content
   </a>
 
-  <main id="content" class="w-full">
+  <div class="page-matrix-layer" aria-hidden="true">
+    <canvas id="pageMatrixCanvas" class="page-matrix-canvas"></canvas>
+    <div class="page-matrix-vignette"></div>
+  </div>
+
+  <main id="content" class="w-full matrix-page-shell">
+    <div class="page-matrix-content">
     <section class="fade-up text-center pt-20 px-6 max-w-4xl mx-auto">
       <img
         src="images/ethos-empire-logo.webp"
@@ -799,6 +805,7 @@
     <footer class="pb-8 px-6 text-center text-xs tracking-wider text-[#7A5C1E]">
       © 2026 Ethos Empire
     </footer>
+    </div>
   </main>
 
   <div id="ebookModal" class="modal-overlay" aria-hidden="true">
@@ -870,6 +877,8 @@
     </div>
   </div>
 
-  <script src="javascript.js"></script>
+  <script src="matrix.js"></script>
+  <script src="carousel.js"></script>
+  <script src="java.js"></script>
 </body>
 </html>
