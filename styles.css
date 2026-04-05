@@ -35,8 +35,8 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
   background:
-    radial-gradient(circle at top, rgba(92, 67, 17, 0.04), transparent 30%),
-    radial-gradient(circle at 80% 0%, rgba(255, 215, 0, 0.02), transparent 16%),
+    radial-gradient(circle at top, rgba(201, 149, 42, 0.08), transparent 32%),
+    radial-gradient(circle at 80% 0%, rgba(255, 215, 0, 0.04), transparent 18%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
 }
 
@@ -111,17 +111,17 @@ a {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at center, transparent 0 42%, rgba(0, 0, 0, 0.28) 72%, rgba(0, 0, 0, 0.8) 100%);
+    radial-gradient(circle at center, transparent 0 36%, rgba(0, 0, 0, 0.35) 64%, rgba(0, 0, 0, 0.85) 100%);
 }
 
 .intro-backdrop-logo {
   position: absolute;
-  width: min(74vw, 700px);
-  max-width: 700px;
+  width: min(60vw, 540px);
+  max-width: 540px;
   height: auto;
-  opacity: 0.2;
-  filter: blur(10px) brightness(1.08) saturate(1.14);
-  transform: scale(1.08);
+  opacity: 0.1;
+  filter: blur(16px) brightness(1.05) saturate(1.1);
+  transform: scale(1.06);
   pointer-events: none;
   user-select: none;
   mix-blend-mode: screen;
@@ -130,10 +130,14 @@ a {
 
 .intro-glow {
   position: absolute;
-  inset: auto 0 10%;
-  height: 22rem;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.22), transparent 70%);
-  filter: blur(26px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: min(520px, 80vw);
+  height: min(520px, 80vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.18) 0%, rgba(255, 215, 0, 0.06) 40%, transparent 70%);
+  filter: blur(30px);
   pointer-events: none;
 }
 
@@ -152,10 +156,11 @@ a {
   width: min(190px, 40vw);
   height: auto;
   border-radius: 30px;
-  opacity: 0.92;
+  opacity: 0.94;
   box-shadow:
-    0 0 95px rgba(255, 215, 0, 0.24),
-    0 18px 50px rgba(0, 0, 0, 0.48);
+    0 0 40px rgba(255, 215, 0, 0.3),
+    0 0 80px rgba(255, 215, 0, 0.12),
+    0 14px 40px rgba(0, 0, 0, 0.5);
   filter: brightness(1.12) saturate(1.08) contrast(1.04);
   animation: introLogoFloat 5.6s ease-in-out infinite;
 }
@@ -181,6 +186,7 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.2));
   opacity: 0;
   animation: introRise 1.25s cubic-bezier(0.2, 0.75, 0.2, 1) 0.32s forwards;
 }
@@ -192,7 +198,7 @@ a {
   line-height: 1.14;
   font-weight: 700;
   color: #ffe5a8;
-  text-shadow: 0 0 28px rgba(255, 215, 0, 0.1);
+  text-shadow: 0 0 16px rgba(255, 215, 0, 0.18);
   opacity: 0;
   animation: introRise 1.7s cubic-bezier(0.2, 0.75, 0.2, 1) 0.75s forwards;
 }
@@ -231,12 +237,12 @@ a {
 
 @keyframes introBackdropPulse {
   0%, 100% {
-    transform: scale(1.08);
-    opacity: 0.16;
+    transform: scale(1.06);
+    opacity: 0.08;
   }
   50% {
-    transform: scale(1.11);
-    opacity: 0.24;
+    transform: scale(1.09);
+    opacity: 0.14;
   }
 }
 
@@ -872,20 +878,6 @@ summary:focus-visible {
   filter: blur(7px);
 }
 
-.modal-overlay.open .modal-panel .modal-meta,
-.modal-overlay.open .modal-panel .modal-title,
-.modal-overlay.open .modal-panel .modal-desc,
-.modal-overlay.open .modal-panel .modal-actions,
-.modal-overlay.open .modal-panel .modal-social {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-  transition:
-    opacity 260ms ease,
-    transform 260ms ease,
-    filter 260ms ease;
-}
-
 .modal-overlay.open .modal-panel.modal-animate .modal-meta,
 .modal-overlay.open .modal-panel.modal-animate .modal-title,
 .modal-overlay.open .modal-panel.modal-animate .modal-desc,
@@ -1442,8 +1434,7 @@ details[open] summary::after {
 .ebook-wrapper {
   scroll-behavior: auto !important;
   overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x pinch-zoom;
+  touch-action: pan-x pan-y;
 }
 
 .ebook-track {
@@ -1644,5 +1635,172 @@ details.soft-card {
     transition: none !important;
     animation: none !important;
     transform: none !important;
+  }
+}
+
+
+/* ==============================
+   ROOT MATRIX LAYER PATCH
+   ============================== */
+
+html,
+body {
+  background: #050505 !important;
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.matrix-page-shell {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  background: transparent !important;
+}
+
+.page-matrix-layer {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  z-index: 0 !important;
+  opacity: 0.44 !important;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+.page-matrix-canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  filter: brightness(1.2) contrast(1.1) saturate(1.08);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.page-matrix-vignette {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.7) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, transparent 8%, transparent 92%, rgba(0, 0, 0, 0.2) 100%) !important;
+}
+
+.page-matrix-content,
+.matrix-page-shell > * {
+  position: relative;
+  z-index: 2;
+}
+
+.carousel-progress,
+.carousel-dot {
+  display: none !important;
+}
+
+
+
+/* =========================================
+   TOUCH DEVICE MATRIX BACKGROUND
+   ========================================= */
+
+@media (hover: none), (pointer: coarse), (max-width: 1024px) {
+  html,
+  body {
+    background: #050505 !important;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-matrix-layer {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    opacity: 0.36 !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    will-change: auto !important;
+    contain: paint;
+  }
+
+  .page-matrix-canvas {
+    display: block !important;
+    filter: brightness(1.15) contrast(1.08) saturate(1.05) !important;
+  }
+
+  .page-matrix-vignette {
+    position: absolute !important;
+    inset: 0 !important;
+    background:
+      radial-gradient(ellipse at 50% 50%, transparent 15%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.75) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, transparent 6%, transparent 94%, rgba(0, 0, 0, 0.18) 100%) !important;
+  }
+
+  .matrix-page-shell,
+  .page-matrix-content,
+  .matrix-page-shell > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 215, 0, 0.12), transparent 32%),
+    #000000;
+}
+
+.intro-matrix,
+.page-matrix-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.page-matrix-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.page-matrix-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.matrix-page-shell,
+.page-matrix-content {
+  position: relative;
+  z-index: 2;
+}
+
+.page-matrix-canvas {
+  opacity: 0.44;
+}
+
+@media (max-width: 767px) {
+  .page-matrix-canvas {
+    opacity: 0.34;
   }
 }
