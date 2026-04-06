@@ -1,155 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
   <url>
     <loc>https://ethosempire.org/</loc>
 
-    <!-- Logo -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-logo.webp</image:loc>
-      <image:title>Ethos Empire official logo</image:title>
-      <image:caption>Ethos Empire — discipline, self-mastery, mindset and personal growth brand logo</image:caption>
     </image:image>
 
-    <!-- Ebook: Built by Money -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-built-by-money-ebook-cover-1200.webp</image:loc>
-      <image:title>Built by Money ebook cover</image:title>
-      <image:caption>Built by Money — financial discipline, wealth mindset, and self-control ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: Command the Room -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-command-the-room-ebook-cover-1200.webp</image:loc>
-      <image:title>Command the Room ebook cover</image:title>
-      <image:caption>Command the Room — confidence, presence, and social strength ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: Confidence Guide -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-confidence-guide-ebook-cover-1200.webp</image:loc>
-      <image:title>Confidence Guide ebook cover</image:title>
-      <image:caption>Confidence Guide — self belief, mindset, and personal growth ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: The Philosophy of Becoming -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-philosophy-of-becoming-ebook-cover-1200.webp</image:loc>
-      <image:title>The Philosophy of Becoming ebook cover</image:title>
-      <image:caption>The Philosophy of Becoming — mindset, discipline, and personal growth ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: Life Lessons in Faith -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-life-lessons-in-faith-ebook-cover-1200.webp</image:loc>
-      <image:title>Life Lessons in Faith ebook cover</image:title>
-      <image:caption>Life Lessons in Faith — purpose, discipline, and belief ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: The Relationship Code -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-relationship-code-ebook-cover-1200.webp</image:loc>
-      <image:title>The Relationship Code ebook cover</image:title>
-      <image:caption>The Relationship Code — communication, attraction, and confidence ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: The Architecture of Health -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-architecture-of-health-ebook-cover-1200.webp</image:loc>
-      <image:title>The Architecture of Health ebook cover</image:title>
-      <image:caption>The Architecture of Health — fitness, nutrition, and wellness habits ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: The Gym Mindset -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-gym-mindset-ebook-cover-1200.webp</image:loc>
-      <image:title>The Gym Mindset ebook cover</image:title>
-      <image:caption>The Gym Mindset — training discipline, consistency, and progress ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: The Clear Skin Guide -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-clear-skin-guide-ebook-cover-1200.webp</image:loc>
-      <image:title>The Clear Skin Guide ebook cover</image:title>
-      <image:caption>The Clear Skin Guide — skincare routine and healthy skin habits ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: Looksmaxxing Guide -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-looksmaxxing-guide-ebook-cover-1200.webp</image:loc>
-      <image:title>Looksmaxxing Guide ebook cover</image:title>
-      <image:caption>Looksmaxxing Guide — style, grooming, attraction, and appearance ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Ebook: The Hair Care Blueprint -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hair-care-blueprint-ebook-cover-1200.webp</image:loc>
-      <image:title>The Hair Care Blueprint ebook cover</image:title>
-      <image:caption>The Hair Care Blueprint — grooming, styling, and hair health ebook by Ethos Empire</image:caption>
     </image:image>
 
-    <!-- Hoodie: Black -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-black-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire black hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire black hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: Bone -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-bone-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire bone hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire bone hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: Latte -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-latte-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire latte hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire latte hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: Lavender -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-lavender-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire lavender hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire lavender hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: Navy -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-navy-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire navy hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire navy hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: Oatmeal -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-oatmeal-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire oatmeal hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire oatmeal hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: Vintage -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-vintage-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire vintage hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire vintage hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: White -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-white-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire white hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire white hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
-    <!-- Hoodie: Pink -->
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-pink-gold-logo-1200.webp</image:loc>
-      <image:title>Ethos Empire pink hoodie with gold logo</image:title>
-      <image:caption>Ethos Empire pink hoodie — minimalist streetwear with gold emblem finish</image:caption>
     </image:image>
 
   </url>
