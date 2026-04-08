@@ -1,0 +1,558 @@
+/* ===========================================
+   Ethos Empire — Hair Mastery Inner Page
+   Dark gold theme with brown matrix tint
+   =========================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  isolation: isolate;
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(139, 90, 30, 0.10), transparent 32%),
+    radial-gradient(circle at 80% 0%, rgba(201, 149, 42, 0.05), transparent 18%),
+    linear-gradient(180deg, #040404 0%, #000000 100%);
+  background-attachment: fixed;
+}
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+.sr-only.focus\:not-sr-only:focus {
+  position: static; width: auto; height: auto;
+  padding: 8px 16px; margin: 0; overflow: visible;
+  clip: auto; white-space: normal;
+  background: #FFD700; color: #000; font-weight: 700;
+  z-index: 999;
+}
+
+/* --- Matrix Background (brown tint) --- */
+
+.page-matrix-layer {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+}
+
+.page-matrix-canvas,
+.page-matrix-vignette {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+}
+
+.page-matrix-canvas {
+  z-index: 0;
+  filter: hue-rotate(10deg) saturate(0.8) brightness(0.95) sepia(0.35);
+  opacity: 0.75;
+}
+
+.page-matrix-vignette {
+  z-index: 1;
+  background:
+    radial-gradient(circle at center, transparent 40%, rgba(20, 10, 2, 0.5) 100%),
+    linear-gradient(180deg, rgba(60, 30, 5, 0.06), rgba(20, 8, 2, 0.18));
+}
+
+.matrix-page-shell,
+.page-matrix-content,
+header, main, footer {
+  position: relative; z-index: 2;
+}
+
+.matrix-page-shell { min-height: 100vh; }
+
+/* --- Header --- */
+
+.header {
+  padding: 32px 24px 16px;
+  text-align: center;
+}
+
+.back-nav {
+  display: inline-block;
+  color: #a07828;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+  transition: color 0.2s ease;
+}
+.back-nav:hover { color: #FFD700; }
+
+.logo-link { display: inline-block; }
+
+.course-logo {
+  border-radius: 22px;
+  box-shadow:
+    0 0 40px rgba(255, 215, 0, 0.18),
+    0 0 80px rgba(255, 215, 0, 0.06),
+    0 14px 40px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+}
+.course-logo:hover { transform: scale(1.04); }
+
+.page-kicker {
+  margin-top: 20px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: #c9a44e;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.page-title {
+  margin: 10px 0 0;
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  background: linear-gradient(135deg, #fff8dc, #ffd966, #d4a837, #fff0b1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-tagline {
+  margin: 12px auto 0;
+  max-width: 30ch;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.5;
+  color: #d4af37;
+  font-weight: 500;
+}
+
+.title-divider {
+  width: 120px;
+  height: 2px;
+  margin: 32px auto 0;
+  background: linear-gradient(to right, transparent, #c9952a, transparent);
+  opacity: 0.6;
+}
+
+/* --- Main Content --- */
+
+.main-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+.content-section {
+  margin-top: 56px;
+}
+
+.content-section:first-child {
+  margin-top: 40px;
+}
+
+/* --- Section Titles --- */
+
+.section-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffe8a0;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.section-intro {
+  color: #d4af37;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  opacity: 0.9;
+}
+
+/* --- Intro Section --- */
+
+.intro-text {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #f0dca0;
+  font-weight: 500;
+  margin: 0 0 20px;
+}
+
+.intro-pillars p {
+  margin: 6px 0;
+  color: #e8c860;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding-left: 16px;
+  border-left: 2px solid rgba(201, 149, 42, 0.4);
+}
+
+.body-text {
+  color: #c8b87a;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin: 16px 0 0;
+}
+
+/* --- Info Cards (Why It Matters) --- */
+
+.card-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.card-grid.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.info-card {
+  padding: 24px 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(139, 90, 30, 0.35);
+  background:
+    linear-gradient(180deg, rgba(14, 10, 6, 0.92), rgba(8, 6, 4, 0.88)),
+    radial-gradient(circle at 20% 0%, rgba(180, 120, 30, 0.08), transparent 50%);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.35);
+}
+
+.info-icon {
+  color: #c9952a;
+  font-size: 0.7rem;
+  margin-bottom: 10px;
+  opacity: 0.7;
+}
+
+.info-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffe082;
+  margin: 0 0 8px;
+}
+
+.info-card p {
+  color: #c8b87a;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.info-card em {
+  color: #ffd966;
+  font-style: italic;
+}
+
+/* --- Steps List --- */
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(139, 90, 30, 0.3);
+  background: linear-gradient(180deg, rgba(14, 10, 6, 0.9), rgba(8, 6, 4, 0.85));
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.step-badge {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(180, 120, 30, 0.22), rgba(180, 120, 30, 0.08));
+  border: 1px solid rgba(201, 149, 42, 0.28);
+  color: #ffe082;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.step-content { flex: 1; }
+
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff1b8;
+  margin: 0 0 6px;
+}
+
+.step-content p {
+  color: #c8b87a;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- Type Cards (Products / Beard) --- */
+
+.type-card {
+  padding: 22px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(139, 90, 30, 0.3);
+  background: linear-gradient(180deg, rgba(12, 8, 4, 0.9), rgba(6, 4, 2, 0.85));
+  box-shadow: 0 6px 20px rgba(0,0,0,0.28);
+}
+
+.type-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffe082;
+  margin: 0 0 6px;
+}
+
+.type-card p {
+  color: #c8b87a;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- Callout Box --- */
+
+.callout-box {
+  margin-top: 20px;
+  padding: 20px 22px;
+  border-radius: 14px;
+  border-left: 3px solid #c9952a;
+  background: rgba(201, 149, 42, 0.06);
+}
+
+.callout-box p {
+  color: #e8c860;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.callout-box strong {
+  color: #ffe082;
+}
+
+/* --- Detail Row (Small Details) --- */
+
+.detail-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.detail-item {
+  padding: 20px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(139, 90, 30, 0.25);
+  background: rgba(10, 6, 2, 0.7);
+  text-align: center;
+}
+
+.detail-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffe082;
+  margin: 0 0 6px;
+}
+
+.detail-item p {
+  color: #c8b87a;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* --- Face Shape Grid --- */
+
+.face-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.face-card {
+  padding: 22px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(139, 90, 30, 0.25);
+  background: rgba(10, 6, 2, 0.7);
+  text-align: center;
+}
+
+.face-shape {
+  width: 48px;
+  height: 60px;
+  margin: 0 auto 12px;
+  border: 2px solid rgba(201, 149, 42, 0.4);
+  opacity: 0.7;
+}
+
+.face-shape.oval { border-radius: 50%; }
+.face-shape.square { border-radius: 6px; height: 48px; }
+.face-shape.round { border-radius: 50%; height: 48px; width: 48px; }
+.face-shape.rectangle { border-radius: 6px; height: 64px; width: 38px; }
+.face-shape.diamond { border-radius: 6px; transform: rotate(45deg) scale(0.7); height: 48px; width: 48px; }
+.face-shape.heart { border-radius: 50% 50% 6px 6px; width: 44px; height: 52px; }
+
+.face-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffe082;
+  margin: 0 0 6px;
+}
+
+.face-card p {
+  color: #c8b87a;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --- Standard / Closing --- */
+
+.standard-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 20px 0;
+}
+
+.standard-pillars span {
+  color: #e8c860;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.closing-text {
+  color: #c8b87a;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0 0 12px;
+}
+
+.closing-tagline {
+  color: #d4af37;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 16px 0 0;
+}
+
+/* --- CTA --- */
+
+.cta-section { text-align: center; }
+
+.cta-text {
+  color: #c8b87a;
+  font-size: 0.95rem;
+  margin: 0 0 16px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(201, 149, 42, 0.25), rgba(201, 149, 42, 0.12));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: #ffe082;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: all 0.25s ease;
+}
+
+.cta-button:hover {
+  background: linear-gradient(135deg, rgba(201, 149, 42, 0.35), rgba(201, 149, 42, 0.2));
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 149, 42, 0.15);
+}
+
+/* --- Connect / Social --- */
+
+.connect-section { text-align: center; }
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.social-links a {
+  color: #c9952a;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.social-links a:hover { color: #FFD700; }
+
+/* --- Bottom Nav --- */
+
+.bottom-nav {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(139, 90, 30, 0.2);
+}
+
+.back-link {
+  display: inline-block;
+  color: #a07828;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.back-link:hover { color: #FFD700; }
+
+/* --- Footer --- */
+
+.page-footer {
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: #7A5C1E;
+}
+
+/* --- Mobile --- */
+
+@media (max-width: 767px) {
+  .card-grid.two-col { grid-template-columns: 1fr; }
+  .detail-row { grid-template-columns: 1fr; }
+  .face-grid { grid-template-columns: repeat(2, 1fr); }
+  .header { padding: 24px 16px 12px; }
+  .main-content { padding: 0 16px 48px; }
+  .content-section { margin-top: 40px; }
+  .standard-pillars { flex-direction: column; gap: 8px; }
+}
+
+/* --- Reduced Motion --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .course-logo, .cta-button {
+    transition: none;
+    transform: none !important;
+  }
+}
