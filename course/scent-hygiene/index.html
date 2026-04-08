@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scent & Hygiene | Ethos Empire — Free Course</title>
+  <meta name="description" content="Master hygiene, grooming, and scent strategy. Smell sharp, stay clean, command respect. Free course by Ethos Empire.">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../../images/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../images/favicon-192x192.png">
+  <link rel="apple-touch-icon" href="../../images/favicon-192x192.png">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0; min-height: 100vh; overflow-x: hidden;
+      isolation: isolate; color: #fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(180,180,200,0.06), transparent 32%),
+        radial-gradient(circle at 80% 0%, rgba(201,149,42,0.04), transparent 18%),
+        linear-gradient(180deg, #040404 0%, #000 100%);
+      background-attachment: fixed;
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* === MATRIX (white/silver) === */
+    .page-matrix-layer {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; overflow: hidden;
+    }
+    .page-matrix-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0;
+      filter: hue-rotate(0deg) saturate(0) brightness(1.8);
+      opacity: 0.55;
+    }
+    .page-matrix-vignette {
+      position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;
+      background:
+        radial-gradient(circle at center, transparent 40%, rgba(2,2,6,0.5) 100%),
+        linear-gradient(180deg, rgba(10,10,15,0.06), rgba(2,2,6,0.2));
+    }
+
+    .matrix-page-shell { position: relative; z-index: 2; min-height: 100vh; }
+
+    /* === HEADER === */
+    .header { padding: 48px 24px 24px; text-align: center; }
+
+    .back-nav {
+      display: inline-block; color: #a07828; font-size: 0.85rem;
+      font-weight: 600; text-decoration: none; margin-bottom: 28px;
+      transition: color 0.2s;
+    }
+    .back-nav:hover { color: #FFD700; }
+
+    .course-logo {
+      display: block; margin: 0 auto; border-radius: 22px;
+      box-shadow: 0 0 40px rgba(255,215,0,0.18), 0 0 80px rgba(255,215,0,0.06), 0 14px 40px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
+    .course-logo:hover { transform: scale(1.04); }
+
+    .page-kicker {
+      margin: 24px 0 0; letter-spacing: 0.5em; text-transform: uppercase;
+      color: #c9a44e; font-size: 0.68rem; font-weight: 700;
+    }
+
+    .page-title {
+      margin: 12px 0 0;
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: 0.03em;
+      background: linear-gradient(135deg, #fff8dc, #ffd966, #d4a837, #fff0b1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .page-tagline {
+      margin: 14px auto 0; max-width: 34ch;
+      font-size: clamp(1rem, 2.5vw, 1.25rem); line-height: 1.5;
+      color: #d4af37; font-weight: 500;
+    }
+
+    .title-divider {
+      width: 120px; height: 2px; margin: 36px auto 0;
+      background: linear-gradient(to right, transparent, #c9952a, transparent); opacity: 0.6;
+    }
+
+    /* === MAIN === */
+    .main-content { max-width: 820px; margin: 0 auto; padding: 0 24px 60px; }
+    .content-section { margin-top: 64px; }
+    .content-section:first-child { margin-top: 48px; }
+
+    .section-title {
+      font-size: clamp(1.4rem, 3.5vw, 1.85rem); font-weight: 800;
+      line-height: 1.15; color: #ffe8a0; margin: 0 0 6px; letter-spacing: 0.02em;
+    }
+    .section-intro {
+      color: #d4af37; font-size: 0.95rem; line-height: 1.6;
+      margin: 4px 0 28px; opacity: 0.9;
+    }
+
+    /* === HERO IMAGE === */
+    .hero-image-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 36px; }
+    .hero-img {
+      width: 260px; height: 340px; object-fit: cover; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.45); box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+    }
+
+    /* === SECTION IMAGE === */
+    .section-image {
+      width: 100%; max-height: 380px; object-fit: cover; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.4); box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+      margin-bottom: 28px;
+    }
+    .section-image-sm {
+      width: 100%; max-height: 300px; object-fit: cover; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.35); box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+      margin-bottom: 24px;
+    }
+
+    /* === INTRO === */
+    .intro-text {
+      font-size: 1.15rem; line-height: 1.65; color: #f0dca0;
+      font-weight: 500; margin: 0 0 20px; text-align: center;
+    }
+    .intro-pillars { max-width: 560px; margin: 0 auto 20px; }
+    .intro-pillars p {
+      margin: 8px 0; color: #e8c860; font-size: 0.95rem; font-weight: 600;
+      padding-left: 18px; border-left: 2px solid rgba(201,149,42,0.45); line-height: 1.5;
+    }
+    .body-text { color: #bfa86e; font-size: 0.93rem; line-height: 1.7; margin: 0; text-align: center; }
+
+    /* === CARDS === */
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+
+    .info-card, .type-card {
+      padding: 26px 24px; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.5);
+      background: linear-gradient(180deg, rgba(14,10,6,0.94), rgba(8,6,4,0.9)),
+        radial-gradient(circle at 20% 0%, rgba(180,120,30,0.1), transparent 50%);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.42);
+      transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s;
+      position: relative; overflow: hidden;
+    }
+    .info-card::before, .type-card::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.06), transparent 30%);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .info-card:hover, .type-card:hover {
+      transform: translateY(-4px); border-color: rgba(255,215,0,0.28);
+      box-shadow: 0 20px 52px rgba(0,0,0,0.45);
+    }
+    .info-card:hover::before, .type-card:hover::before { opacity: 1; }
+
+    .info-icon { color: #c9952a; font-size: 0.65rem; margin-bottom: 10px; opacity: 0.6; }
+    .info-card-title, .type-card-title {
+      font-size: 1.08rem; font-weight: 700; color: #fff1b8; margin: 0 0 8px; transition: color 0.2s;
+    }
+    .info-card:hover .info-card-title, .type-card:hover .type-card-title { color: #ffe082; }
+    .info-card p, .type-card p, .step-content p { color: #f3df9a; font-size: 0.88rem; line-height: 1.65; margin: 0; }
+    .info-card em { color: #ffd966; font-style: italic; }
+
+    /* === STEPS === */
+    .steps-list { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .step-item {
+      display: flex; align-items: flex-start; gap: 18px; padding: 26px 24px;
+      border-radius: 20px; border: 1px solid rgba(117,103,22,0.5);
+      background: linear-gradient(180deg, rgba(14,10,6,0.94), rgba(8,6,4,0.9)),
+        radial-gradient(circle at 20% 0%, rgba(180,120,30,0.08), transparent 50%);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.42);
+      transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s;
+      position: relative; overflow: hidden;
+    }
+    .step-item::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.06), transparent 30%);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .step-item:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.28); box-shadow: 0 20px 52px rgba(0,0,0,0.45); }
+    .step-item:hover::before { opacity: 1; }
+
+    .step-badge {
+      flex-shrink: 0; width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.08));
+      border: 1px solid rgba(255,215,0,0.24); color: #ffe082; font-size: 0.78rem; font-weight: 800;
+    }
+    .step-content { flex: 1; }
+    .step-title { font-size: 1.05rem; font-weight: 700; color: #fff1b8; margin: 0 0 8px; line-height: 1.3; transition: color 0.2s; }
+    .step-item:hover .step-title { color: #ffe082; }
+
+    /* === CALLOUT === */
+    .callout-box {
+      margin-top: 24px; padding: 24px 26px; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.4); border-left: 3px solid #c9952a;
+      background: linear-gradient(180deg, rgba(14,10,6,0.9), rgba(8,6,4,0.85)), rgba(201,149,42,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+    }
+    .callout-box p { color: #f3df9a; font-size: 0.9rem; line-height: 1.65; margin: 0; }
+    .callout-box strong { color: #ffe082; }
+
+    /* === SCENT CARDS === */
+    .scent-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 24px; }
+    .scent-card {
+      padding: 26px 20px; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.4);
+      background: linear-gradient(180deg, rgba(14,10,6,0.92), rgba(8,6,4,0.88));
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35); text-align: center;
+      transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s;
+    }
+    .scent-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.22); }
+    .scent-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff1b8; margin: 0 0 8px; }
+    .scent-card .scent-notes { color: #d4af37; font-size: 0.82rem; margin: 0 0 8px; font-weight: 600; }
+    .scent-card p { color: #f3df9a; font-size: 0.82rem; line-height: 1.55; margin: 0; }
+
+    /* === CLOSING === */
+    .closing-section { text-align: center; }
+    .standard-pillars { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; margin: 24px 0; }
+    .standard-pillars span { color: #e8c860; font-size: 1.02rem; font-weight: 700; }
+    .closing-text { color: #f3df9a; font-size: 0.95rem; line-height: 1.7; margin: 0 auto; max-width: 520px; }
+    .closing-tagline { color: #d4af37; font-size: 1.15rem; font-weight: 800; letter-spacing: 0.05em; margin: 20px 0 0; }
+
+    /* === EBOOK CARDS === */
+    .cta-section { text-align: center; }
+    .ebook-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 24px; }
+    .ebook-card {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 20px 24px; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.5);
+      background: linear-gradient(180deg, rgba(14,10,6,0.94), rgba(8,6,4,0.9)),
+        radial-gradient(circle at 20% 0%, rgba(180,120,30,0.1), transparent 50%);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.42); text-decoration: none; color: inherit;
+      transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s;
+      position: relative; overflow: hidden;
+    }
+    .ebook-card::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.06), transparent 30%);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .ebook-card:hover { transform: translateY(-5px); border-color: rgba(255,215,0,0.35); box-shadow: 0 20px 52px rgba(0,0,0,0.5); }
+    .ebook-card:hover::before { opacity: 1; }
+    .ebook-cover { width: 140px; height: auto; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); margin-bottom: 16px; transition: transform 0.28s; }
+    .ebook-card:hover .ebook-cover { transform: scale(1.04); }
+    .ebook-name { font-size: 1rem; font-weight: 700; color: #fff1b8; margin: 0 0 6px; text-align: center; transition: color 0.2s; }
+    .ebook-card:hover .ebook-name { color: #ffe082; }
+    .ebook-desc { font-size: 0.8rem; color: #bfa86e; line-height: 1.5; text-align: center; margin: 0 0 14px; }
+    .ebook-buy {
+      display: inline-block; padding: 10px 28px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.22), rgba(255,215,0,0.1));
+      border: 1px solid rgba(255,215,0,0.3); color: #ffe082; font-size: 0.85rem;
+      font-weight: 700; margin-top: auto; transition: all 0.25s;
+    }
+    .ebook-card:hover .ebook-buy {
+      background: linear-gradient(135deg, rgba(255,215,0,0.35), rgba(255,215,0,0.18));
+      border-color: rgba(255,215,0,0.55); box-shadow: 0 6px 18px rgba(201,149,42,0.15);
+    }
+
+    .cta-button {
+      display: inline-block; padding: 16px 40px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(201,149,42,0.22), rgba(201,149,42,0.1));
+      border: 1px solid rgba(255,215,0,0.28); color: #ffe082; font-size: 0.95rem;
+      font-weight: 700; text-decoration: none; letter-spacing: 0.04em; transition: all 0.28s;
+    }
+    .cta-button:hover {
+      background: linear-gradient(135deg, rgba(201,149,42,0.35), rgba(201,149,42,0.18));
+      border-color: rgba(255,215,0,0.5); transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201,149,42,0.15);
+    }
+
+    /* === MERCH CAROUSEL === */
+    .merch-section { text-align: center; }
+    .merch-carousel {
+      overflow: hidden; border-radius: 20px;
+      border: 1px solid rgba(117,103,22,0.35);
+      background: linear-gradient(180deg, rgba(14,10,6,0.92), rgba(8,6,4,0.88));
+      box-shadow: 0 14px 40px rgba(0,0,0,0.4); padding: 24px 0; margin-top: 24px;
+      cursor: grab; -webkit-user-select: none; user-select: none; touch-action: pan-y;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+    .merch-carousel.is-dragging { cursor: grabbing; }
+    .merch-track { display: flex; gap: 20px; width: max-content; will-change: transform; }
+    .merch-item {
+      flex-shrink: 0; width: 150px; display: flex; flex-direction: column;
+      align-items: center; text-decoration: none; transition: transform 0.25s;
+    }
+    .merch-item:hover { transform: translateY(-4px); }
+    .merch-carousel.is-dragging .merch-item { pointer-events: none; }
+    .merch-item img {
+      width: 140px; height: 140px; object-fit: cover; border-radius: 14px;
+      border: 1px solid rgba(117,103,22,0.35); box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      margin-bottom: 10px; transition: border-color 0.25s;
+    }
+    .merch-item:hover img { border-color: rgba(255,215,0,0.3); }
+    .merch-name { color: #fff1b8; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; transition: color 0.2s; }
+    .merch-item:hover .merch-name { color: #ffe082; }
+    .merch-buy {
+      display: inline-block; padding: 6px 18px; border-radius: 8px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.18), rgba(255,215,0,0.08));
+      border: 1px solid rgba(255,215,0,0.25); color: #ffe082; font-size: 0.75rem;
+      font-weight: 700; transition: all 0.25s;
+    }
+    .merch-item:hover .merch-buy {
+      background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,215,0,0.15));
+      border-color: rgba(255,215,0,0.5);
+    }
+
+    /* === SOCIAL === */
+    .connect-section { text-align: center; }
+    .social-row { display: flex; justify-content: center; gap: 32px; align-items: center; }
+    .social-link { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; transition: transform 0.25s; }
+    .social-link:hover { transform: translateY(-4px); }
+    .social-icon { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(201,149,42,0.2)); transition: filter 0.25s; }
+    .social-link:hover .social-icon { filter: drop-shadow(0 6px 18px rgba(255,215,0,0.35)); }
+    .social-label { color: #a07828; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
+    .social-link:hover .social-label { color: #FFD700; }
+
+    /* === BOTTOM === */
+    .bottom-nav { text-align: center; margin-top: 52px; padding-top: 28px; border-top: 1px solid rgba(117,103,22,0.2); }
+
+    .course-nav-row {
+      display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+
+    .course-nav-btn {
+      display: inline-block; padding: 14px 28px; border-radius: 14px;
+      font-size: 0.88rem; font-weight: 700; letter-spacing: 0.02em;
+      color: #d4af37; text-decoration: none;
+      border: 1px solid rgba(255,215,0,0.2);
+      background: linear-gradient(135deg, rgba(201,149,42,0.08), rgba(201,149,42,0.03));
+      transition: all 0.28s;
+    }
+    .course-nav-btn:hover {
+      border-color: rgba(255,215,0,0.4); color: #ffe082;
+      background: linear-gradient(135deg, rgba(201,149,42,0.18), rgba(201,149,42,0.08));
+      transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,149,42,0.12);
+    }
+    .back-box {
+      display: inline-block; padding: 16px 44px; border-radius: 14px;
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.03em;
+      color: #ffe082; text-decoration: none;
+      border: 1px solid rgba(255,215,0,0.35);
+      background: linear-gradient(135deg, rgba(201,149,42,0.15), rgba(201,149,42,0.06));
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25); transition: all 0.28s;
+    }
+    .back-box:hover {
+      background: linear-gradient(135deg, rgba(201,149,42,0.3), rgba(201,149,42,0.14));
+      border-color: rgba(255,215,0,0.55); transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201,149,42,0.18); color: #FFD700;
+    }
+
+    .page-footer { padding: 36px 24px; text-align: center; font-size: 0.72rem; letter-spacing: 0.15em; color: #7A5C1E; }
+
+    /* === MOBILE === */
+    @media (max-width: 767px) {
+      .header { padding: 32px 16px 16px; }
+      .main-content { padding: 0 16px 48px; }
+      .content-section { margin-top: 48px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .scent-grid { grid-template-columns: 1fr; }
+      .ebook-row { grid-template-columns: 1fr; max-width: 280px; margin-left: auto; margin-right: auto; }
+      .standard-pillars { flex-direction: column; gap: 6px; }
+      .step-item { padding: 22px 18px; gap: 14px; }
+      .step-badge { width: 36px; height: 36px; font-size: 0.72rem; }
+      .hero-image-row { flex-direction: column; align-items: center; }
+      .hero-img { width: 100%; max-width: 300px; height: 280px; }
+      .social-row { gap: 24px; }
+      .course-nav-row { flex-direction: column; gap: 12px; }
+      .course-nav-btn { width: 100%; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .course-logo, .cta-button, .info-card, .type-card,
+      .step-item, .scent-card, .ebook-card, .social-link, .merch-item, .back-box {
+        transition: none !important; transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#content" class="sr-only">Skip to content</a>
+
+  <div class="page-matrix-layer" aria-hidden="true">
+    <canvas id="pageMatrixCanvas" class="page-matrix-canvas"></canvas>
+    <div class="page-matrix-vignette"></div>
+  </div>
+
+  <div class="matrix-page-shell">
+
+  <header class="header">
+    <a href="../" class="back-nav">← Back to Course</a>
+    <a href="../../">
+      <img src="../../images/ethos-empire-logo.webp" alt="Ethos Empire"
+        width="110" height="110" class="course-logo" fetchpriority="high">
+    </a>
+    <p class="page-kicker">ETHOS EMPIRE — FREE COURSE</p>
+    <h1 class="page-title">Scent & Hygiene</h1>
+    <p class="page-tagline">Smell Sharp. Stay Clean. Command Respect.</p>
+    <div class="title-divider"></div>
+  </header>
+
+  <main id="content" class="main-content">
+
+    <!-- Intro -->
+    <section class="content-section">
+      <div class="hero-image-row">
+        <img src="../../images/hg-2.webp" alt="Man applying cologne" class="hero-img" loading="lazy">
+        <img src="../../images/hg-4.webp" alt="Well-groomed man in suit" class="hero-img" loading="lazy">
+        <img src="../../images/hg-10.webp" alt="Sharp professional presence" class="hero-img" loading="lazy">
+      </div>
+      <p class="intro-text">Grooming is discipline in action.<br>The way you smell and present yourself speaks before you do.</p>
+      <div class="intro-pillars">
+        <p>Hygiene is not optional.</p>
+        <p>Scent is not random.</p>
+        <p>Presence is not accidental.</p>
+      </div>
+      <p class="body-text">A clean, well-groomed man commands respect without asking for it.</p>
+    </section>
+
+    <!-- Why Hygiene Matters -->
+    <section class="content-section">
+      <h2 class="section-title">Why Hygiene Matters</h2>
+      <p class="section-intro">Before anyone hears your voice, they notice your appearance and your scent.</p>
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">First Impressions Are Silent</h3>
+          <p>Clean, sharp men are perceived as disciplined, reliable, approachable, and high-value. Neglect sends the opposite message.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">Attraction Is Chemical</h3>
+          <p>Scent influences memory and emotion faster than most realize. A well-chosen fragrance increases attraction, creates intrigue, and makes you more memorable.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">Confidence Starts Clean</h3>
+          <p>When you know you smell fresh and your grooming is sharp, you speak with more certainty, hold eye contact longer, and carry yourself with authority.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">Hygiene Signals Respect</h3>
+          <p>Good grooming tells the world one thing clearly: <em>I respect myself.</em> People respond accordingly — in business, in dating, and in life.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Complete Hygiene Blueprint -->
+    <section class="content-section">
+      <h2 class="section-title">The Complete Hygiene Blueprint</h2>
+      <p class="section-intro">A disciplined routine covers every detail, from head to toe.</p>
+
+      <img src="../../images/hg-11.webp" alt="Man in shower with intention" class="section-image" loading="lazy">
+
+      <div class="steps-list">
+        <div class="step-item">
+          <span class="step-badge">01</span>
+          <div class="step-content">
+            <h3 class="step-title">Shower Routine</h3>
+            <p>Shower daily — especially after training. Focus on armpits, groin, and feet. Use quality body wash, exfoliate 1–2 times per week, shampoo 2–3 times, always condition. Do not shower on autopilot. Shower with intention.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-badge">02</span>
+          <div class="step-content">
+            <h3 class="step-title">Oral Hygiene — Non-Negotiable</h3>
+            <p>Bad breath destroys attraction instantly. Brush twice daily, floss every day, use a tongue scraper, and finish with alcohol-free mouthwash. Your breath should stay fresh — never distracting.</p>
+          </div>
+        </div>
+      </div>
+
+      <img src="../../images/hg-3.webp" alt="Tongue scraper before and after" class="section-image-sm" style="margin-top:24px;" loading="lazy">
+
+      <div class="steps-list">
+        <div class="step-item">
+          <span class="step-badge">03</span>
+          <div class="step-content">
+            <h3 class="step-title">Face & Beard Maintenance</h3>
+            <p>Cleanse your face morning and night. If you grow a beard, wash it regularly, apply beard oil, comb it daily, and trim it often. A beard should look intentional — never lazy.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-badge">04</span>
+          <div class="step-content">
+            <h3 class="step-title">Hands & Nails</h3>
+            <p>Your hands are seen more than you think. Trim nails weekly, clean underneath daily, and moisturize when needed. Details separate average men from disciplined men.</p>
+          </div>
+        </div>
+      </div>
+
+      <img src="../../images/hg-1.webp" alt="Clean groomed nails" class="section-image-sm" style="margin-top:24px;" loading="lazy">
+
+      <div class="steps-list">
+        <div class="step-item">
+          <span class="step-badge">05</span>
+          <div class="step-content">
+            <h3 class="step-title">Foot Hygiene</h3>
+            <p>Wash feet thoroughly, dry completely, use powder if needed, and change socks daily. Neglect leads to odor and fungus. Control it before it becomes a problem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Scent Strategy -->
+    <section class="content-section">
+      <h2 class="section-title">The Scent Strategy</h2>
+      <p class="section-intro">Smelling good is not about spraying more. It is about control, restraint, and consistency.</p>
+
+      <img src="../../images/hg-7.webp" alt="Men's fragrance and style" class="section-image" loading="lazy">
+
+      <div class="card-grid">
+        <div class="type-card">
+          <h3 class="type-card-title">Deodorant vs. Antiperspirant</h3>
+          <p>Deodorant controls odor. Antiperspirant reduces sweat. Choose based on your body, activity level, and climate.</p>
+        </div>
+        <div class="type-card">
+          <h3 class="type-card-title">Application Rules</h3>
+          <p>Apply fragrance to clean skin only. Spray on pulse points — neck, wrists, chest. Keep it to 2–3 sprays maximum. Subtle is powerful.</p>
+        </div>
+      </div>
+
+      <div class="callout-box">
+        <p><strong>Scent Etiquette:</strong> Never reapply in public. Do not layer multiple strong fragrances. Go lighter in enclosed spaces. Your scent should be discovered — not announced.</p>
+      </div>
+    </section>
+
+    <!-- Choosing Your Signature Scent -->
+    <section class="content-section">
+      <h2 class="section-title">Choose Your Signature Scent</h2>
+      <p class="section-intro">Find a scent that feels like you. Consistency builds identity.</p>
+
+      <div class="scent-grid">
+        <div class="scent-card">
+          <h3>Fresh & Clean</h3>
+          <p class="scent-notes">Citrus · Aquatic · Mint</p>
+          <p>Best for daytime, work, and polished everyday wear.</p>
+        </div>
+        <div class="scent-card">
+          <h3>Warm & Masculine</h3>
+          <p class="scent-notes">Wood · Leather · Tobacco</p>
+          <p>Grounded, mature, and confident.</p>
+        </div>
+        <div class="scent-card">
+          <h3>Dark & Seductive</h3>
+          <p class="scent-notes">Amber · Musk · Oud</p>
+          <p>Best for evening, mystery, and intensity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hygiene, Presence, and Success -->
+    <section class="content-section">
+      <h2 class="section-title">Hygiene, Presence & Success</h2>
+      <p class="section-intro">This goes beyond basic grooming.</p>
+
+      <img src="../../images/hg-8.webp" alt="Well-groomed man with presence" class="section-image" loading="lazy">
+
+      <div class="callout-box">
+        <p>Men who maintain high hygiene standards create better first impressions, earn more trust, and carry stronger presence. <strong>Hygiene reflects discipline. Discipline reflects control. Control reflects leadership.</strong></p>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="content-section closing-section">
+      <h2 class="section-title">The Ethos Empire Standard</h2>
+      <div class="standard-pillars">
+        <span>Clean skin.</span>
+        <span>Sharp grooming.</span>
+        <span>Controlled scent.</span>
+        <span>Disciplined habits.</span>
+      </div>
+      <p class="closing-text">Smell sharp. Stay clean. Move with authority. Clean, confident men command attention, respect, and opportunity — personally and professionally.</p>
+      <p class="closing-tagline">Ethos Empire — Build the Man.</p>
+    </section>
+
+    <!-- Ebooks -->
+    <section class="content-section cta-section">
+      <h2 class="section-title">Go Deeper</h2>
+      <p class="section-intro">Want the complete guides? These ebooks cover everything and more.</p>
+
+      <div class="ebook-row">
+        <a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
+          <img src="../../images/ethos-empire-looksmaxxing-guide-ebook-cover-320.webp" alt="Looksmaxxing Guide ebook" class="ebook-cover" loading="lazy">
+          <h3 class="ebook-name">Looksmaxxing Guide</h3>
+          <p class="ebook-desc">Level up your appearance — style, grooming, and self-presentation.</p>
+          <span class="ebook-buy">Buy Now →</span>
+        </a>
+
+        <a href="https://ethosempire.gumroad.com/l/howtobeconfidence?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
+          <img src="../../images/ethos-empire-confidence-guide-ebook-cover-320.webp" alt="Confidence Guide ebook" class="ebook-cover" loading="lazy">
+          <h3 class="ebook-name">Confidence Guide</h3>
+          <p class="ebook-desc">Build real confidence through better habits and a sharper mindset.</p>
+          <span class="ebook-buy">Buy Now →</span>
+        </a>
+
+        <a href="https://ethosempire.gumroad.com/l/theclearskinguide?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
+          <img src="../../images/ethos-empire-clear-skin-guide-ebook-cover-320.webp" alt="The Clear Skin Guide ebook" class="ebook-cover" loading="lazy">
+          <h3 class="ebook-name">The Clear Skin Guide</h3>
+          <p class="ebook-desc">Practical skincare steps for healthier skin and better daily habits.</p>
+          <span class="ebook-buy">Buy Now →</span>
+        </a>
+      </div>
+
+      <a href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer" class="cta-button" style="margin-top:32px;">View All Ebooks →</a>
+    </section>
+
+    <!-- Follow Us -->
+    <section class="content-section connect-section">
+      <h2 class="section-title">Follow Us</h2>
+      <p class="body-text">Join the Ethos Empire community.</p>
+      <div class="social-row">
+        <a href="https://youtube.com/@Ethos.Empire.Official" target="_blank" rel="noopener" class="social-link">
+          <img src="../../images/youtube.webp" alt="YouTube" class="social-icon" loading="lazy">
+          <span class="social-label">YouTube</span>
+        </a>
+        <a href="https://instagram.com/ethosempire.x" target="_blank" rel="noopener" class="social-link">
+          <img src="../../images/instagram.webp" alt="Instagram" class="social-icon" loading="lazy">
+          <span class="social-label">Instagram</span>
+        </a>
+        <a href="https://tiktok.com/@ethos.empire" target="_blank" rel="noopener" class="social-link">
+          <img src="../../images/tiktok.webp" alt="TikTok" class="social-icon" loading="lazy">
+          <span class="social-label">TikTok</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Merch -->
+    <section class="content-section merch-section">
+      <h2 class="section-title">Empire Merch</h2>
+      <p class="section-intro">Premium hoodies with gold emblem finish. Minimalist streetwear by Ethos Empire.</p>
+      <div class="merch-carousel" id="merchCarousel">
+        <div class="merch-track" id="merchTrack"></div>
+      </div>
+    </section>
+
+    <div style="text-align:center;margin-top:28px;">
+      <a href="https://ethosempireo.printful.me/" target="_blank" rel="noopener noreferrer" class="cta-button">Explore All Merch →</a>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="course-nav-row">
+        <a href="../hair-mastery/" class="course-nav-btn">← Hair Mastery</a>
+        <a href="../" class="back-box">Back to Course</a>
+        <a href="../finacial-discipline/" class="course-nav-btn">Financial Discipline →</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="page-footer">© 2026 Ethos Empire</footer>
+
+  </div>
+
+  <script src="../../matrix.js"></script>
+  <script>
+  /* === MERCH CAROUSEL: auto-scroll + drag/swipe + infinite loop === */
+  (function () {
+    var carousel = document.getElementById("merchCarousel");
+    var track = document.getElementById("merchTrack");
+    if (!carousel || !track) return;
+
+    var hoodies = [
+      { name: "Black", img: "ethos-empire-hoodie-black-gold-logo-400.webp" },
+      { name: "Bone", img: "ethos-empire-hoodie-bone-gold-logo-400.webp" },
+      { name: "Latte", img: "ethos-empire-hoodie-latte-gold-logo-400.webp" },
+      { name: "Lavender", img: "ethos-empire-hoodie-lavender-gold-logo-400.webp" },
+      { name: "Navy", img: "ethos-empire-hoodie-navy-gold-logo-400.webp" },
+      { name: "Oatmeal", img: "ethos-empire-hoodie-oatmeal-gold-logo-400.webp" },
+      { name: "Vintage", img: "ethos-empire-hoodie-vintage-gold-logo-400.webp" },
+      { name: "White", img: "ethos-empire-hoodie-white-gold-logo-400.webp" },
+      { name: "Pink", img: "ethos-empire-hoodie-pink-gold-logo-400.webp" }
+    ];
+    var url = "https://ethosempireo.printful.me/product/ethos-unisex-hoodie";
+    var itemW = 170;
+    var setW = hoodies.length * itemW;
+
+    for (var s = 0; s < 3; s++) {
+      hoodies.forEach(function (h) {
+        var a = document.createElement("a");
+        a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+        a.className = "merch-item"; a.draggable = false;
+        a.innerHTML =
+          '<img src="../../images/' + h.img + '" alt="' + h.name + ' Hoodie" loading="lazy" draggable="false">' +
+          '<span class="merch-name">' + h.name + '</span>' +
+          '<span class="merch-buy">Buy →</span>';
+        track.appendChild(a);
+      });
+    }
+
+    var pos = 0, autoSpeed = 0.4, isDragging = false, didDrag = false;
+    var startX = 0, dragStartPos = 0, velocity = 0, lastX = 0, lastTime = 0;
+    var momentumV = 0, resumeTimer = null, autoActive = true;
+
+    function wrap(p) {
+      while (p > 0) p -= setW;
+      while (p < -setW * 2) p += setW;
+      return p;
+    }
+    function render() { track.style.transform = "translateX(" + pos + "px)"; }
+
+    function tick() {
+      if (!isDragging) {
+        if (Math.abs(momentumV) > 0.3) { pos += momentumV; momentumV *= 0.95; }
+        else { momentumV = 0; if (autoActive) pos -= autoSpeed; }
+        pos = wrap(pos);
+      }
+      render();
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    carousel.addEventListener("click", function (e) {
+      if (didDrag) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+
+    carousel.addEventListener("mousedown", function (e) { beginDrag(e.clientX); });
+    window.addEventListener("mousemove", function (e) { if (isDragging) { e.preventDefault(); doDrag(e.clientX); } });
+    window.addEventListener("mouseup", function () { if (isDragging) endDrag(); });
+
+    carousel.addEventListener("touchstart", function (e) { beginDrag(e.touches[0].clientX); }, { passive: true });
+    carousel.addEventListener("touchmove", function (e) {
+      if (!isDragging) return;
+      doDrag(e.touches[0].clientX);
+      if (Math.abs(lastX - startX) > 10) e.preventDefault();
+    }, { passive: false });
+    carousel.addEventListener("touchend", function () { if (isDragging) endDrag(); });
+
+    function beginDrag(x) {
+      isDragging = true; didDrag = false; startX = x; lastX = x;
+      dragStartPos = pos; momentumV = 0; velocity = 0; lastTime = Date.now();
+      clearTimeout(resumeTimer); autoActive = false;
+    }
+    function doDrag(x) {
+      var delta = x - startX;
+      if (Math.abs(delta) > 10) { didDrag = true; carousel.classList.add("is-dragging"); }
+      var now = Date.now(), dt = now - lastTime;
+      if (dt > 0) { velocity = (x - lastX) / dt; lastX = x; lastTime = now; }
+      pos = wrap(dragStartPos + delta); render();
+    }
+    function endDrag() {
+      isDragging = false; carousel.classList.remove("is-dragging");
+      momentumV = velocity * 120;
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () { autoActive = true; }, 2500);
+      setTimeout(function () { didDrag = false; }, 20);
+    }
+  })();
+  </script>
+</body>
+</html>
