@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <url>
     <loc>https://ethosempire.org/</loc>
 
@@ -45,11 +46,11 @@
     </image:image>
 
     <image:image>
-      <image:loc>https://ethosempire.org/images/ethos-empire-looksmaxxing-guide-ebook-cover-1200.webp</image:loc>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hair-care-blueprint-ebook-cover-1200.webp</image:loc>
     </image:image>
 
     <image:image>
-      <image:loc>https://ethosempire.org/images/ethos-empire-hair-care-blueprint-ebook-cover-1200.webp</image:loc>
+      <image:loc>https://ethosempire.org/images/ethos-empire-looksmaxxing-guide-ebook-cover-1200.webp</image:loc>
     </image:image>
 
     <image:image>
@@ -87,6 +88,151 @@
     <image:image>
       <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-pink-gold-logo-1200.webp</image:loc>
     </image:image>
-
   </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/</loc>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/clear-skin-protocol/</loc>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-7.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/command-the-room/</loc>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-8.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-2.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/finacial-discipline/</loc>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-9.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-8.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-11.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-1.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/hair-mastery/</loc>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-8.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-9.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-14.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-11.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-18.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/relationship-code/</loc>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/rl-5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/rl-8.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/scent-hygiene/</loc>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-10.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-8.webp</image:loc>
+    </image:image>
+  </url>
+
 </urlset>
