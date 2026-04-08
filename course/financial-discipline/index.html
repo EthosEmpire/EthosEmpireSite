@@ -3,209 +3,401 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Command the Room | Ethos Empire — Free Course</title>
-  <meta name="description" content="Master public speaking, social confidence, and communication that earns respect. Free course by Ethos Empire.">
+  <title>Financial Discipline | Ethos Empire — Free Course</title>
+  <meta name="description" content="Master money principles, budgeting habits, and long-term wealth mindset. Free course by Ethos Empire.">
   <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/png" sizes="48x48" href="../../images/favicon-48x48.png">
   <link rel="icon" type="image/png" sizes="96x96" href="../../images/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="192x192" href="../../images/favicon-192x192.png">
   <link rel="apple-touch-icon" href="../../images/favicon-192x192.png">
   <style>
-    *,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}
-    body{margin:0;min-height:100vh;overflow-x:hidden;isolation:isolate;color:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;background:radial-gradient(circle at 50% 0%,rgba(139,30,30,0.06),transparent 32%),radial-gradient(circle at 80% 0%,rgba(201,149,42,0.04),transparent 18%),linear-gradient(180deg,#040404 0%,#000 100%);background-attachment:fixed}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh; overflow-x: hidden; isolation: isolate; color: #fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+      background: radial-gradient(circle at 50% 0%, rgba(30,139,60,0.06), transparent 32%),
+        radial-gradient(circle at 80% 0%, rgba(201,149,42,0.04), transparent 18%),
+        linear-gradient(180deg, #040404 0%, #000 100%);
+      background-attachment: fixed;
+    }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-    /* MATRIX (red) */
-    .page-matrix-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-    .page-matrix-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;filter:hue-rotate(200deg) saturate(4) brightness(0.85);opacity:1.1}
-    .page-matrix-vignette{position:absolute;inset:0;width:100%;height:100%;z-index:1;background:radial-gradient(circle at center,transparent 40%,rgba(66, 1, 1, 0.205) 100%),linear-gradient(180deg,rgba(32, 1, 1, 0.06),rgba(39, 2, 2, 0.2))}
-    .matrix-page-shell{position:relative;z-index:2;min-height:100vh}
+    /* === MATRIX (green/money) === */
+    .page-matrix-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .page-matrix-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; filter: hue-rotate(0deg) saturate(0) brightness(1.8); opacity: 0.55; }
+    .page-matrix-vignette { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; background: radial-gradient(circle at center, transparent 40%, rgba(2,2,6,0.5) 100%), linear-gradient(180deg, rgba(10,10,15,0.06), rgba(2,2,6,0.2)); }
+    .matrix-page-shell { position: relative; z-index: 2; min-height: 100vh; }
 
-    .header{padding:48px 24px 24px;text-align:center}
-    .back-nav{display:inline-block;color:#a07828;font-size:.85rem;font-weight:600;text-decoration:none;margin-bottom:28px;transition:color .2s}.back-nav:hover{color:#FFD700}
-    .course-logo{display:block;margin:0 auto;border-radius:22px;box-shadow:0 0 40px rgba(255,215,0,.18),0 0 80px rgba(255,215,0,.06),0 14px 40px rgba(0,0,0,.5);transition:transform .3s}.course-logo:hover{transform:scale(1.04)}
-    .page-kicker{margin:24px 0 0;letter-spacing:.5em;text-transform:uppercase;color:#c9a44e;font-size:.68rem;font-weight:700}
-    .page-title{margin:12px 0 0;font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;line-height:1.05;letter-spacing:.03em;background:linear-gradient(135deg,#fff8dc,#ffd966,#d4a837,#fff0b1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .page-tagline{margin:14px auto 0;max-width:38ch;font-size:clamp(1rem,2.5vw,1.25rem);line-height:1.5;color:#d4af37;font-weight:500}
-    .title-divider{width:120px;height:2px;margin:36px auto 0;background:linear-gradient(to right,transparent,#c9952a,transparent);opacity:.6}
+    /* === HEADER === */
+    .header { padding: 48px 24px 24px; text-align: center; }
+    .back-nav { display: inline-block; color: #a07828; font-size: 0.85rem; font-weight: 600; text-decoration: none; margin-bottom: 28px; transition: color 0.2s; }
+    .back-nav:hover { color: #FFD700; }
+    .course-logo { display: block; margin: 0 auto; border-radius: 22px; box-shadow: 0 0 40px rgba(255,215,0,0.18), 0 0 80px rgba(255,215,0,0.06), 0 14px 40px rgba(0,0,0,0.5); transition: transform 0.3s; }
+    .course-logo:hover { transform: scale(1.04); }
+    .page-kicker { margin: 24px 0 0; letter-spacing: 0.5em; text-transform: uppercase; color: #c9a44e; font-size: 0.68rem; font-weight: 700; }
+    .page-title { margin: 12px 0 0; font-size: clamp(2.4rem, 7vw, 4.2rem); font-weight: 900; line-height: 1.05; letter-spacing: 0.03em; background: linear-gradient(135deg, #fff8dc, #ffd966, #d4a837, #fff0b1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-tagline { margin: 14px auto 0; max-width: 38ch; font-size: clamp(1rem, 2.5vw, 1.25rem); line-height: 1.5; color: #d4af37; font-weight: 500; }
+    .title-divider { width: 120px; height: 2px; margin: 36px auto 0; background: linear-gradient(to right, transparent, #c9952a, transparent); opacity: 0.6; }
 
-    .main-content{max-width:820px;margin:0 auto;padding:0 24px 60px}
-    .content-section{margin-top:64px}.content-section:first-child{margin-top:48px}
-    .section-title{font-size:clamp(1.4rem,3.5vw,1.85rem);font-weight:800;line-height:1.15;color:#ffe8a0;margin:0 0 6px;letter-spacing:.02em}
-    .section-intro{color:#d4af37;font-size:.95rem;line-height:1.6;margin:4px 0 28px;opacity:.9}
+    /* === MAIN === */
+    .main-content { max-width: 820px; margin: 0 auto; padding: 0 24px 60px; }
+    .content-section { margin-top: 64px; }
+    .content-section:first-child { margin-top: 48px; }
+    .section-title { font-size: clamp(1.4rem, 3.5vw, 1.85rem); font-weight: 800; line-height: 1.15; color: #ffe8a0; margin: 0 0 6px; letter-spacing: 0.02em; }
+    .section-intro { color: #d4af37; font-size: 0.95rem; line-height: 1.6; margin: 4px 0 28px; opacity: 0.9; }
 
-    .hero-image-row{display:flex;gap:16px;justify-content:center;margin-bottom:36px}
-    .hero-img{width:260px;height:340px;object-fit:cover;border-radius:20px;border:1px solid rgba(117,103,22,.45);box-shadow:0 14px 40px rgba(0,0,0,.5)}
-    .section-image{width:100%;max-height:380px;object-fit:cover;border-radius:20px;border:1px solid rgba(117,103,22,.4);box-shadow:0 14px 40px rgba(0,0,0,.45);margin-bottom:28px}
-    .section-image-sm{width:100%;max-height:300px;object-fit:cover;border-radius:20px;border:1px solid rgba(117,103,22,.35);box-shadow:0 10px 28px rgba(0,0,0,.35);margin-bottom:24px}
+    /* === IMAGES === */
+    .hero-image-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 36px; }
+    .hero-img { width: 260px; height: 340px; object-fit: cover; border-radius: 20px; border: 1px solid rgba(117,103,22,0.45); box-shadow: 0 14px 40px rgba(0,0,0,0.5); }
+    .section-image { width: 100%; max-height: 380px; object-fit: cover; border-radius: 20px; border: 1px solid rgba(117,103,22,0.4); box-shadow: 0 14px 40px rgba(0,0,0,0.45); margin-bottom: 28px; }
+    .section-image-sm { width: 100%; max-height: 300px; object-fit: cover; border-radius: 20px; border: 1px solid rgba(117,103,22,0.35); box-shadow: 0 10px 28px rgba(0,0,0,0.35); margin-bottom: 24px; }
 
-    .intro-text{font-size:1.15rem;line-height:1.65;color:#f0dca0;font-weight:500;margin:0 0 20px;text-align:center}
-    .intro-pillars{max-width:560px;margin:0 auto 20px}.intro-pillars p{margin:8px 0;color:#e8c860;font-size:.95rem;font-weight:600;padding-left:18px;border-left:2px solid rgba(201,149,42,.45);line-height:1.5}
-    .body-text{color:#bfa86e;font-size:.93rem;line-height:1.7;margin:0;text-align:center}
+    /* === TEXT === */
+    .intro-text { font-size: 1.15rem; line-height: 1.65; color: #f0dca0; font-weight: 500; margin: 0 0 20px; text-align: center; }
+    .intro-pillars { max-width: 560px; margin: 0 auto 20px; }
+    .intro-pillars p { margin: 8px 0; color: #e8c860; font-size: 0.95rem; font-weight: 600; padding-left: 18px; border-left: 2px solid rgba(201,149,42,0.45); line-height: 1.5; }
+    .body-text { color: #bfa86e; font-size: 0.93rem; line-height: 1.7; margin: 0; text-align: center; }
 
-    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
-    .info-card,.type-card{padding:26px 24px;border-radius:20px;border:1px solid rgba(117,103,22,.5);background:linear-gradient(180deg,rgba(14,10,6,.94),rgba(8,6,4,.9)),radial-gradient(circle at 20% 0%,rgba(180,120,30,.1),transparent 50%);box-shadow:0 14px 40px rgba(0,0,0,.42);transition:transform .28s cubic-bezier(.2,.75,.2,1),border-color .24s;position:relative;overflow:hidden}
-    .info-card::before,.type-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.06),transparent 30%);opacity:0;transition:opacity .3s;pointer-events:none}
-    .info-card:hover,.type-card:hover{transform:translateY(-4px);border-color:rgba(255,215,0,.28);box-shadow:0 20px 52px rgba(0,0,0,.45)}.info-card:hover::before,.type-card:hover::before{opacity:1}
-    .info-icon{color:#c9952a;font-size:.65rem;margin-bottom:10px;opacity:.6}
-    .info-card-title,.type-card-title{font-size:1.08rem;font-weight:700;color:#fff1b8;margin:0 0 8px;transition:color .2s}.info-card:hover .info-card-title,.type-card:hover .type-card-title{color:#ffe082}
-    .info-card p,.type-card p,.step-content p{color:#f3df9a;font-size:.88rem;line-height:1.65;margin:0}.info-card em{color:#ffd966;font-style:italic}
+    /* === CARDS === */
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+    .info-card, .type-card { padding: 26px 24px; border-radius: 20px; border: 1px solid rgba(117,103,22,0.5); background: linear-gradient(180deg, rgba(14,10,6,0.94), rgba(8,6,4,0.9)), radial-gradient(circle at 20% 0%, rgba(180,120,30,0.1), transparent 50%); box-shadow: 0 14px 40px rgba(0,0,0,0.42); transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s; position: relative; overflow: hidden; }
+    .info-card::before, .type-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.06), transparent 30%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .info-card:hover, .type-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.28); box-shadow: 0 20px 52px rgba(0,0,0,0.45); }
+    .info-card:hover::before, .type-card:hover::before { opacity: 1; }
+    .info-icon { color: #c9952a; font-size: 0.65rem; margin-bottom: 10px; opacity: 0.6; }
+    .info-card-title, .type-card-title { font-size: 1.08rem; font-weight: 700; color: #fff1b8; margin: 0 0 8px; transition: color 0.2s; }
+    .info-card:hover .info-card-title, .type-card:hover .type-card-title { color: #ffe082; }
+    .info-card p, .type-card p, .step-content p { color: #f3df9a; font-size: 0.88rem; line-height: 1.65; margin: 0; }
+    .info-card em { color: #ffd966; font-style: italic; }
 
-    .steps-list{display:flex;flex-direction:column;gap:14px;margin-top:24px}
-    .step-item{display:flex;align-items:flex-start;gap:18px;padding:26px 24px;border-radius:20px;border:1px solid rgba(117,103,22,.5);background:linear-gradient(180deg,rgba(14,10,6,.94),rgba(8,6,4,.9)),radial-gradient(circle at 20% 0%,rgba(180,120,30,.08),transparent 50%);box-shadow:0 14px 40px rgba(0,0,0,.42);transition:transform .28s cubic-bezier(.2,.75,.2,1),border-color .24s;position:relative;overflow:hidden}
-    .step-item::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.06),transparent 30%);opacity:0;transition:opacity .3s;pointer-events:none}
-    .step-item:hover{transform:translateY(-4px);border-color:rgba(255,215,0,.28);box-shadow:0 20px 52px rgba(0,0,0,.45)}.step-item:hover::before{opacity:1}
-    .step-badge{flex-shrink:0;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,215,0,.08));border:1px solid rgba(255,215,0,.24);color:#ffe082;font-size:.78rem;font-weight:800}
-    .step-content{flex:1}.step-title{font-size:1.05rem;font-weight:700;color:#fff1b8;margin:0 0 8px;line-height:1.3;transition:color .2s}.step-item:hover .step-title{color:#ffe082}
+    /* === STEPS === */
+    .steps-list { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .step-item { display: flex; align-items: flex-start; gap: 18px; padding: 26px 24px; border-radius: 20px; border: 1px solid rgba(117,103,22,0.5); background: linear-gradient(180deg, rgba(14,10,6,0.94), rgba(8,6,4,0.9)), radial-gradient(circle at 20% 0%, rgba(180,120,30,0.08), transparent 50%); box-shadow: 0 14px 40px rgba(0,0,0,0.42); transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s; position: relative; overflow: hidden; }
+    .step-item::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.06), transparent 30%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .step-item:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.28); box-shadow: 0 20px 52px rgba(0,0,0,0.45); }
+    .step-item:hover::before { opacity: 1; }
+    .step-badge { flex-shrink: 0; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.08)); border: 1px solid rgba(255,215,0,0.24); color: #ffe082; font-size: 0.78rem; font-weight: 800; }
+    .step-content { flex: 1; }
+    .step-title { font-size: 1.05rem; font-weight: 700; color: #fff1b8; margin: 0 0 8px; line-height: 1.3; transition: color 0.2s; }
+    .step-item:hover .step-title { color: #ffe082; }
 
-    .callout-box{margin-top:24px;padding:24px 26px;border-radius:20px;border:1px solid rgba(117,103,22,.4);border-left:3px solid #c9952a;background:linear-gradient(180deg,rgba(14,10,6,.9),rgba(8,6,4,.85)),rgba(201,149,42,.03);box-shadow:0 10px 28px rgba(0,0,0,.3)}.callout-box p{color:#f3df9a;font-size:.9rem;line-height:1.65;margin:0}.callout-box strong{color:#ffe082}
+    /* === CALLOUT === */
+    .callout-box { margin-top: 24px; padding: 24px 26px; border-radius: 20px; border: 1px solid rgba(117,103,22,0.4); border-left: 3px solid #c9952a; background: linear-gradient(180deg, rgba(14,10,6,0.9), rgba(8,6,4,0.85)), rgba(201,149,42,0.03); box-shadow: 0 10px 28px rgba(0,0,0,0.3); }
+    .callout-box p { color: #f3df9a; font-size: 0.9rem; line-height: 1.65; margin: 0; }
+    .callout-box strong { color: #ffe082; }
 
-    .closing-section{text-align:center}
-    .standard-pillars{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 28px;margin:24px 0}.standard-pillars span{color:#e8c860;font-size:1.02rem;font-weight:700}
-    .closing-text{color:#f3df9a;font-size:.95rem;line-height:1.7;margin:0 auto;max-width:520px}
-    .closing-tagline{color:#d4af37;font-size:1.15rem;font-weight:800;letter-spacing:.05em;margin:20px 0 0}
+    /* === BUDGET CARDS === */
+    .budget-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 24px; }
+    .budget-card { padding: 26px 20px; border-radius: 20px; border: 1px solid rgba(117,103,22,0.4); background: linear-gradient(180deg, rgba(14,10,6,0.92), rgba(8,6,4,0.88)); box-shadow: 0 10px 28px rgba(0,0,0,0.35); text-align: center; transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s; }
+    .budget-card:hover { transform: translateY(-4px); border-color: rgba(255,215,0,0.22); }
+    .budget-pct { font-size: 2rem; font-weight: 900; color: #ffe082; margin: 0 0 6px; background: linear-gradient(135deg, #fff8dc, #ffd966); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .budget-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff1b8; margin: 0 0 8px; }
+    .budget-card p { color: #f3df9a; font-size: 0.82rem; line-height: 1.55; margin: 0; }
 
-    .cta-section{text-align:center}
-    .ebook-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
-    .ebook-card{display:flex;flex-direction:column;align-items:center;padding:28px 20px 24px;border-radius:20px;border:1px solid rgba(117,103,22,.5);background:linear-gradient(180deg,rgba(14,10,6,.94),rgba(8,6,4,.9)),radial-gradient(circle at 20% 0%,rgba(180,120,30,.1),transparent 50%);box-shadow:0 14px 40px rgba(0,0,0,.42);text-decoration:none;color:inherit;transition:transform .28s cubic-bezier(.2,.75,.2,1),border-color .24s;position:relative;overflow:hidden}
-    .ebook-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.06),transparent 30%);opacity:0;transition:opacity .3s;pointer-events:none}
-    .ebook-card:hover{transform:translateY(-5px);border-color:rgba(255,215,0,.35);box-shadow:0 20px 52px rgba(0,0,0,.5)}.ebook-card:hover::before{opacity:1}
-    .ebook-cover{width:140px;height:auto;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.5);margin-bottom:16px;transition:transform .28s}.ebook-card:hover .ebook-cover{transform:scale(1.04)}
-    .ebook-name{font-size:1rem;font-weight:700;color:#fff1b8;margin:0 0 6px;text-align:center;transition:color .2s}.ebook-card:hover .ebook-name{color:#ffe082}
-    .ebook-desc{font-size:.8rem;color:#bfa86e;line-height:1.5;text-align:center;margin:0 0 14px}
-    .ebook-buy{display:inline-block;padding:10px 28px;border-radius:10px;background:linear-gradient(135deg,rgba(255,215,0,.22),rgba(255,215,0,.1));border:1px solid rgba(255,215,0,.3);color:#ffe082;font-size:.85rem;font-weight:700;margin-top:auto;transition:all .25s}.ebook-card:hover .ebook-buy{background:linear-gradient(135deg,rgba(255,215,0,.35),rgba(255,215,0,.18));border-color:rgba(255,215,0,.55);box-shadow:0 6px 18px rgba(201,149,42,.15)}
-    .cta-button{display:inline-block;padding:16px 40px;border-radius:14px;background:linear-gradient(135deg,rgba(201,149,42,.22),rgba(201,149,42,.1));border:1px solid rgba(255,215,0,.28);color:#ffe082;font-size:.95rem;font-weight:700;text-decoration:none;letter-spacing:.04em;transition:all .28s}.cta-button:hover{background:linear-gradient(135deg,rgba(201,149,42,.35),rgba(201,149,42,.18));border-color:rgba(255,215,0,.5);transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,149,42,.15)}
+    /* === CLOSING === */
+    .closing-section { text-align: center; }
+    .standard-pillars { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; margin: 24px 0; }
+    .standard-pillars span { color: #e8c860; font-size: 1.02rem; font-weight: 700; }
+    .closing-text { color: #f3df9a; font-size: 0.95rem; line-height: 1.7; margin: 0 auto; max-width: 520px; }
+    .closing-tagline { color: #d4af37; font-size: 1.15rem; font-weight: 800; letter-spacing: 0.05em; margin: 20px 0 0; }
 
-    .merch-section{text-align:center}
-    .merch-carousel{overflow:hidden;border-radius:20px;border:1px solid rgba(117,103,22,.35);background:linear-gradient(180deg,rgba(14,10,6,.92),rgba(8,6,4,.88));box-shadow:0 14px 40px rgba(0,0,0,.4);padding:24px 0;margin-top:24px;cursor:grab;-webkit-user-select:none;user-select:none;touch-action:pan-y;-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}.merch-carousel.is-dragging{cursor:grabbing}
-    .merch-track{display:flex;gap:20px;width:max-content;will-change:transform}
-    .merch-item{flex-shrink:0;width:150px;display:flex;flex-direction:column;align-items:center;text-decoration:none;transition:transform .25s}.merch-item:hover{transform:translateY(-4px)}.merch-carousel.is-dragging .merch-item{pointer-events:none}
-    .merch-item img{width:140px;height:140px;object-fit:cover;border-radius:14px;border:1px solid rgba(117,103,22,.35);box-shadow:0 8px 20px rgba(0,0,0,.35);margin-bottom:10px;transition:border-color .25s}.merch-item:hover img{border-color:rgba(255,215,0,.3)}
-    .merch-name{color:#fff1b8;font-size:.85rem;font-weight:700;margin-bottom:6px;transition:color .2s}.merch-item:hover .merch-name{color:#ffe082}
-    .merch-buy{display:inline-block;padding:6px 18px;border-radius:8px;background:linear-gradient(135deg,rgba(255,215,0,.18),rgba(255,215,0,.08));border:1px solid rgba(255,215,0,.25);color:#ffe082;font-size:.75rem;font-weight:700;transition:all .25s}.merch-item:hover .merch-buy{background:linear-gradient(135deg,rgba(255,215,0,.3),rgba(255,215,0,.15));border-color:rgba(255,215,0,.5)}
+    /* === EBOOKS === */
+    .cta-section { text-align: center; }
+    .ebook-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 24px; }
+    .ebook-card { display: flex; flex-direction: column; align-items: center; padding: 28px 20px 24px; border-radius: 20px; border: 1px solid rgba(117,103,22,0.5); background: linear-gradient(180deg, rgba(14,10,6,0.94), rgba(8,6,4,0.9)), radial-gradient(circle at 20% 0%, rgba(180,120,30,0.1), transparent 50%); box-shadow: 0 14px 40px rgba(0,0,0,0.42); text-decoration: none; color: inherit; transition: transform 0.28s cubic-bezier(0.2,0.75,0.2,1), border-color 0.24s; position: relative; overflow: hidden; }
+    .ebook-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.06), transparent 30%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .ebook-card:hover { transform: translateY(-5px); border-color: rgba(255,215,0,0.35); box-shadow: 0 20px 52px rgba(0,0,0,0.5); }
+    .ebook-card:hover::before { opacity: 1; }
+    .ebook-cover { width: 140px; height: auto; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); margin-bottom: 16px; transition: transform 0.28s; }
+    .ebook-card:hover .ebook-cover { transform: scale(1.04); }
+    .ebook-name { font-size: 1rem; font-weight: 700; color: #fff1b8; margin: 0 0 6px; text-align: center; transition: color 0.2s; }
+    .ebook-card:hover .ebook-name { color: #ffe082; }
+    .ebook-desc { font-size: 0.8rem; color: #bfa86e; line-height: 1.5; text-align: center; margin: 0 0 14px; }
+    .ebook-buy { display: inline-block; padding: 10px 28px; border-radius: 10px; background: linear-gradient(135deg, rgba(255,215,0,0.22), rgba(255,215,0,0.1)); border: 1px solid rgba(255,215,0,0.3); color: #ffe082; font-size: 0.85rem; font-weight: 700; margin-top: auto; transition: all 0.25s; }
+    .ebook-card:hover .ebook-buy { background: linear-gradient(135deg, rgba(255,215,0,0.35), rgba(255,215,0,0.18)); border-color: rgba(255,215,0,0.55); box-shadow: 0 6px 18px rgba(201,149,42,0.15); }
+    .cta-button { display: inline-block; padding: 16px 40px; border-radius: 14px; background: linear-gradient(135deg, rgba(201,149,42,0.22), rgba(201,149,42,0.1)); border: 1px solid rgba(255,215,0,0.28); color: #ffe082; font-size: 0.95rem; font-weight: 700; text-decoration: none; letter-spacing: 0.04em; transition: all 0.28s; }
+    .cta-button:hover { background: linear-gradient(135deg, rgba(201,149,42,0.35), rgba(201,149,42,0.18)); border-color: rgba(255,215,0,0.5); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(201,149,42,0.15); }
 
-    .connect-section{text-align:center}.social-row{display:flex;justify-content:center;gap:32px;align-items:center}
-    .social-link{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;transition:transform .25s}.social-link:hover{transform:translateY(-4px)}
-    .social-icon{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(201,149,42,.2));transition:filter .25s}.social-link:hover .social-icon{filter:drop-shadow(0 6px 18px rgba(255,215,0,.35))}
-    .social-label{color:#a07828;font-size:.78rem;font-weight:600;letter-spacing:.04em;transition:color .2s}.social-link:hover .social-label{color:#FFD700}
+    /* === MERCH === */
+    .merch-section { text-align: center; }
+    .merch-carousel { overflow: hidden; border-radius: 20px; border: 1px solid rgba(117,103,22,0.35); background: linear-gradient(180deg, rgba(14,10,6,0.92), rgba(8,6,4,0.88)); box-shadow: 0 14px 40px rgba(0,0,0,0.4); padding: 24px 0; margin-top: 24px; cursor: grab; -webkit-user-select: none; user-select: none; touch-action: pan-y; -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); }
+    .merch-carousel.is-dragging { cursor: grabbing; }
+    .merch-track { display: flex; gap: 20px; width: max-content; will-change: transform; }
+    .merch-item { flex-shrink: 0; width: 150px; display: flex; flex-direction: column; align-items: center; text-decoration: none; transition: transform 0.25s; }
+    .merch-item:hover { transform: translateY(-4px); }
+    .merch-carousel.is-dragging .merch-item { pointer-events: none; }
+    .merch-item img { width: 140px; height: 140px; object-fit: cover; border-radius: 14px; border: 1px solid rgba(117,103,22,0.35); box-shadow: 0 8px 20px rgba(0,0,0,0.35); margin-bottom: 10px; transition: border-color 0.25s; }
+    .merch-item:hover img { border-color: rgba(255,215,0,0.3); }
+    .merch-name { color: #fff1b8; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; transition: color 0.2s; }
+    .merch-item:hover .merch-name { color: #ffe082; }
+    .merch-buy { display: inline-block; padding: 6px 18px; border-radius: 8px; background: linear-gradient(135deg, rgba(255,215,0,0.18), rgba(255,215,0,0.08)); border: 1px solid rgba(255,215,0,0.25); color: #ffe082; font-size: 0.75rem; font-weight: 700; transition: all 0.25s; }
+    .merch-item:hover .merch-buy { background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,215,0,0.15)); border-color: rgba(255,215,0,0.5); }
 
-    .bottom-nav{text-align:center;margin-top:52px;padding-top:28px;border-top:1px solid rgba(117,103,22,.2)}
-    .course-nav-row{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap}
-    .course-nav-btn{display:inline-block;padding:14px 28px;border-radius:14px;font-size:.88rem;font-weight:700;color:#d4af37;text-decoration:none;border:1px solid rgba(255,215,0,.2);background:linear-gradient(135deg,rgba(201,149,42,.08),rgba(201,149,42,.03));transition:all .28s}.course-nav-btn:hover{border-color:rgba(255,215,0,.4);color:#ffe082;background:linear-gradient(135deg,rgba(201,149,42,.18),rgba(201,149,42,.08));transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,149,42,.12)}
-    .back-box{display:inline-block;padding:16px 44px;border-radius:14px;font-size:1rem;font-weight:700;letter-spacing:.03em;color:#ffe082;text-decoration:none;border:1px solid rgba(255,215,0,.35);background:linear-gradient(135deg,rgba(201,149,42,.15),rgba(201,149,42,.06));box-shadow:0 8px 24px rgba(0,0,0,.25);transition:all .28s}.back-box:hover{background:linear-gradient(135deg,rgba(201,149,42,.3),rgba(201,149,42,.14));border-color:rgba(255,215,0,.55);transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,149,42,.18);color:#FFD700}
-    .page-footer{padding:36px 24px;text-align:center;font-size:.72rem;letter-spacing:.15em;color:#7A5C1E}
+    /* === SOCIAL === */
+    .connect-section { text-align: center; }
+    .social-row { display: flex; justify-content: center; gap: 32px; align-items: center; }
+    .social-link { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; transition: transform 0.25s; }
+    .social-link:hover { transform: translateY(-4px); }
+    .social-icon { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(201,149,42,0.2)); transition: filter 0.25s; }
+    .social-link:hover .social-icon { filter: drop-shadow(0 6px 18px rgba(255,215,0,0.35)); }
+    .social-label { color: #a07828; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; transition: color 0.2s; }
+    .social-link:hover .social-label { color: #FFD700; }
 
-    @media(max-width:767px){.header{padding:32px 16px 16px}.main-content{padding:0 16px 48px}.content-section{margin-top:48px}.card-grid{grid-template-columns:1fr}.ebook-row{grid-template-columns:1fr;max-width:280px;margin-left:auto;margin-right:auto}.standard-pillars{flex-direction:column;gap:6px}.step-item{padding:22px 18px;gap:14px}.step-badge{width:36px;height:36px;font-size:.72rem}.hero-image-row{flex-direction:column;align-items:center}.hero-img{width:100%;max-width:300px;height:280px}.social-row{gap:24px}.course-nav-row{flex-direction:column;gap:12px}.course-nav-btn{width:100%;text-align:center}}
-    @media(prefers-reduced-motion:reduce){.course-logo,.cta-button,.info-card,.type-card,.step-item,.ebook-card,.social-link,.merch-item,.back-box,.course-nav-btn{transition:none!important;transform:none!important}}
+    /* === BOTTOM NAV === */
+    .bottom-nav { text-align: center; margin-top: 52px; padding-top: 28px; border-top: 1px solid rgba(117,103,22,0.2); }
+    .course-nav-row { display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .course-nav-btn { display: inline-block; padding: 14px 28px; border-radius: 14px; font-size: 0.88rem; font-weight: 700; color: #d4af37; text-decoration: none; border: 1px solid rgba(255,215,0,0.2); background: linear-gradient(135deg, rgba(201,149,42,0.08), rgba(201,149,42,0.03)); transition: all 0.28s; }
+    .course-nav-btn:hover { border-color: rgba(255,215,0,0.4); color: #ffe082; background: linear-gradient(135deg, rgba(201,149,42,0.18), rgba(201,149,42,0.08)); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,149,42,0.12); }
+    .back-box { display: inline-block; padding: 16px 44px; border-radius: 14px; font-size: 1rem; font-weight: 700; letter-spacing: 0.03em; color: #ffe082; text-decoration: none; border: 1px solid rgba(255,215,0,0.35); background: linear-gradient(135deg, rgba(201,149,42,0.15), rgba(201,149,42,0.06)); box-shadow: 0 8px 24px rgba(0,0,0,0.25); transition: all 0.28s; }
+    .back-box:hover { background: linear-gradient(135deg, rgba(201,149,42,0.3), rgba(201,149,42,0.14)); border-color: rgba(255,215,0,0.55); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(201,149,42,0.18); color: #FFD700; }
+    .page-footer { padding: 36px 24px; text-align: center; font-size: 0.72rem; letter-spacing: 0.15em; color: #7A5C1E; }
+
+    /* === MOBILE === */
+    @media (max-width: 767px) {
+      .header { padding: 32px 16px 16px; }
+      .main-content { padding: 0 16px 48px; }
+      .content-section { margin-top: 48px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .budget-grid { grid-template-columns: 1fr; }
+      .ebook-row { grid-template-columns: 1fr; max-width: 280px; margin-left: auto; margin-right: auto; }
+      .standard-pillars { flex-direction: column; gap: 6px; }
+      .step-item { padding: 22px 18px; gap: 14px; }
+      .step-badge { width: 36px; height: 36px; font-size: 0.72rem; }
+      .hero-image-row { flex-direction: column; align-items: center; }
+      .hero-img { width: 100%; max-width: 300px; height: 280px; }
+      .social-row { gap: 24px; }
+      .course-nav-row { flex-direction: column; gap: 12px; }
+      .course-nav-btn { width: 100%; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .course-logo, .cta-button, .info-card, .type-card, .step-item, .budget-card, .ebook-card, .social-link, .merch-item, .back-box, .course-nav-btn { transition: none !important; transform: none !important; }
+    }
   </style>
 </head>
 <body>
   <a href="#content" class="sr-only">Skip to content</a>
-  <div class="page-matrix-layer" aria-hidden="true"><canvas id="pageMatrixCanvas" class="page-matrix-canvas"></canvas><div class="page-matrix-vignette"></div></div>
+  <div class="page-matrix-layer" aria-hidden="true">
+    <canvas id="pageMatrixCanvas" class="page-matrix-canvas"></canvas>
+    <div class="page-matrix-vignette"></div>
+  </div>
   <div class="matrix-page-shell">
   <header class="header">
     <a href="../" class="back-nav">← Back to Course</a>
     <a href="../../"><img src="../../images/ethos-empire-logo.webp" alt="Ethos Empire" width="110" height="110" class="course-logo" fetchpriority="high"></a>
     <p class="page-kicker">ETHOS EMPIRE — FREE COURSE</p>
-    <h1 class="page-title">Command the Room</h1>
-    <p class="page-tagline">Speak Clearly. Lead Boldly. Stay Grounded.</p>
+    <h1 class="page-title">Financial Discipline</h1>
+    <p class="page-tagline">Building Wealth With Purpose and Discipline.</p>
     <div class="title-divider"></div>
   </header>
 
   <main id="content" class="main-content">
 
+    <!-- Intro -->
     <section class="content-section">
       <div class="hero-image-row">
-        <img src="../../images/pc-3.webp" alt="Man commanding a stage" class="hero-img" loading="lazy">
-        <img src="../../images/pc-1.webp" alt="Strength and discipline" class="hero-img" loading="lazy">
-        <img src="../../images/pc-8.webp" alt="Composed presence" class="hero-img" loading="lazy">
+        <img src="../../images/mp-6.webp" alt="Working from Dubai skyline" class="hero-img" loading="lazy">
+        <img src="../../images/mp-9.webp" alt="Trading desk setup" class="hero-img" loading="lazy">
+        <img src="../../images/mp-3.webp" alt="Ferrari LaFerrari" class="hero-img" loading="lazy">
       </div>
-      <p class="intro-text">Your voice is more than sound.<br>It is influence. It is leadership. It is presence turned into words.</p>
+      <p class="intro-text">Money is more than something you earn and spend.<br>It is a tool that reflects your values, discipline, and long-term vision.</p>
       <div class="intro-pillars">
-        <p>Great communicators do not just talk — they connect, they lead, and they leave an impression.</p>
-        <p>Mastering your voice opens doors that talent alone cannot.</p>
+        <p>True financial strength comes not from how much you make, but from how wisely you use it.</p>
+        <p>Understanding the principles of money is the foundation of a stable home, a secure future, and lasting peace of mind.</p>
       </div>
     </section>
 
+    <!-- Understanding Money -->
     <section class="content-section">
-      <h2 class="section-title">Why Communication Matters</h2>
-      <p class="section-intro">How well you express your ideas determines how clearly people understand you — and how much respect you command.</p>
+      <h2 class="section-title">Understanding the True Purpose of Money</h2>
+      <p class="section-intro">Money should serve your life — not control it.</p>
 
-      <img src="../../images/pc-6.webp" alt="Communication is the key to success" class="section-image" loading="lazy">
+      <img src="../../images/mp-4.webp" alt="Working with ocean view" class="section-image" loading="lazy">
 
       <div class="card-grid">
-        <div class="info-card"><div class="info-icon">◆</div><h3 class="info-card-title">Leadership & Career</h3><p>Communication drives leadership, career growth, and influence. Your message is not only about words — it is about delivery, tone, posture, and presence.</p></div>
-        <div class="info-card"><div class="info-icon">◆</div><h3 class="info-card-title">Relationships & Respect</h3><p>How you speak shapes how seriously people take you and how much trust you build. A man who speaks with clarity stands apart in every room.</p></div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2 class="section-title">How to Speak with Confidence</h2>
-      <p class="section-intro">Confidence in speaking is built the same way confidence in the gym is built — through reps, repetition, and discipline.</p>
-
-      <img src="../../images/pc-5.webp" alt="Train the brave — daily acts of courage" class="section-image" loading="lazy">
-
-      <div class="steps-list">
-        <div class="step-item"><span class="step-badge">01</span><div class="step-content"><h3 class="step-title">Preparation Creates Power</h3><p>Know your topic deeply. Practice out loud, not just in your head. Use bullet points instead of memorized scripts. Visualize success before you speak. Preparation removes hesitation — familiarity creates calm.</p></div></div>
-        <div class="step-item"><span class="step-badge">02</span><div class="step-content"><h3 class="step-title">Body Language Commands Presence</h3><p>Stand tall with relaxed shoulders. Keep both feet grounded. Use visible, intentional hand gestures. Maintain steady eye contact. Strong posture changes how you feel, how you breathe, and how you handle pressure.</p></div></div>
-        <div class="step-item"><span class="step-badge">03</span><div class="step-content"><h3 class="step-title">Voice Control Is a Weapon</h3><p>Speak from the diaphragm. Slow down your pace. Use pauses instead of rushing. Change your tone to avoid sounding flat. Fast speech weakens authority — pauses create weight, variation creates interest.</p></div></div>
-        <div class="step-item"><span class="step-badge">04</span><div class="step-content"><h3 class="step-title">Emotional Control Builds Composure</h3><p>Take slow, deep breaths before speaking. Set your posture. Turn nervous energy into stronger gestures. Use small pauses to reset your rhythm. Real confidence is calm under pressure.</p></div></div>
-      </div>
-    </section>
-
-    <section class="content-section">
-      <h2 class="section-title">Staying Calm Under Pressure</h2>
-      <p class="section-intro">Calm is not a personality trait. It is a skill.</p>
-
-      <img src="../../images/pc-7.webp" alt="Composed man at formal event" class="section-image" loading="lazy">
-
-      <div class="card-grid">
-        <div class="type-card"><h3 class="type-card-title">Control the Room with Presence</h3><p>Slow your breathing. Stay rooted in your posture. Focus on your message, not your fear. Speak with control, not speed. You do not need to dominate a room with noise.</p></div>
-        <div class="type-card"><h3 class="type-card-title">Calm Men Lead</h3><p>In interviews, presentations, pitches, and meetings, the men who stay composed stand out the most. Strength begins when you master your own mind.</p></div>
-      </div>
-
-      <img src="../../images/pc-2.webp" alt="The alpha leads with composure" class="section-image-sm" style="margin-top:24px;" loading="lazy">
-    </section>
-
-    <section class="content-section">
-      <h2 class="section-title">Public Speaking Practice Plan</h2>
-      <p class="section-intro">Skill grows from repetition, not theory. Treat speaking like physical training.</p>
-
-      <img src="../../images/pc-4.webp" alt="A good speech creates interest" class="section-image" loading="lazy">
-
-      <div class="steps-list">
-        <div class="step-item"><span class="step-badge">①</span><div class="step-content"><h3 class="step-title">Start Small, Build Daily</h3><p>Speak for 1 minute a day on any topic. Record yourself and review your tone, pace, and clarity. Practice in front of a mirror, then a small group. Gradually increase the audience size.</p></div></div>
-        <div class="step-item"><span class="step-badge">②</span><div class="step-content"><h3 class="step-title">Consistent Reps Transform You</h3><p>One session will not change you. Consistent practice will. Join speaking communities for faster growth. Communication is a glow-up skill — train it with discipline.</p></div></div>
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">Security, Freedom, Opportunity</h3>
+          <p>When managed correctly, money provides all three. When mismanaged, it becomes a source of stress, debt, and uncertainty.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">Direction Over Desire</h3>
+          <p>A disciplined person gives money a purpose before it disappears. A careless person lets it leave without knowing where it went. Over time, that difference creates freedom — or pressure.</p>
+        </div>
       </div>
 
       <div class="callout-box">
-        <p>Strong communicators are seen as more trustworthy, more capable, better leaders, more memorable, and more influential. <strong>Great speakers are not born — they grow into it through habit, discipline, and exposure.</strong></p>
+        <p><strong>The core principle is simple:</strong> spend less than you earn, plan intentionally, and prepare for the future. These habits separate financial stability from constant struggle.</p>
       </div>
     </section>
 
+    <!-- Household -->
+    <section class="content-section">
+      <h2 class="section-title">Using Money Correctly in the Household</h2>
+      <p class="section-intro">A well-managed home begins with clarity and structure.</p>
+
+      <div class="card-grid">
+        <div class="type-card">
+          <h3 class="type-card-title">Every Dollar Has a Purpose</h3>
+          <p>Housing, utilities, food, and transportation are necessities planned for first. Distinguish needs from wants to avoid impulse spending.</p>
+        </div>
+        <div class="type-card">
+          <h3 class="type-card-title">Communication & Consistency</h3>
+          <p>When spending is planned, bills are paid on time, and priorities are clear, the household becomes more stable. Money problems grow with confusion and avoidance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Saving Strategies -->
+    <section class="content-section">
+      <h2 class="section-title">Effective Saving Strategies</h2>
+      <p class="section-intro">Saving is not about restriction — it is about preparation and freedom.</p>
+
+      <img src="../../images/mp-7.webp" alt="Work until expensive becomes cheap" class="section-image" loading="lazy">
+
+      <div class="budget-grid">
+        <div class="budget-card">
+          <p class="budget-pct">50%</p>
+          <h3>Needs</h3>
+          <p>Housing, food, bills, and essential expenses.</p>
+        </div>
+        <div class="budget-card">
+          <p class="budget-pct">30%</p>
+          <h3>Wants</h3>
+          <p>Lifestyle, enjoyment, and personal spending.</p>
+        </div>
+        <div class="budget-card">
+          <p class="budget-pct">20%</p>
+          <h3>Savings</h3>
+          <p>Future goals, emergency fund, and investments.</p>
+        </div>
+      </div>
+
+      <div class="callout-box">
+        <p><strong>Emergency Fund:</strong> Save three to six months of living expenses. This safety net prevents reliance on debt during unexpected situations like job loss, medical expenses, or urgent repairs.</p>
+      </div>
+    </section>
+
+    <!-- Smart Tactics -->
+    <section class="content-section">
+      <h2 class="section-title">Smart Everyday Money Tactics</h2>
+      <p class="section-intro">Wealth is built through small, consistent decisions.</p>
+
+      <img src="../../images/mp-8.webp" alt="Luxury watch and supercar" class="section-image" loading="lazy">
+
+      <div class="steps-list">
+        <div class="step-item">
+          <span class="step-badge">01</span>
+          <div class="step-content">
+            <h3 class="step-title">Pay Yourself First</h3>
+            <p>Automate savings so a portion of income is transferred before spending begins. This removes temptation and builds consistency.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-badge">02</span>
+          <div class="step-content">
+            <h3 class="step-title">Track Every Dollar</h3>
+            <p>Tracking expenses reveals spending patterns and areas for improvement. Reduce unnecessary subscriptions, choose wisely, and plan purchases instead of buying impulsively.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-badge">03</span>
+          <div class="step-content">
+            <h3 class="step-title">Delay Unnecessary Purchases</h3>
+            <p>Wait 24 to 48 hours before buying something you do not truly need. This reduces emotional spending and sharpens your decision-making. Financial discipline is hundreds of small wise choices.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Debt & Discipline -->
+    <section class="content-section">
+      <h2 class="section-title">Debt, Discipline & Financial Control</h2>
+      <p class="section-intro">Do not let monthly payments control your future.</p>
+
+      <img src="../../images/mp-11.webp" alt="Don't stop until you reach your goal" class="section-image-sm" loading="lazy">
+
+      <div class="callout-box">
+        <p>Debt can be useful when managed carefully, but dangerous when used without discipline. The more money tied up in unnecessary debt, the less freedom you have to save, invest, or build. <strong>Financial control begins when you stop living beyond your means and start living with intention.</strong></p>
+      </div>
+    </section>
+
+    <!-- Future & Legacy -->
+    <section class="content-section">
+      <h2 class="section-title">Wealth, Legacy & Responsibility</h2>
+      <p class="section-intro">Money is not only about personal comfort. It is also about responsibility.</p>
+
+      <img src="../../images/mp-5.webp" alt="Couple at luxury estate" class="section-image" loading="lazy">
+
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">Start Early, Stay Consistent</h3>
+          <p>Small amounts saved consistently grow over time. The power of time is one of the greatest financial advantages. Building wealth is rarely dramatic — it is usually quiet, steady, and intentional.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">◆</div>
+          <h3 class="info-card-title">Wealth With Structure Becomes Legacy</h3>
+          <p>When your finances are strong, you are better able to provide, protect, and create opportunities for the people around you. Wealth with no discipline disappears. Wealth with structure can become legacy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ethos Mindset -->
+    <section class="content-section">
+      <h2 class="section-title">The Ethos Empire Mindset</h2>
+      <p class="section-intro">Money should reflect self-control, not ego.</p>
+
+      <img src="../../images/mp-1.webp" alt="Reading at sunset — patience and growth" class="section-image" loading="lazy">
+
+      <div class="callout-box">
+        <p>Financial independence is not built overnight — it is built through habits, structure, and purpose. The man who understands money does not chase appearances. <strong>He builds quietly, protects what he earns, and thinks long term.</strong></p>
+      </div>
+    </section>
+
+    <!-- Closing -->
     <section class="content-section closing-section">
       <h2 class="section-title">The Ethos Empire Standard</h2>
       <div class="standard-pillars">
-        <span>Master your voice.</span>
-        <span>Control your presence.</span>
-        <span>Lead with clarity.</span>
-        <span>Stay grounded under pressure.</span>
+        <span>Budget with intention.</span>
+        <span>Spend with discipline.</span>
+        <span>Save with purpose.</span>
+        <span>Build with patience.</span>
       </div>
-      <p class="closing-text">Your voice carries more power than you think. It can build trust, open doors, lead rooms, create opportunities, and define your presence. A man who communicates well does not just get heard — he gets remembered.</p>
-      <p class="closing-tagline">Ethos Empire — Build the Man.</p>
+      <p class="closing-text">Because wealth is not built in one moment. It is built in habits.</p>
+      <p class="closing-tagline">Ethos Empire — Build Your Empire.</p>
     </section>
 
+    <!-- Ebooks -->
     <section class="content-section cta-section">
       <h2 class="section-title">Go Deeper</h2>
-      <p class="section-intro">Want the complete guides on confidence, presence, and leadership?</p>
+      <p class="section-intro">Want the complete financial guide? These ebooks cover everything and more.</p>
       <div class="ebook-row">
-        <a href="https://ethosempire.gumroad.com/l/commandtheroom?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card"><img src="../../images/ethos-empire-command-the-room-ebook-cover-320.webp" alt="Command the Room ebook" class="ebook-cover" loading="lazy"><h3 class="ebook-name">Command the Room</h3><p class="ebook-desc">Build confidence, presence, and social strength to carry yourself with authority.</p><span class="ebook-buy">Buy Now →</span></a>
-        <a href="https://ethosempire.gumroad.com/l/howtobeconfidence?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card"><img src="../../images/ethos-empire-confidence-guide-ebook-cover-320.webp" alt="Confidence Guide ebook" class="ebook-cover" loading="lazy"><h3 class="ebook-name">Confidence Guide</h3><p class="ebook-desc">Real confidence through better habits, stronger self-belief, and a sharper mindset.</p><span class="ebook-buy">Buy Now →</span></a>
-        <a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card"><img src="../../images/ethos-empire-philosophy-of-becoming-ebook-cover-320.webp" alt="Philosophy of Becoming ebook" class="ebook-cover" loading="lazy"><h3 class="ebook-name">Philosophy of Becoming</h3><p class="ebook-desc">Mindset, discipline, and personal standards to become stronger and more intentional.</p><span class="ebook-buy">Buy Now →</span></a>
+        <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
+          <img src="../../images/ethos-empire-built-by-money-ebook-cover-320.webp" alt="Built by Money ebook" class="ebook-cover" loading="lazy">
+          <h3 class="ebook-name">Built by Money</h3>
+          <p class="ebook-desc">Financial discipline, controlled spending, and a long-term wealth mindset.</p>
+          <span class="ebook-buy">Buy Now →</span>
+        </a>
+        <a href="https://ethosempire.gumroad.com/l/thephilosophyofbecoming?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
+          <img src="../../images/ethos-empire-philosophy-of-becoming-ebook-cover-320.webp" alt="The Philosophy of Becoming ebook" class="ebook-cover" loading="lazy">
+          <h3 class="ebook-name">The Philosophy of Becoming</h3>
+          <p class="ebook-desc">Mindset, discipline, and personal standards to become stronger and more intentional.</p>
+          <span class="ebook-buy">Buy Now →</span>
+        </a>
+        <a href="https://ethosempire.gumroad.com/l/howtobeconfidence?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
+          <img src="../../images/ethos-empire-confidence-guide-ebook-cover-320.webp" alt="Confidence Guide ebook" class="ebook-cover" loading="lazy">
+          <h3 class="ebook-name">Confidence Guide</h3>
+          <p class="ebook-desc">Build real confidence through better habits and a sharper mindset.</p>
+          <span class="ebook-buy">Buy Now →</span>
+        </a>
       </div>
       <a href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer" class="cta-button" style="margin-top:32px;">View All Ebooks →</a>
     </section>
 
+    <!-- Follow Us -->
     <section class="content-section connect-section">
       <h2 class="section-title">Follow Us</h2>
       <p class="body-text">Join the Ethos Empire community.</p>
@@ -216,6 +408,7 @@
       </div>
     </section>
 
+    <!-- Merch -->
     <section class="content-section merch-section">
       <h2 class="section-title">Empire Merch</h2>
       <p class="section-intro">Premium hoodies with gold emblem finish. Minimalist streetwear by Ethos Empire.</p>
@@ -223,11 +416,13 @@
     </section>
     <div style="text-align:center;margin-top:28px;"><a href="https://ethosempireo.printful.me/" target="_blank" rel="noopener noreferrer" class="cta-button">Explore All Merch →</a></div>
 
-    <div class="bottom-nav"><div class="course-nav-row">
-      <a href="../finacial-discipline/" class="course-nav-btn">← Financial Discipline</a>
-      <a href="../" class="back-box">Back to Course</a>
-      <a href="../relationship-code/" class="course-nav-btn">Relationship Code →</a>
-    </div></div>
+    <div class="bottom-nav">
+      <div class="course-nav-row">
+        <a href="../scent-hygiene/" class="course-nav-btn">← Scent & Hygiene</a>
+        <a href="../" class="back-box">Back to Course</a>
+        <a href="../command-the-room/" class="course-nav-btn">Command the Room →</a>
+      </div>
+    </div>
 
   </main>
   <footer class="page-footer">© 2026 Ethos Empire</footer>
@@ -235,7 +430,34 @@
 
   <script src="../../matrix.js"></script>
   <script>
-  (function(){var c=document.getElementById("merchCarousel"),t=document.getElementById("merchTrack");if(!c||!t)return;var h=[{name:"Black",img:"ethos-empire-hoodie-black-gold-logo-400.webp"},{name:"Bone",img:"ethos-empire-hoodie-bone-gold-logo-400.webp"},{name:"Latte",img:"ethos-empire-hoodie-latte-gold-logo-400.webp"},{name:"Lavender",img:"ethos-empire-hoodie-lavender-gold-logo-400.webp"},{name:"Navy",img:"ethos-empire-hoodie-navy-gold-logo-400.webp"},{name:"Oatmeal",img:"ethos-empire-hoodie-oatmeal-gold-logo-400.webp"},{name:"Vintage",img:"ethos-empire-hoodie-vintage-gold-logo-400.webp"},{name:"White",img:"ethos-empire-hoodie-white-gold-logo-400.webp"},{name:"Pink",img:"ethos-empire-hoodie-pink-gold-logo-400.webp"}],u="https://ethosempireo.printful.me/product/ethos-unisex-hoodie",iW=170,sW=h.length*iW;for(var s=0;s<3;s++)h.forEach(function(x){var a=document.createElement("a");a.href=u;a.target="_blank";a.rel="noopener noreferrer";a.className="merch-item";a.draggable=false;a.innerHTML='<img src="../../images/'+x.img+'" alt="'+x.name+' Hoodie" loading="lazy" draggable="false"><span class="merch-name">'+x.name+'</span><span class="merch-buy">Buy →</span>';t.appendChild(a)});var p=0,as=0.4,iD=false,dD=false,sX=0,dP=0,v=0,lX=0,lT=0,mV=0,rT=null,aA=true;function w(n){while(n>0)n-=sW;while(n<-sW*2)n+=sW;return n}function r(){t.style.transform="translateX("+p+"px)"}function tk(){if(!iD){if(Math.abs(mV)>0.3){p+=mV;mV*=0.95}else{mV=0;if(aA)p-=as}p=w(p)}r();requestAnimationFrame(tk)}requestAnimationFrame(tk);c.addEventListener("click",function(e){if(dD){e.preventDefault();e.stopPropagation()}},true);c.addEventListener("mousedown",function(e){bD(e.clientX)});window.addEventListener("mousemove",function(e){if(iD){e.preventDefault();doD(e.clientX)}});window.addEventListener("mouseup",function(){if(iD)eD()});c.addEventListener("touchstart",function(e){bD(e.touches[0].clientX)},{passive:true});c.addEventListener("touchmove",function(e){if(!iD)return;doD(e.touches[0].clientX);if(Math.abs(lX-sX)>10)e.preventDefault()},{passive:false});c.addEventListener("touchend",function(){if(iD)eD()});function bD(x){iD=true;dD=false;sX=x;lX=x;dP=p;mV=0;v=0;lT=Date.now();clearTimeout(rT);aA=false}function doD(x){var d=x-sX;if(Math.abs(d)>10){dD=true;c.classList.add("is-dragging")}var n=Date.now(),dt=n-lT;if(dt>0){v=(x-lX)/dt;lX=x;lT=n}p=w(dP+d);r()}function eD(){iD=false;c.classList.remove("is-dragging");mV=v*120;clearTimeout(rT);rT=setTimeout(function(){aA=true},2500);setTimeout(function(){dD=false},20)}})();
+  (function () {
+    var carousel = document.getElementById("merchCarousel"), track = document.getElementById("merchTrack");
+    if (!carousel || !track) return;
+    var hoodies = [
+      {name:"Black",img:"ethos-empire-hoodie-black-gold-logo-400.webp"},{name:"Bone",img:"ethos-empire-hoodie-bone-gold-logo-400.webp"},
+      {name:"Latte",img:"ethos-empire-hoodie-latte-gold-logo-400.webp"},{name:"Lavender",img:"ethos-empire-hoodie-lavender-gold-logo-400.webp"},
+      {name:"Navy",img:"ethos-empire-hoodie-navy-gold-logo-400.webp"},{name:"Oatmeal",img:"ethos-empire-hoodie-oatmeal-gold-logo-400.webp"},
+      {name:"Vintage",img:"ethos-empire-hoodie-vintage-gold-logo-400.webp"},{name:"White",img:"ethos-empire-hoodie-white-gold-logo-400.webp"},
+      {name:"Pink",img:"ethos-empire-hoodie-pink-gold-logo-400.webp"}
+    ];
+    var url="https://ethosempireo.printful.me/product/ethos-unisex-hoodie",itemW=170,setW=hoodies.length*itemW;
+    for(var s=0;s<3;s++) hoodies.forEach(function(h){var a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener noreferrer";a.className="merch-item";a.draggable=false;a.innerHTML='<img src="../../images/'+h.img+'" alt="'+h.name+' Hoodie" loading="lazy" draggable="false"><span class="merch-name">'+h.name+'</span><span class="merch-buy">Buy →</span>';track.appendChild(a);});
+    var pos=0,autoSpeed=0.4,isDragging=false,didDrag=false,startX=0,dragStartPos=0,velocity=0,lastX=0,lastTime=0,momentumV=0,resumeTimer=null,autoActive=true;
+    function wrap(p){while(p>0)p-=setW;while(p<-setW*2)p+=setW;return p;}
+    function render(){track.style.transform="translateX("+pos+"px)";}
+    function tick(){if(!isDragging){if(Math.abs(momentumV)>0.3){pos+=momentumV;momentumV*=0.95;}else{momentumV=0;if(autoActive)pos-=autoSpeed;}pos=wrap(pos);}render();requestAnimationFrame(tick);}
+    requestAnimationFrame(tick);
+    carousel.addEventListener("click",function(e){if(didDrag){e.preventDefault();e.stopPropagation();}},true);
+    carousel.addEventListener("mousedown",function(e){beginDrag(e.clientX);});
+    window.addEventListener("mousemove",function(e){if(isDragging){e.preventDefault();doDrag(e.clientX);}});
+    window.addEventListener("mouseup",function(){if(isDragging)endDrag();});
+    carousel.addEventListener("touchstart",function(e){beginDrag(e.touches[0].clientX);},{passive:true});
+    carousel.addEventListener("touchmove",function(e){if(!isDragging)return;doDrag(e.touches[0].clientX);if(Math.abs(lastX-startX)>10)e.preventDefault();},{passive:false});
+    carousel.addEventListener("touchend",function(){if(isDragging)endDrag();});
+    function beginDrag(x){isDragging=true;didDrag=false;startX=x;lastX=x;dragStartPos=pos;momentumV=0;velocity=0;lastTime=Date.now();clearTimeout(resumeTimer);autoActive=false;}
+    function doDrag(x){var delta=x-startX;if(Math.abs(delta)>10){didDrag=true;carousel.classList.add("is-dragging");}var now=Date.now(),dt=now-lastTime;if(dt>0){velocity=(x-lastX)/dt;lastX=x;lastTime=now;}pos=wrap(dragStartPos+delta);render();}
+    function endDrag(){isDragging=false;carousel.classList.remove("is-dragging");momentumV=velocity*120;clearTimeout(resumeTimer);resumeTimer=setTimeout(function(){autoActive=true;},2500);setTimeout(function(){didDrag=false;},20);}
+  })();
   </script>
 </body>
 </html>
