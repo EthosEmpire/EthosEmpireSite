@@ -504,6 +504,52 @@ summary:focus-visible {
   filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.18));
 }
 
+/* Social horizontal scroll */
+.social-scroll-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 0 -24px;
+  padding: 0 24px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+}
+
+.social-scroll-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 8px 32px 12px;
+  cursor: grab;
+}
+
+.social-scroll-track:active {
+  cursor: grabbing;
+}
+
+.social-scroll-track::-webkit-scrollbar {
+  display: none;
+}
+
+.social-scroll-track .social-link {
+  flex: 0 0 auto;
+  min-width: 88px;
+  scroll-snap-align: center;
+}
+
+@media (min-width: 768px) {
+  .social-scroll-track {
+    gap: 24px;
+    padding: 8px 48px 12px;
+  }
+
+  .social-scroll-track .social-link {
+    min-width: 96px;
+  }
+}
+
 /* ---------------------------------
    Carousels
 --------------------------------- */
