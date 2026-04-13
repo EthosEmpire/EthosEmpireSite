@@ -719,8 +719,10 @@
         Follow Us
       </h2>
 
-      <div class="social-scroll-wrapper">
-        <div class="social-scroll-track text-sm">
+      <div class="social-scroll-wrapper" id="socialWrapper">
+        <button class="social-arrow social-arrow-left" id="socialArrowLeft" aria-label="Scroll left">‹</button>
+
+        <div class="social-scroll-track text-sm" id="socialTrack">
           <a href="https://www.instagram.com/ethos_empie/" target="_blank" rel="noopener noreferrer" class="social-link">
             <img src="images/instagram.webp" class="social-icon" alt="Instagram" loading="lazy" decoding="async">Instagram
           </a>
@@ -749,6 +751,14 @@
             <img src="images/pintrest.webp" class="social-icon" alt="Pinterest" loading="lazy" decoding="async">Pinterest
           </a>
         </div>
+
+        <button class="social-arrow social-arrow-right" id="socialArrowRight" aria-label="Scroll right">›</button>
+      </div>
+
+      <div class="social-dots" id="socialDots" aria-hidden="true">
+        <span class="social-dot active"></span>
+        <span class="social-dot"></span>
+        <span class="social-dot"></span>
       </div>
     </section>
 
@@ -1093,5 +1103,49 @@
   <script src="matrix.js"></script>
   <script src="carousel.js"></script>
   <script src="java.js"></script>
+
+  <script>
+  (function () {
+    const track = document.getElementById("socialTrack");
+    const arrowL = document.getElementById("socialArrowLeft");
+    const arrowR = document.getElementById("socialArrowRight");
+    const dotsWrap = document.getElementById("socialDots");
+    if (!track || !arrowL || !arrowR || !dotsWrap) return;
+
+    const dots = dotsWrap.querySelectorAll(".social-dot");
+    const scrollAmount = 220;
+
+    function update() {
+      const scrollLeft = track.scrollLeft;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+
+      arrowL.classList.toggle("hidden", scrollLeft <= 4);
+      arrowR.classList.toggle("hidden", scrollLeft >= maxScroll - 4);
+
+      if (dots.length === 3) {
+        const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
+        let active = 0;
+        if (progress > 0.66) active = 2;
+        else if (progress > 0.25) active = 1;
+        dots.forEach(function (d, i) {
+          d.classList.toggle("active", i === active);
+        });
+      }
+    }
+
+    arrowL.addEventListener("click", function () {
+      track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+
+    arrowR.addEventListener("click", function () {
+      track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    window.addEventListener("load", update);
+    update();
+  })();
+  </script>
 </body>
 </html>
