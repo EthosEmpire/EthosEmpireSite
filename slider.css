@@ -1,0 +1,604 @@
+/* ============================================================
+   ETHOS EMPIRE — SLIDER.CSS
+   Full-page snap scroll engine + cinematic section styles
+   ============================================================ */
+
+/* ──────────────────────────────────────────────
+   PILLAR ANIMATION CANVAS WRAP
+   ────────────────────────────────────────────── */
+.pillar-anim-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;        /* above bg-num/orb, below pillar-content (z-index:2) */
+  overflow: hidden;
+}
+
+.pillar-anim-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  /* dim on mobile — text is centered so animation is behind it */
+  .pillar-anim-wrap { opacity: 0.35; }
+}
+
+/* ──────────────────────────────────────────────
+   SNAP CONTAINER & BODY LOCK
+   ────────────────────────────────────────────── */
+body.snap-ready {
+  overflow: hidden !important;
+  height: 100vh;
+  height: 100dvh;
+}
+
+#snapContainer {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  overscroll-behavior-y: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  position: relative;
+  z-index: 2;
+}
+
+#snapContainer::-webkit-scrollbar { display: none; }
+
+.snap-section {
+  height: 100vh;
+  height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ──────────────────────────────────────────────
+   SIDE DOT NAVIGATION
+   ────────────────────────────────────────────── */
+.snap-sidenav {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  align-items: center;
+}
+
+.snap-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.16);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.snap-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 215, 0, 0.6);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+.snap-dot:hover::after,
+.snap-dot.is-active::after { opacity: 1; }
+
+.snap-dot.is-active {
+  background: #FFD700;
+  width: 10px;
+  height: 10px;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.6), 0 0 5px rgba(255, 215, 0, 0.9);
+  border-color: #FFD700;
+}
+
+.snap-dot:hover:not(.is-active) { background: rgba(255, 215, 0, 0.38); }
+
+@media (max-width: 600px) {
+  .snap-sidenav { right: 10px; gap: 8px; }
+  .snap-dot::after { display: none; }
+}
+
+/* ──────────────────────────────────────────────
+   TOP PROGRESS LINE
+   ────────────────────────────────────────────── */
+.snap-progress-line {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 400;
+  background: rgba(255, 215, 0, 0.07);
+  pointer-events: none;
+}
+
+.snap-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #ffd700 35%, #ffe082);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.45);
+}
+
+/* ──────────────────────────────────────────────
+   STAGGERED REVEAL SYSTEM
+   ────────────────────────────────────────────── */
+.snap-reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  filter: blur(6px);
+  transition:
+    opacity 0.85s cubic-bezier(0.2, 0.75, 0.2, 1),
+    transform 0.85s cubic-bezier(0.2, 0.75, 0.2, 1),
+    filter 0.7s ease;
+  will-change: opacity, transform, filter;
+}
+
+.snap-section.in-view .snap-reveal {
+  opacity: 1; transform: none; filter: none;
+}
+.snap-section.in-view .snap-reveal:nth-child(1) { transition-delay: 0.04s; }
+.snap-section.in-view .snap-reveal:nth-child(2) { transition-delay: 0.17s; }
+.snap-section.in-view .snap-reveal:nth-child(3) { transition-delay: 0.30s; }
+.snap-section.in-view .snap-reveal:nth-child(4) { transition-delay: 0.43s; }
+.snap-section.in-view .snap-reveal:nth-child(5) { transition-delay: 0.56s; }
+.snap-section.in-view .snap-reveal:nth-child(6) { transition-delay: 0.69s; }
+
+/* ──────────────────────────────────────────────
+   HERO SECTION
+   ────────────────────────────────────────────── */
+.snap-hero { padding: 0 24px; }
+
+/* Pulsing rings behind the logo */
+.hero-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  pointer-events: none;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ringPulse 4.2s ease-in-out infinite;
+}
+.hero-ring:nth-child(1) { width: 230px; height: 230px; }
+.hero-ring:nth-child(2) { width: 320px; height: 320px; border-color: rgba(255,215,0,0.055); animation-delay: 0.9s; }
+.hero-ring:nth-child(3) { width: 420px; height: 420px; border-color: rgba(255,215,0,0.03); animation-delay: 1.8s; }
+
+@keyframes ringPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.06); opacity: 0.28; }
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  max-width: 820px; width: 100%;
+}
+
+/* Scroll cue at bottom */
+.hero-scroll-cue {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  opacity: 0;
+  animation: cueIn 0.9s ease 3s forwards;
+  z-index: 3;
+}
+.hero-scroll-cue-label {
+  font-size: 9px; font-weight: 800; letter-spacing: 0.38em;
+  text-transform: uppercase; color: rgba(255, 215, 0, 0.38);
+}
+.hero-scroll-cue-bar {
+  width: 1px; height: 38px;
+  background: linear-gradient(to bottom, rgba(255,215,0,0.5), transparent);
+  animation: barDrop 1.7s ease-in-out infinite;
+}
+
+@keyframes barDrop {
+  0%   { transform: scaleY(0); transform-origin: top;    opacity: 1; }
+  45%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
+  55%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+@keyframes cueIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ──────────────────────────────────────────────
+   MARQUEE TICKER (hero bottom band)
+   ────────────────────────────────────────────── */
+.snap-marquee {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 30px; overflow: hidden;
+  display: flex; align-items: center;
+  border-top: 1px solid rgba(255, 215, 0, 0.05);
+  background: rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+}
+
+.snap-marquee-track {
+  display: flex; white-space: nowrap;
+  animation: mqRoll 24s linear infinite;
+  will-change: transform;
+}
+
+.snap-mq-item {
+  font-size: 8px; font-weight: 900;
+  letter-spacing: 0.45em; text-transform: uppercase;
+  padding: 0 26px; color: rgba(255, 215, 0, 0.14);
+}
+.snap-mq-item.hi { color: rgba(255, 215, 0, 0.3); }
+
+@keyframes mqRoll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ──────────────────────────────────────────────
+   MANIFESTO / STATS SECTION
+   ────────────────────────────────────────────── */
+.snap-manifesto { padding: 32px 28px; }
+
+.manifesto-headline {
+  font-size: clamp(3.8rem, 13vw, 11rem);
+  font-weight: 900; line-height: 0.88;
+  letter-spacing: -0.03em; text-align: center;
+  background: linear-gradient(135deg, #fff8dc, #ffd966, #c9952a, #ffeea0);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.manifesto-sub {
+  font-size: clamp(0.88rem, 2vw, 1.05rem);
+  letter-spacing: 0.06em; font-style: italic;
+  color: rgba(212, 175, 55, 0.6); text-align: center;
+  margin-bottom: 36px;
+}
+
+.manifesto-rule {
+  width: 0; height: 1px; margin: 0 auto 36px;
+  background: linear-gradient(to right, transparent, rgba(255,215,0,0.5), transparent);
+  transition: width 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) 0.3s;
+}
+.snap-section.in-view .manifesto-rule { width: 160px; }
+
+.stats-trio {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px; width: 100%; max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.stat-box {
+  text-align: center; padding: 22px 10px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.024);
+  backdrop-filter: blur(14px);
+  position: relative; overflow: hidden;
+}
+
+.stat-box::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 55%; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,215,0,0.45), transparent);
+}
+
+.stat-num {
+  display: block;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900; line-height: 1;
+  background: linear-gradient(135deg, #ffd700, #c9952a);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-feature-settings: "tnum";
+}
+
+.stat-desc {
+  display: block; margin-top: 8px;
+  font-size: 9px; font-weight: 800;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.58);
+}
+
+.manifesto-date {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255, 215, 0, 0.27); text-align: center;
+}
+
+/* ──────────────────────────────────────────────
+   PILLAR SECTIONS (01–04)
+   ────────────────────────────────────────────── */
+.snap-pillar {
+  align-items: flex-start;
+  padding-left: clamp(28px, 9vw, 160px);
+  padding-right: clamp(28px, 5vw, 80px);
+  padding-top: 0; padding-bottom: 0;
+}
+
+/* Giant background number */
+.pillar-bg-num {
+  position: absolute;
+  font-size: clamp(160px, 28vw, 400px);
+  font-weight: 900; line-height: 1;
+  right: -3%; bottom: -10%;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 215, 0, 0.048);
+  user-select: none; pointer-events: none;
+  letter-spacing: -0.04em;
+  animation: numFloat 10s ease-in-out infinite;
+  will-change: transform; z-index: 0;
+}
+
+@keyframes numFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-16px) scale(1.018); }
+}
+
+/* Ambient glow orb */
+.pillar-orb {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle at 38% 38%,
+    rgba(255, 215, 0, 0.1), rgba(201, 149, 42, 0.05) 48%, transparent 68%);
+  filter: blur(80px);
+  pointer-events: none; z-index: 0;
+  animation: orbDrift 9s ease-in-out infinite;
+  will-change: transform;
+}
+.pillar-orb.pos-tr { width: clamp(300px, 52vw, 680px); height: clamp(300px, 52vw, 680px); right: 2%; top: 6%; }
+.pillar-orb.pos-bl { width: clamp(300px, 52vw, 680px); height: clamp(300px, 52vw, 680px); left: -10%; bottom: 2%; animation-delay: -3s; }
+.pillar-orb.pos-tl { width: clamp(300px, 52vw, 680px); height: clamp(300px, 52vw, 680px); left: 2%; top: 6%; animation-delay: -6s; }
+.pillar-orb.pos-br { width: clamp(300px, 52vw, 680px); height: clamp(300px, 52vw, 680px); right: -4%; bottom: 6%; animation-delay: -1.5s; }
+
+@keyframes orbDrift {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-18px, -22px); }
+  66% { transform: translate(14px, -12px); }
+}
+
+/* Vertical side text */
+.pillar-vert {
+  position: absolute; left: clamp(8px, 1.6vw, 22px); top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-lr;
+  font-size: 9px; font-weight: 900;
+  letter-spacing: 0.55em; text-transform: uppercase;
+  color: rgba(255, 215, 0, 0.09);
+  user-select: none; pointer-events: none; white-space: nowrap;
+}
+
+/* Section content */
+.pillar-content { position: relative; z-index: 2; max-width: 660px; }
+
+.pillar-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(255, 215, 0, 0.48); margin-bottom: 18px;
+}
+.pillar-eyebrow::before {
+  content: ''; width: 30px; height: 1px; flex-shrink: 0;
+  background: linear-gradient(to right, rgba(255,215,0,0.45), transparent);
+}
+
+.pillar-headline {
+  font-size: clamp(2.8rem, 7.5vw, 7.5rem);
+  font-weight: 900; line-height: 0.95;
+  letter-spacing: -0.025em; margin: 0 0 22px; padding-bottom: 0.20em; color: #fff;
+}
+.pillar-headline .line-gold {
+  display: block;
+  background: linear-gradient(135deg, #ffd700, #c9952a);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated rule line */
+.pillar-rule {
+  width: 0; height: 2px; margin-bottom: 26px;
+  background: linear-gradient(90deg, #ffd700, rgba(201,149,42,0));
+  border-radius: 2px;
+  transition: width 0.95s cubic-bezier(0.2, 0.75, 0.2, 1) 0.4s;
+}
+.snap-section.in-view .pillar-rule { width: 68px; }
+
+.pillar-body {
+  font-size: clamp(0.97rem, 2vw, 1.12rem);
+  line-height: 1.82; color: rgba(212, 175, 55, 0.8);
+  max-width: 50ch; margin-bottom: 38px;
+}
+
+.pillar-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: #FFD700; text-decoration: none;
+  padding: 14px 30px;
+  border: 1px solid rgba(255, 215, 0, 0.26);
+  border-radius: 999px;
+  transition: all 0.32s ease;
+  position: relative; overflow: hidden;
+}
+.pillar-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255, 215, 0, 0.07);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.32s ease;
+}
+.pillar-cta:hover::before { transform: scaleX(1); }
+.pillar-cta:hover { border-color: rgba(255, 215, 0, 0.52); letter-spacing: 0.3em; }
+.pillar-cta .arrow { transition: transform 0.28s ease; display: inline-block; }
+.pillar-cta:hover .arrow { transform: translateX(6px); }
+
+/* Section index counter (bottom-right) */
+.pillar-counter {
+  position: absolute; bottom: 22px; right: 28px; z-index: 3;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.18em;
+  color: rgba(255, 215, 0, 0.16); user-select: none; pointer-events: none;
+  font-feature-settings: "tnum";
+}
+
+/* Mobile: center everything */
+@media (max-width: 767px) {
+  .snap-pillar { align-items: center; padding: 24px 28px; }
+  .pillar-content { text-align: center; }
+  .pillar-eyebrow { justify-content: center; }
+  .pillar-rule { margin-left: auto; margin-right: auto; }
+  .pillar-body { max-width: 100%; }
+  .pillar-vert { display: none; }
+  .pillar-bg-num { right: -8%; bottom: -4%; }
+}
+
+/* ──────────────────────────────────────────────
+   KNOWLEDGE & MERCH SECTIONS
+   ────────────────────────────────────────────── */
+.snap-library,
+.snap-merch-sec {
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 36px 0 16px;
+  gap: 0;
+  align-items: stretch;
+}
+
+.snap-section-header {
+  text-align: center; padding: 0 24px;
+  margin-bottom: 16px; flex-shrink: 0; width: 100%;
+}
+
+.snap-section-eyebrow {
+  display: block; font-size: 9px; font-weight: 800;
+  letter-spacing: 0.44em; text-transform: uppercase;
+  color: rgba(197, 165, 90, 0.65); margin-bottom: 8px;
+}
+
+.snap-section-title {
+  font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+  font-weight: 900; color: #fff; margin: 0 0 6px; line-height: 1.1;
+}
+.snap-section-title span {
+  background: linear-gradient(135deg, #ffd700, #c9952a);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.snap-section-hint {
+  font-size: 10px; color: rgba(160, 120, 40, 0.65);
+  letter-spacing: 0.12em;
+}
+
+.snap-library .ebook-wrapper,
+.snap-merch-sec .ebook-wrapper { width: 100%; flex-shrink: 0; }
+
+/* ──────────────────────────────────────────────
+   CONNECT SECTION
+   ────────────────────────────────────────────── */
+.snap-connect {
+  flex-direction: column; gap: 28px;
+  justify-content: center; padding: 32px 24px;
+}
+
+.connect-cta-card {
+  text-align: center; max-width: 620px; width: 100%;
+  padding: 36px 28px;
+  border: 1px solid rgba(255, 215, 0, 0.13);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018));
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+
+.connect-headline {
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+  font-weight: 900; color: #C9952A; margin: 0 0 12px; line-height: 1.15;
+}
+
+.connect-sub {
+  color: rgba(160, 120, 40, 0.82);
+  line-height: 1.72; margin-bottom: 22px;
+  max-width: 44ch; margin-left: auto; margin-right: auto;
+}
+
+.connect-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 34px; border-radius: 999px;
+  font-weight: 900; font-size: 14px; color: #000;
+  background: linear-gradient(90deg, #ffd700, #c9952a);
+  text-decoration: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: 0 14px 32px rgba(201, 149, 42, 0.24);
+  letter-spacing: 0.03em;
+}
+.connect-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 18px 38px rgba(201, 149, 42, 0.36);
+}
+
+/* Social strip inside connect */
+.connect-social-wrap {
+  width: 100%; max-width: 620px;
+}
+
+/* ──────────────────────────────────────────────
+   FAQ ZONE  (non-snap, scrolls naturally below)
+   ────────────────────────────────────────────── */
+.snap-faq-zone {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 60px 24px 48px;
+  max-width: 820px; margin: 0 auto; width: 100%;
+}
+
+.faq-zone-eyebrow {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.42em; text-transform: uppercase;
+  color: rgba(197, 165, 90, 0.65);
+  text-align: center; display: block; margin-bottom: 24px;
+}
+
+/* ──────────────────────────────────────────────
+   REDUCED MOTION
+   ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  #snapContainer { scroll-snap-type: none; }
+
+  .snap-reveal {
+    opacity: 1 !important; transform: none !important;
+    filter: none !important; transition: none !important;
+  }
+  .pillar-rule { width: 68px !important; transition: none !important; }
+  .manifesto-rule { width: 160px !important; transition: none !important; }
+
+  .pillar-bg-num, .pillar-orb, .hero-ring,
+  .snap-marquee-track, .hero-scroll-cue-bar {
+    animation: none !important;
+  }
+}
