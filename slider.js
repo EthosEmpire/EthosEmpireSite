@@ -1,25 +1,36 @@
 /* ============================================================
-   ETHOS EMPIRE — SLIDER.JS
-   Snap scroll engine: side nav, progress, reveals, stat count
+   ETHOS EMPIRE — SLIDER.JS  v2
+   Cinematic 1-scroll-1-page engine
+   • Wheel / touch / keyboard all fire one section at a time
+   • Locked during animation — no skipping, no stuttering
+   • .snap-track transform drives layout (no browser scroll-snap)
+   • In-view class fires immediately → content reveals alongside slide
    ============================================================ */
 (function () {
   'use strict';
 
   const SECTIONS_CONFIG = [
-    { id: 'snap-hero',         label: 'Home'       },
-    { id: 'snap-manifesto',    label: 'Mission'    },
-    { id: 'snap-discipline',   label: 'Discipline' },
-    { id: 'snap-confidence',   label: 'Confidence' },
-    { id: 'snap-health',       label: 'Health'     },
-    { id: 'snap-legacy',       label: 'Legacy'     },
-    { id: 'snap-knowledge',    label: 'Ebooks'     },
-    { id: 'snap-merch-sec',    label: 'Merch'      },
-    { id: 'snap-connect',      label: 'Connect'    },
-    { id: 'snap-faq',          label: 'FAQ'        },
+    { id: 'snap-hero',       label: 'Home'       },
+    { id: 'snap-manifesto',  label: 'Mission'    },
+    { id: 'snap-discipline', label: 'Discipline' },
+    { id: 'snap-confidence', label: 'Confidence' },
+    { id: 'snap-health',     label: 'Health'     },
+    { id: 'snap-legacy',     label: 'Legacy'     },
+    { id: 'snap-knowledge',  label: 'Ebooks'     },
+    { id: 'snap-merch-sec',  label: 'Merch'      },
+    { id: 'snap-connect',    label: 'Connect'    },
+    { id: 'snap-faq',        label: 'FAQ'        },
   ];
 
-  let container, sections, dots;
+  /* ── timing ── */
+  const SLIDE_MS   = 1000;
+  const SLIDE_EASE = 'cubic-bezier(0.77, 0, 0.175, 1)';
+  const WHEEL_THRESHOLD = 30;
+  const TOUCH_THRESHOLD = 48;
+
+  let container, track, sections, dots, counter;
   let current   = 0;
+  let animating = false;
   let statDone  = false;
 
   /* ──────────────────────────────────────────────
@@ -31,7 +42,7 @@
 
     document.body.classList.add('snap-ready');
 
-    // Suppress the old window-scroll progress bar
+    /* hide legacy window-scroll bar */
     const legacyBar = document.querySelector('.scroll-progress');
     if (legacyBar) legacyBar.style.display = 'none';
 
@@ -39,15 +50,37 @@
       .map(s => document.getElementById(s.id))
       .filter(Boolean);
 
+    buildTrack();
     buildProgressLine();
     buildSideNav();
-    observeSections();
+    buildCounter();
+    setupWheel();
+    setupTouch();
     setupKeys();
     hookAnchorLinks();
+
+    /* show first section */
+    goTo(0, false);
   }
 
   /* ──────────────────────────────────────────────
-     PROGRESS LINE (fixed top bar)
+     TRACK WRAPPER
+     All sections live inside .snap-track.
+     JS moves it with transform: translateY(-N*100vh)
+     ────────────────────────────────────────────── */
+  function buildTrack() {
+    track = document.createElement('div');
+    track.className = 'snap-track';
+
+    /* move all children into track */
+    while (container.firstChild) {
+      track.appendChild(container.firstChild);
+    }
+    container.appendChild(track);
+  }
+
+  /* ──────────────────────────────────────────────
+     PROGRESS LINE
      ────────────────────────────────────────────── */
   function buildProgressLine() {
     const bar = document.createElement('div');
@@ -63,7 +96,7 @@
   }
 
   /* ──────────────────────────────────────────────
-     SIDE NAV DOTS
+     SIDE DOT NAV
      ────────────────────────────────────────────── */
   function buildSideNav() {
     const nav = document.createElement('nav');
@@ -72,7 +105,7 @@
 
     dots = SECTIONS_CONFIG.map((s, i) => {
       const btn = document.createElement('button');
-      btn.className  = 'snap-dot' + (i === 0 ? ' is-active' : '');
+      btn.className  = 'snap-dot';
       btn.dataset.label = s.label;
       btn.setAttribute('aria-label', 'Go to ' + s.label);
       btn.addEventListener('click', () => goTo(i));
@@ -83,42 +116,147 @@
     document.body.appendChild(nav);
   }
 
-  function setActive(index) {
-    if (index === current && dots[index]?.classList.contains('is-active')) return;
-    current = index;
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
-    setProgress(index);
+  /* ──────────────────────────────────────────────
+     SECTION COUNTER  e.g. "03 / 10"
+     ────────────────────────────────────────────── */
+  function buildCounter() {
+    counter = document.createElement('div');
+    counter.className = 'snap-counter';
+    document.body.appendChild(counter);
+  }
+
+  function updateCounter(index) {
+    if (!counter) return;
+    const n   = String(index + 1).padStart(2, '0');
+    const tot = String(sections.length).padStart(2, '0');
+    counter.innerHTML = `<span class="snap-counter-cur">${n}</span><span class="snap-counter-sep"> / </span><span class="snap-counter-tot">${tot}</span>`;
   }
 
   /* ──────────────────────────────────────────────
-     INTERSECTION OBSERVER
-     Triggers .in-view → CSS staggered reveals
+     GO TO — core navigation
      ────────────────────────────────────────────── */
-  function observeSections() {
-    const obs = new IntersectionObserver(onIntersect, {
-      root: container,
-      threshold: [0.1, 0.55]
+  function goTo(index, animate) {
+    if (animate === undefined) animate = true;
+    if (index < 0 || index >= sections.length) return;
+    if (animating && animate) return;
+    if (index === current && animate) return;
+
+    const prev = current;
+    current = index;
+
+    if (animate) {
+      animating = true;
+    }
+
+    /* move track */
+    track.style.transition = animate
+      ? `transform ${SLIDE_MS}ms ${SLIDE_EASE}`
+      : 'none';
+    track.style.transform = `translateY(calc(-${index} * var(--vh, 100vh)))`;
+
+    /* update in-view immediately so reveals fire alongside slide */
+    sections.forEach((s, i) => {
+      s.classList.toggle('in-view', i === index);
     });
-    sections.forEach(s => obs.observe(s));
+
+    /* stat count on manifesto section */
+    if (sections[index].id === 'snap-manifesto' && !statDone) {
+      statDone = true;
+      window.setTimeout(() => countStats(sections[index]), 380);
+    }
+
+    /* ui */
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+    setProgress(index);
+    updateCounter(index);
+
+    /* unlock */
+    if (animate) {
+      window.setTimeout(() => { animating = false; }, SLIDE_MS + 60);
+    }
   }
 
-  function onIntersect(entries) {
-    entries.forEach(entry => {
-      const sec = entry.target;
-      const idx = sections.indexOf(sec);
+  /* ──────────────────────────────────────────────
+     WHEEL — one delta burst = one section
+     Handles both mouse wheel (large delta) and
+     trackpad (many small deltas → accumulate)
+     ────────────────────────────────────────────── */
+  let wheelAccum = 0;
+  let wheelCooldown = false;
 
-      if (entry.intersectionRatio >= 0.55) {
-        sec.classList.add('in-view');
-        if (idx >= 0) setActive(idx);
+  function setupWheel() {
+    container.addEventListener('wheel', (e) => {
+      /* let Ctrl+scroll / Cmd+scroll pass through for browser zoom */
+      if (e.ctrlKey || e.metaKey) return;
 
-        // Trigger stat animation exactly once
-        if (sec.id === 'snap-manifesto' && !statDone) {
-          statDone = true;
-          window.setTimeout(() => countStats(sec), 300);
-        }
-      } else if (entry.intersectionRatio < 0.1) {
-        // Reset so animation replays on re-entry
-        sec.classList.remove('in-view');
+      e.preventDefault();
+      if (animating) return;
+
+      wheelAccum += e.deltaY;
+
+      if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD && !wheelCooldown) {
+        const dir = wheelAccum > 0 ? 1 : -1;
+        wheelAccum = 0;
+        wheelCooldown = true;
+        goTo(current + dir);
+        window.setTimeout(() => { wheelCooldown = false; }, SLIDE_MS + 80);
+      }
+    }, { passive: false });
+  }
+
+  /* ──────────────────────────────────────────────
+     TOUCH SWIPE
+     ────────────────────────────────────────────── */
+  let touchStartY = 0;
+  let touchStartX = 0;
+
+  function setupTouch() {
+    container.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+      if (animating) return;
+      const dy = touchStartY - e.changedTouches[0].clientY;
+      const dx = Math.abs(touchStartX - e.changedTouches[0].clientX);
+      if (Math.abs(dy) > TOUCH_THRESHOLD && Math.abs(dy) > dx * 1.5) {
+        goTo(current + (dy > 0 ? 1 : -1));
+      }
+    }, { passive: true });
+  }
+
+  /* ──────────────────────────────────────────────
+     KEYBOARD
+     ────────────────────────────────────────────── */
+  function setupKeys() {
+    document.addEventListener('keydown', e => {
+      if (document.querySelector('.modal-overlay.open')) return;
+
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        goTo(current + 1);
+      }
+      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        goTo(current - 1);
+      }
+    });
+  }
+
+  /* ──────────────────────────────────────────────
+     ANCHOR LINKS  (#snap-xxx)
+     ────────────────────────────────────────────── */
+  function hookAnchorLinks() {
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      const id  = a.getAttribute('href').replace('#', '');
+      const el  = document.getElementById(id);
+      const idx = sections.indexOf(el);
+      if (idx >= 0) {
+        e.preventDefault();
+        goTo(idx);
       }
     });
   }
@@ -130,70 +268,31 @@
     section.querySelectorAll('[data-count]').forEach(el => {
       const target = parseInt(el.dataset.count, 10);
       if (isNaN(target)) return;
-
-      const dur = 1300;
+      const dur = 1400;
       const t0  = performance.now();
-
       const tick = now => {
-        const progress = Math.min(1, (now - t0) / dur);
-        const eased    = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-        el.textContent = Math.round(target * eased);
-        if (progress < 1) requestAnimationFrame(tick);
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * e);
+        if (p < 1) requestAnimationFrame(tick);
         else el.textContent = target;
       };
-
       requestAnimationFrame(tick);
     });
   }
 
   /* ──────────────────────────────────────────────
-     NAVIGATION
+     vh UNIT  — handles mobile address-bar resize
      ────────────────────────────────────────────── */
-  function goTo(index) {
-    if (!sections[index] || !container) return;
-    container.scrollTo({
-      top: sections[index].offsetTop,
-      behavior: 'smooth'
-    });
+  function syncVh() {
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
   }
-
-  /* Arrow & PageUp/PageDown keyboard nav */
-  function setupKeys() {
-    document.addEventListener('keydown', e => {
-      // Don't steal keys when a modal is open
-      if (document.querySelector('.modal-overlay.open')) return;
-
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        e.preventDefault();
-        goTo(Math.min(current + 1, sections.length - 1));
-      }
-      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault();
-        goTo(Math.max(current - 1, 0));
-      }
-    });
-  }
-
-  /* Make any anchor link that targets a snap section
-     scroll within the container instead of the window */
-  function hookAnchorLinks() {
-    document.addEventListener('click', e => {
-      const a = e.target.closest('a[href^="#snap-"], a[href^="#"]');
-      if (!a) return;
-
-      const targetId  = a.getAttribute('href').replace('#', '');
-      const targetEl  = document.getElementById(targetId);
-      const sectionIdx = sections.indexOf(targetEl);
-
-      if (sectionIdx >= 0 && container) {
-        e.preventDefault();
-        goTo(sectionIdx);
-      }
-    });
-  }
+  syncVh();
+  window.addEventListener('resize', syncVh);
+  window.addEventListener('orientationchange', () => window.setTimeout(syncVh, 120));
 
   /* ──────────────────────────────────────────────
-     BOOT ENTRY POINT
+     BOOT
      ────────────────────────────────────────────── */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

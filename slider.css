@@ -26,7 +26,8 @@
 }
 
 /* ──────────────────────────────────────────────
-   SNAP CONTAINER & BODY LOCK
+   CINEMATIC SNAP — JS-driven track, no scroll-snap
+   1 scroll / swipe / key = exactly 1 section
    ────────────────────────────────────────────── */
 body.snap-ready {
   overflow: hidden !important;
@@ -36,23 +37,24 @@ body.snap-ready {
 
 #snapContainer {
   height: 100vh;
-  height: 100dvh;
-  overflow-y: scroll;
-  scroll-snap-type: y proximity;
-  overscroll-behavior-y: none;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  height: var(--vh, 100vh);
+  overflow: hidden;           /* track moves, container stays fixed */
   position: relative;
   z-index: 2;
 }
 
-#snapContainer::-webkit-scrollbar { display: none; }
+/* ── Track — animated by slider.js goTo() ── */
+.snap-track {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  will-change: transform;
+  /* transition set by JS; default here for instant on load */
+  transition: none;
+}
 
 .snap-section {
   height: 100vh;
-  height: 100dvh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  height: var(--vh, 100vh);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -584,17 +586,19 @@ body.snap-ready {
   text-align: center; display: block; margin-bottom: 24px;
 }
 
+
 /* ──────────────────────────────────────────────
-   REDUCED MOTION
+   REDUCED MOTION — override for the new engine
    ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  #snapContainer { scroll-snap-type: none; }
+  .snap-track { transition: none !important; }
+  .snap-flash  { display: none !important; }
 
   .snap-reveal {
     opacity: 1 !important; transform: none !important;
     filter: none !important; transition: none !important;
   }
-  .pillar-rule { width: 68px !important; transition: none !important; }
+  .pillar-rule    { width: 68px !important;  transition: none !important; }
   .manifesto-rule { width: 160px !important; transition: none !important; }
 
   .pillar-bg-num, .pillar-orb, .hero-ring,

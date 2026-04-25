@@ -62,7 +62,145 @@
     function drawPulse(px,py,br){const bl=ctx.createRadialGradient(px,py,0,px,py,11);bl.addColorStop(0,`rgba(160,230,255,${(br*.85).toFixed(2)})`);bl.addColorStop(.35,`rgba(0,180,255,${(br*.45).toFixed(2)})`);bl.addColorStop(1,'rgba(0,80,200,0)');ctx.beginPath();ctx.arc(px,py,11,0,TAU);ctx.fillStyle=bl;ctx.shadowBlur=18;ctx.shadowColor='#00DDFF';ctx.fill();ctx.beginPath();ctx.arc(px,py,2.4,0,TAU);ctx.fillStyle=`rgba(255,255,255,${br.toFixed(2)})`;ctx.shadowBlur=12;ctx.shadowColor='#FFF';ctx.fill();ctx.shadowBlur=0;}
     function setup(){cW=canvas.width=wrap.offsetWidth||window.innerWidth;cH=canvas.height=wrap.offsetHeight||window.innerHeight;scene=buildScene();}
     let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(setup,180);});setup();
-    function frame(ts){if(!scene){requestAnimationFrame(frame);return;}const T=ts%LOOP,tf=T/LOOP;const{nodes,edges,pulses}=scene;ctx.clearRect(0,0,cW,cH);const pulse=.5+.5*Math.sin(tf*TAU);const ag=ctx.createRadialGradient(cW*.65,cH*.5,0,cW*.65,cH*.5,Math.min(cW,cH)*(.28+.06*pulse));ag.addColorStop(0,`rgba(55,18,175,${(.05+.025*pulse).toFixed(3)})`);ag.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=ag;ctx.fillRect(0,0,cW,cH);nodes.forEach(n=>{n.x=n.bx+n.dax*Math.sin(tf*TAU*n.dfx+n.dpx);n.y=n.by+n.day*Math.cos(tf*TAU*n.dfy+n.dpy);n.activation=0;});edges.forEach(e=>{e.activity=0;});const live=[];pulses.forEach(p=>{const el=(T-p.startT+LOOP)%LOOP,fd=450;if(el>p.duration+fd)return;const inT=el<=p.duration,prog=inT?el/p.duration:1;if(inT){nodes[p.src].activation=Math.max(nodes[p.src].activation,Math.max(0,1-prog*2.5)*.55);nodes[p.dst].activation=Math.max(nodes[p.dst].activation,Math.pow(prog,1.8)*p.brightness);p.edge.activity=Math.max(p.edge.activity,Math.sin(prog*Math.PI)*p.brightness);live.push({p,prog});}else{nodes[p.dst].activation=Math.max(nodes[p.dst].activation,(1-(el-p.duration)/fd)*p.brightness);}});ctx.lineCap='round';edges.forEach(drawEdge);live.forEach(({p,prog})=>{const a=nodes[p.src],b=nodes[p.dst];const pt=bezPt(a.x,a.y,b.x,b.y,p.edge.curve,prog);drawPulse(pt.x,pt.y,p.brightness);});nodes.forEach(drawNode);requestAnimationFrame(frame);}
+/* ── DISCO BALL v2 ── seamless 20-s loop, transparent back, built on neurons ── */
+    const DISCO_DUST=Array.from({length:28},(_,i)=>({xFrac:.05+sr(i*11+1)*.90,spd:1+Math.floor(sr(i*11+2)*3),ph:sr(i*11+3),r:1+sr(i*11+4)*2.2,hOff:sr(i*11+5)*360}));
+
+    function getDisco(){return{cx:cW*.63,cy:cH*.50,r:Math.min(cW,cH)*.22};}
+
+    function drawHaloRing(tf,cx,cy,radius){
+      const N=40,ringR=radius*1.38,tilt=.40,ringA=tf*TAU;
+      ctx.lineWidth=1.4;
+      for(let i=0;i<N;i++){
+        const a0=ringA+(i/N)*TAU,a1=ringA+((i+.72)/N)*TAU;
+        const hue=(tf*360+i*(360/N))%360,bright=.5+.5*Math.sin(a0*3+tf*TAU*2);
+        ctx.beginPath();
+        ctx.moveTo(cx+Math.cos(a0)*ringR,cy+Math.sin(a0)*ringR*Math.cos(tilt));
+        ctx.lineTo(cx+Math.cos(a1)*ringR,cy+Math.sin(a1)*ringR*Math.cos(tilt));
+        ctx.strokeStyle=`hsla(${hue.toFixed(0)},100%,65%,${(.22+bright*.42).toFixed(3)})`;
+        ctx.shadowBlur=7;ctx.shadowColor=`hsl(${hue.toFixed(0)},100%,60%)`;ctx.stroke();ctx.shadowBlur=0;
+      }
+    }
+
+    function drawDiscoBall(tf,cx,cy,radius){
+      const LAT=16,LON=24;
+      /* rotY = tf*TAU*1  → exactly 1 rotation per 20-s loop → seamless */
+      const rotY=tf*TAU;
+      /* ambient glow — matches other pillar atmospheres */
+      const gh=tf*360,pulse=.5+.5*Math.sin(tf*TAU);
+      const ag=ctx.createRadialGradient(cx,cy,radius*.08,cx,cy,radius*(1.65+.18*pulse));
+      ag.addColorStop(0,`hsla(${gh.toFixed(0)},72%,28%,${(.09+.03*pulse).toFixed(3)})`);
+      ag.addColorStop(.55,`hsla(${gh.toFixed(0)},55%,15%,.03)`);
+      ag.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=ag;ctx.fillRect(0,0,cW,cH);
+      /* hanging wire */
+      ctx.beginPath();ctx.moveTo(cx,cy-radius);ctx.lineTo(cx,0);
+      ctx.strokeStyle='rgba(180,180,195,.20)';ctx.lineWidth=1;ctx.stroke();
+      /* BACK tiles — α .07, no fill → neurons show through */
+      for(let lat=0;lat<LAT;lat++){
+        const phi1=(lat/LAT)*Math.PI-Math.PI/2,phi2=((lat+1)/LAT)*Math.PI-Math.PI/2;
+        const y1=Math.sin(phi1),y2=Math.sin(phi2),r1=Math.cos(phi1),r2=Math.cos(phi2);
+        for(let lon=0;lon<LON;lon++){
+          const th1=(lon/LON)*TAU+rotY,th2=((lon+1)/LON)*TAU+rotY;
+          const thC=(th1+th2)/2,phC=(phi1+phi2)/2;
+          const nz=Math.cos(phC)*Math.sin(thC);
+          if(nz>-.04) continue;
+          const corners=[{sx:cx+r1*Math.cos(th1)*radius,sy:cy-y1*radius},{sx:cx+r1*Math.cos(th2)*radius,sy:cy-y1*radius},{sx:cx+r2*Math.cos(th2)*radius,sy:cy-y2*radius},{sx:cx+r2*Math.cos(th1)*radius,sy:cy-y2*radius}];
+          ctx.beginPath();ctx.moveTo(corners[0].sx,corners[0].sy);for(let k=1;k<4;k++)ctx.lineTo(corners[k].sx,corners[k].sy);ctx.closePath();
+          ctx.fillStyle='rgba(20,20,35,.07)';ctx.strokeStyle='rgba(80,80,120,.08)';ctx.lineWidth=.5;ctx.fill();ctx.stroke();
+        }
+      }
+      /* FRONT tiles — clipped, edgeFade for transparent rim */
+      ctx.save();ctx.beginPath();ctx.arc(cx,cy,radius,0,TAU);ctx.clip();
+      for(let lat=0;lat<LAT;lat++){
+        const phi1=(lat/LAT)*Math.PI-Math.PI/2,phi2=((lat+1)/LAT)*Math.PI-Math.PI/2;
+        const y1=Math.sin(phi1),y2=Math.sin(phi2),r1=Math.cos(phi1),r2=Math.cos(phi2);
+        for(let lon=0;lon<LON;lon++){
+          const th1=(lon/LON)*TAU+rotY,th2=((lon+1)/LON)*TAU+rotY;
+          const thC=(th1+th2)/2,phC=(phi1+phi2)/2;
+          const nz=Math.cos(phC)*Math.sin(thC);
+          if(nz<=0) continue;
+          const specular=Math.max(0,nz),flash=Math.pow(specular,5.2);
+          const edgeFade=Math.pow(specular,.38);
+          const corners=[{sx:cx+r1*Math.cos(th1)*radius,sy:cy-y1*radius},{sx:cx+r1*Math.cos(th2)*radius,sy:cy-y1*radius},{sx:cx+r2*Math.cos(th2)*radius,sy:cy-y2*radius},{sx:cx+r2*Math.cos(th1)*radius,sy:cy-y2*radius}];
+          /* hue = (seed*47 + tf*360) % 360 → tf*360 = 1 full cycle = seamless */
+          const hue=((lat*LON+lon)*47+tf*360)%360;
+          ctx.beginPath();ctx.moveTo(corners[0].sx,corners[0].sy);for(let k=1;k<4;k++)ctx.lineTo(corners[k].sx,corners[k].sy);ctx.closePath();
+          if(flash>.20){
+            ctx.fillStyle=`hsla(${hue.toFixed(0)},100%,${(50+flash*50).toFixed(0)}%,${((.58+flash*.40)*edgeFade).toFixed(2)})`;
+            ctx.shadowBlur=28;ctx.shadowColor=`hsl(${hue.toFixed(0)},100%,72%)`;
+          } else {
+            const g=Math.round(52+specular*90);
+            ctx.fillStyle=`rgba(${g},${g},${Math.round(g*1.22)},${(.68*edgeFade).toFixed(2)})`;
+            ctx.shadowBlur=0;
+          }
+          ctx.fill();ctx.strokeStyle=`rgba(0,0,0,${(.48*edgeFade).toFixed(2)})`;ctx.lineWidth=.6;ctx.stroke();ctx.shadowBlur=0;
+        }
+      }
+      /* sheen overlay */
+      const sh=ctx.createRadialGradient(cx-radius*.30,cy-radius*.33,0,cx,cy,radius);
+      sh.addColorStop(0,'rgba(255,255,255,.13)');sh.addColorStop(.36,'rgba(210,222,255,.03)');sh.addColorStop(1,'rgba(0,0,0,.48)');
+      ctx.beginPath();ctx.arc(cx,cy,radius,0,TAU);ctx.fillStyle=sh;ctx.fill();
+      ctx.restore();
+      /* light beams — tf*TAU*1 = integer → seamless */
+      const NB=14;
+      for(let i=0;i<NB;i++){
+        const bAng=(i/NB)*TAU+tf*TAU+i*.449;
+        const hue=((i*26)+tf*360)%360;
+        const bLen=radius*(1.8+Math.sin(tf*TAU*2+i*1.05)*.85);
+        const bx1=cx+Math.cos(bAng)*(radius*.82),by1=cy+Math.sin(bAng)*(radius*.82);
+        const bx2=cx+Math.cos(bAng)*(radius+bLen),by2=cy+Math.sin(bAng)*(radius+bLen);
+        const lg=ctx.createLinearGradient(bx1,by1,bx2,by2);
+        lg.addColorStop(0,`hsla(${hue.toFixed(0)},100%,70%,.48)`);lg.addColorStop(1,`hsla(${hue.toFixed(0)},100%,70%,0)`);
+        ctx.beginPath();ctx.moveTo(bx1,by1);ctx.lineTo(bx2,by2);
+        ctx.strokeStyle=lg;ctx.lineWidth=1.2+Math.sin(tf*TAU*2+i)*.3;
+        ctx.shadowBlur=9;ctx.shadowColor=`hsl(${hue.toFixed(0)},100%,70%)`;ctx.stroke();ctx.shadowBlur=0;
+      }
+    }
+
+    function drawOrbitBall(tf,cx,cy,radius){
+      const oRx=radius*2.10,oRy=radius*.68,tilt=-.28;
+      /* angle = tf*TAU*1 → 1 full orbit per loop → seamless */
+      const angle=tf*TAU;
+      function orbitPt(a){return{x:cx+Math.cos(a)*oRx,y:cy+Math.sin(a)*oRy*Math.cos(tilt)};}
+      /* full loop ring always visible */
+      ctx.save();ctx.beginPath();
+      for(let s=0;s<=120;s++){const pt=orbitPt((s/120)*TAU);s===0?ctx.moveTo(pt.x,pt.y):ctx.lineTo(pt.x,pt.y);}
+      ctx.closePath();ctx.strokeStyle='rgba(0,195,255,.14)';ctx.lineWidth=1.2;ctx.setLineDash([4,11]);ctx.stroke();ctx.setLineDash([]);ctx.restore();
+      /* fading trail */
+      const TRAIL=72;
+      for(let t=1;t<TRAIL;t++){
+        const ta=angle-(t/TRAIL)*Math.PI*1.65,pt=orbitPt(ta),frac=1-t/TRAIL;
+        ctx.beginPath();ctx.arc(pt.x,pt.y,3.6*frac,0,TAU);
+        ctx.fillStyle=`rgba(0,215,255,${(frac*.52).toFixed(3)})`;ctx.fill();
+      }
+      /* orbiting sphere */
+      const op=orbitPt(angle);
+      /* orbHue = tf*360 = 1 full cycle = seamless */
+      const orbHue=(tf*360)%360,ballR=radius*.088+Math.sin(tf*TAU*4)*radius*.010;
+      const gg=ctx.createRadialGradient(op.x,op.y,0,op.x,op.y,ballR*5.8);
+      gg.addColorStop(0,`hsla(${orbHue.toFixed(0)},100%,72%,.40)`);gg.addColorStop(1,`hsla(${orbHue.toFixed(0)},100%,72%,0)`);
+      ctx.beginPath();ctx.arc(op.x,op.y,ballR*5.8,0,TAU);ctx.fillStyle=gg;ctx.fill();
+      const cg=ctx.createRadialGradient(op.x-ballR*.28,op.y-ballR*.28,0,op.x,op.y,ballR);
+      cg.addColorStop(0,'rgba(255,255,255,.95)');cg.addColorStop(.35,`hsla(${orbHue.toFixed(0)},100%,78%,.85)`);cg.addColorStop(1,`hsla(${orbHue.toFixed(0)},100%,48%,.12)`);
+      ctx.beginPath();ctx.arc(op.x,op.y,ballR,0,TAU);ctx.fillStyle=cg;ctx.shadowBlur=30;ctx.shadowColor=`hsl(${orbHue.toFixed(0)},100%,72%)`;ctx.fill();ctx.shadowBlur=0;
+      ctx.beginPath();ctx.arc(op.x-ballR*.28,op.y-ballR*.28,ballR*.20,0,TAU);ctx.fillStyle='rgba(255,255,255,.80)';ctx.fill();
+    }
+
+    function drawDiscoDust(tf){
+      DISCO_DUST.forEach(d=>{
+        const progress=(tf*d.spd+d.ph)%1;
+        const fade=progress<.06?progress/.06:progress>.9?(1-progress)/.1:1;
+        if(fade<.01) return;
+        const y=cH*.5+cH*.45-progress*cH*1.3;
+        const hue=(d.hOff+tf*360)%360,pulse=.7+.3*Math.sin(tf*TAU*d.spd*3+d.ph*TAU);
+        ctx.beginPath();ctx.arc(cW*d.xFrac,y,d.r*pulse,0,TAU);
+        ctx.fillStyle=`hsla(${hue.toFixed(0)},95%,65%,${(fade*.75).toFixed(3)})`;
+        ctx.shadowBlur=8;ctx.shadowColor=`hsl(${hue.toFixed(0)},100%,65%)`;ctx.fill();ctx.shadowBlur=0;
+      });
+    }
+    /* ── end DISCO BALL v2 ── */
+    
+    function frame(ts){if(!scene){requestAnimationFrame(frame);return;}const T=ts%LOOP,tf=T/LOOP;const{nodes,edges,pulses}=scene;ctx.clearRect(0,0,cW,cH);const pulse=.5+.5*Math.sin(tf*TAU);const ag=ctx.createRadialGradient(cW*.65,cH*.5,0,cW*.65,cH*.5,Math.min(cW,cH)*(.28+.06*pulse));ag.addColorStop(0,`rgba(55,18,175,${(.05+.025*pulse).toFixed(3)})`);ag.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=ag;ctx.fillRect(0,0,cW,cH);nodes.forEach(n=>{n.x=n.bx+n.dax*Math.sin(tf*TAU*n.dfx+n.dpx);n.y=n.by+n.day*Math.cos(tf*TAU*n.dfy+n.dpy);n.activation=0;});edges.forEach(e=>{e.activity=0;});const live=[];pulses.forEach(p=>{const el=(T-p.startT+LOOP)%LOOP,fd=450;if(el>p.duration+fd)return;const inT=el<=p.duration,prog=inT?el/p.duration:1;if(inT){nodes[p.src].activation=Math.max(nodes[p.src].activation,Math.max(0,1-prog*2.5)*.55);nodes[p.dst].activation=Math.max(nodes[p.dst].activation,Math.pow(prog,1.8)*p.brightness);p.edge.activity=Math.max(p.edge.activity,Math.sin(prog*Math.PI)*p.brightness);live.push({p,prog});}else{nodes[p.dst].activation=Math.max(nodes[p.dst].activation,(1-(el-p.duration)/fd)*p.brightness);}});ctx.lineCap='round';edges.forEach(drawEdge);live.forEach(({p,prog})=>{const a=nodes[p.src],b=nodes[p.dst];const pt=bezPt(a.x,a.y,b.x,b.y,p.edge.curve,prog);drawPulse(pt.x,pt.y,p.brightness);});nodes.forEach(drawNode);const{cx:_dcx,cy:_dcy,r:_dr}=getDisco();drawHaloRing(tf,_dcx,_dcy,_dr);drawDiscoBall(tf,_dcx,_dcy,_dr);drawOrbitBall(tf,_dcx,_dcy,_dr);drawDiscoDust(tf);requestAnimationFrame(frame);}
     requestAnimationFrame(frame);
   }
 
