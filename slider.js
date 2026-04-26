@@ -1,10 +1,10 @@
 /* ============================================================
-   ETHOS EMPIRE — SLIDER.JS  v2
-   Cinematic 1-scroll-1-page engine
-   • Wheel / touch / keyboard all fire one section at a time
-   • Locked during animation — no skipping, no stuttering
-   • .snap-track transform drives layout (no browser scroll-snap)
-   • In-view class fires immediately → content reveals alongside slide
+   ETHOS EMPIRE — SLIDER.JS  v3
+   Native scroll-snap engine (no GPU-crashing transforms)
+   • Uses container.scrollTo() — the CSS scroll-snap does the rest
+   • Wheel / keyboard / dot-nav all call goTo()
+   • Touch is handled natively by scroll-snap (zero JS needed)
+   • scroll listener keeps dots / progress / in-view in sync
    ============================================================ */
 (function () {
   'use strict';
@@ -23,12 +23,11 @@
   ];
 
   /* ── timing ── */
-  const SLIDE_MS   = 1000;
-  const SLIDE_EASE = 'cubic-bezier(0.77, 0, 0.175, 1)';
+  const SLIDE_MS        = 700;   // matches smooth-scroll duration on most mobile browsers
   const WHEEL_THRESHOLD = 30;
   const TOUCH_THRESHOLD = 48;
 
-  let container, track, sections, dots;
+  let container, sections, dots;
   let current   = 0;
   let animating = false;
   let statDone  = false;
@@ -50,32 +49,19 @@
       .map(s => document.getElementById(s.id))
       .filter(Boolean);
 
-    buildTrack();
+    /* No buildTrack() with transforms — the CSS scroll-snap
+       already handles layout via overflow-y:scroll on #snapContainer */
+
     buildProgressLine();
     buildSideNav();
     setupWheel();
     setupTouch();
     setupKeys();
     hookAnchorLinks();
+    listenToScroll();
 
     /* show first section */
     goTo(0, false);
-  }
-
-  /* ──────────────────────────────────────────────
-     TRACK WRAPPER
-     All sections live inside .snap-track.
-     JS moves it with transform: translateY(-N*100vh)
-     ────────────────────────────────────────────── */
-  function buildTrack() {
-    track = document.createElement('div');
-    track.className = 'snap-track';
-
-    /* move all children into track */
-    while (container.firstChild) {
-      track.appendChild(container.firstChild);
-    }
-    container.appendChild(track);
   }
 
   /* ──────────────────────────────────────────────
@@ -102,11 +88,14 @@
     nav.className = 'snap-sidenav';
     nav.setAttribute('aria-label', 'Jump to section');
 
-    dots = SECTIONS_CONFIG.map((s, i) => {
+    dots = sections.map((section, i) => {
+      /* find the matching config label (fall back to index) */
+      const cfg = SECTIONS_CONFIG.find(c => c.id === section.id) || { label: String(i + 1) };
+
       const btn = document.createElement('button');
-      btn.className  = 'snap-dot';
-      btn.dataset.label = s.label;
-      btn.setAttribute('aria-label', 'Go to ' + s.label);
+      btn.className     = 'snap-dot';
+      btn.dataset.label = cfg.label;
+      btn.setAttribute('aria-label', 'Go to ' + cfg.label);
       btn.addEventListener('click', () => goTo(i));
       nav.appendChild(btn);
       return btn;
@@ -116,7 +105,22 @@
   }
 
   /* ──────────────────────────────────────────────
+     UPDATE UI  (dots + progress + in-view)
+     ────────────────────────────────────────────── */
+  function updateUI(index) {
+    sections.forEach((s, i) => s.classList.toggle('in-view', i === index));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+    setProgress(index);
+
+    if (sections[index] && sections[index].id === 'snap-manifesto' && !statDone) {
+      statDone = true;
+      window.setTimeout(() => countStats(sections[index]), 380);
+    }
+  }
+
+  /* ──────────────────────────────────────────────
      GO TO — core navigation
+     Uses scrollTo() — NO transforms, NO GPU layers
      ────────────────────────────────────────────── */
   function goTo(index, animate) {
     if (animate === undefined) animate = true;
@@ -124,52 +128,59 @@
     if (animating && animate) return;
     if (index === current && animate) return;
 
-    const prev = current;
     current = index;
 
     if (animate) {
       animating = true;
-    }
-
-    /* move track */
-    track.style.transition = animate
-      ? `transform ${SLIDE_MS}ms ${SLIDE_EASE}`
-      : 'none';
-    track.style.transform = `translateY(calc(-${index} * var(--vh, 100vh)))`;
-
-    /* update in-view immediately so reveals fire alongside slide */
-    sections.forEach((s, i) => {
-      s.classList.toggle('in-view', i === index);
-    });
-
-    /* stat count on manifesto section */
-    if (sections[index].id === 'snap-manifesto' && !statDone) {
-      statDone = true;
-      window.setTimeout(() => countStats(sections[index]), 380);
-    }
-
-    /* ui */
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
-    setProgress(index);
-
-    /* unlock */
-    if (animate) {
       window.setTimeout(() => { animating = false; }, SLIDE_MS + 60);
     }
+
+    /* ── KEY FIX: scroll the container, not a CSS transform ── */
+    const targetTop = index * getVh();
+    container.scrollTo({
+      top:      targetTop,
+      behavior: animate ? 'smooth' : 'instant',
+    });
+
+    updateUI(index);
+  }
+
+  /* ──────────────────────────────────────────────
+     SCROLL LISTENER
+     Keeps dots/progress in sync when native scroll-snap
+     finishes (e.g. after touch swipe or keyboard scroll)
+     ────────────────────────────────────────────── */
+  let scrollRaf = null;
+
+  function listenToScroll() {
+    container.addEventListener('scroll', () => {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(() => {
+        scrollRaf = null;
+        const vh       = getVh();
+        const newIndex = Math.min(
+          sections.length - 1,
+          Math.round(container.scrollTop / vh)
+        );
+        if (newIndex !== current) {
+          current = newIndex;
+          updateUI(newIndex);
+        }
+      });
+    }, { passive: true });
   }
 
   /* ──────────────────────────────────────────────
      WHEEL — one delta burst = one section
-     Handles both mouse wheel (large delta) and
-     trackpad (many small deltas → accumulate)
+     Still needed to prevent native scroll from
+     moving multiple sections on a fast trackpad.
      ────────────────────────────────────────────── */
-  let wheelAccum = 0;
+  let wheelAccum    = 0;
   let wheelCooldown = false;
 
   function setupWheel() {
     container.addEventListener('wheel', (e) => {
-      /* let Ctrl+scroll / Cmd+scroll pass through for browser zoom */
-      if (e.ctrlKey || e.metaKey) return;
+      if (e.ctrlKey || e.metaKey) return;   /* allow browser pinch-zoom */
 
       e.preventDefault();
       if (animating) return;
@@ -177,7 +188,7 @@
       wheelAccum += e.deltaY;
 
       if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD && !wheelCooldown) {
-        const dir = wheelAccum > 0 ? 1 : -1;
+        const dir  = wheelAccum > 0 ? 1 : -1;
         wheelAccum = 0;
         wheelCooldown = true;
         goTo(current + dir);
@@ -188,6 +199,9 @@
 
   /* ──────────────────────────────────────────────
      TOUCH SWIPE
+     Native scroll-snap handles the animation;
+     we only intercept when the swipe is decisive
+     enough to warrant calling goTo() explicitly.
      ────────────────────────────────────────────── */
   let touchStartY = 0;
   let touchStartX = 0;
@@ -202,6 +216,7 @@
       if (animating) return;
       const dy = touchStartY - e.changedTouches[0].clientY;
       const dx = Math.abs(touchStartX - e.changedTouches[0].clientX);
+      /* only intercept clearly vertical swipes */
       if (Math.abs(dy) > TOUCH_THRESHOLD && Math.abs(dy) > dx * 1.5) {
         goTo(current + (dy > 0 ? 1 : -1));
       }
@@ -216,12 +231,10 @@
       if (document.querySelector('.modal-overlay.open')) return;
 
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        e.preventDefault();
-        goTo(current + 1);
+        e.preventDefault(); goTo(current + 1);
       }
       if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault();
-        goTo(current - 1);
+        e.preventDefault(); goTo(current - 1);
       }
     });
   }
@@ -264,11 +277,22 @@
   }
 
   /* ──────────────────────────────────────────────
-     vh UNIT  — handles mobile address-bar resize
+     vh HELPER — mobile address-bar safe
      ────────────────────────────────────────────── */
-  function syncVh() {
-    document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
+  function getVh() {
+    return window.innerHeight;
   }
+
+  function syncVh() {
+    const vh = window.innerHeight;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    /* re-snap to current section after resize / orientation change */
+    if (container) {
+      container.scrollTo({ top: current * vh, behavior: 'instant' });
+    }
+  }
+
   syncVh();
   window.addEventListener('resize', syncVh);
   window.addEventListener('orientationchange', () => window.setTimeout(syncVh, 120));

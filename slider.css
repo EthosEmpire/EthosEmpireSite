@@ -26,8 +26,9 @@
 }
 
 /* ──────────────────────────────────────────────
-   CINEMATIC SNAP — JS-driven track, no scroll-snap
-   1 scroll / swipe / key = exactly 1 section
+   CINEMATIC SNAP — Native CSS scroll-snap engine
+   Browser handles ALL physics: momentum, rubber-
+   banding, deceleration. JS only manages nav UI.
    ────────────────────────────────────────────── */
 body.snap-ready {
   overflow: hidden !important;
@@ -38,18 +39,27 @@ body.snap-ready {
 #snapContainer {
   height: 100vh;
   height: var(--vh, 100vh);
-  overflow: hidden;           /* track moves, container stays fixed */
+
+  /* Native scroll — the browser drives the animation */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;  /* iOS momentum */
+  overscroll-behavior: contain;       /* no body scroll bleed */
+
   position: relative;
   z-index: 2;
-}
 
-/* ── Track — animated by slider.js goTo() ── */
+  /* Hide the scrollbar — scroll still works, just invisible */
+  scrollbar-width: none;
+}
+#snapContainer::-webkit-scrollbar { display: none; }
+
+/* ── Track — simple block container, no transforms ── */
 .snap-track {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  will-change: transform;
-  /* transition set by JS; default here for instant on load */
-  transition: none;
+  display: block;
+  /* No position, no will-change, no transition needed —
+     the container scrolls over it natively */
 }
 
 .snap-section {
@@ -62,6 +72,21 @@ body.snap-ready {
   align-items: center;
   justify-content: center;
   padding: 24px;
+
+  /* Tell the scroll container to snap to the top of each section */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;   /* never skip a section on fast swipe */
+}
+
+/* FAQ zone: same snap alignment, but scrolls its own content internally */
+#snap-faq {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: var(--vh, 100vh);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
 }
 
 /* ──────────────────────────────────────────────
@@ -568,14 +593,11 @@ body.snap-ready {
 }
 
 /* ──────────────────────────────────────────────
-   FAQ ZONE  (non-snap, scrolls naturally below)
+   FAQ ZONE — its own snap section, internally scrollable
+   Height and snap behaviour controlled by #snap-faq ID rule above
    ────────────────────────────────────────────── */
 .snap-faq-zone {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 60px 24px 48px;
+  padding: 48px 24px 48px;
   max-width: 820px; margin: 0 auto; width: 100%;
 }
 

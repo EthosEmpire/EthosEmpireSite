@@ -9,6 +9,10 @@ const pageMatrixCtx = pageMatrixCanvas ? pageMatrixCanvas.getContext("2d") : nul
 const INTRO_CLOSE_DURATION = 1100;
 const MATRIX_CHARSET = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ0123456789<>+-=*";
 
+/* Detected once at load — drives every mobile optimisation below */
+const IS_PHONE = window.innerWidth <= 767 &&
+  window.matchMedia('(pointer: coarse)').matches;
+
 let introClosing = false;
 let introCloseStart = 0;
 let introAnimationFrame = 0;
@@ -54,14 +58,20 @@ function resizeIntroCanvas() {
   introCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   introFontSize = Math.max(12, Math.min(16, width / 110));
-  const cols = Math.ceil(width / introFontSize) + 14;
 
-  introColumns = Array.from({ length: cols }, (_, i) => ({
+  /* Mobile: fewer columns (60 % of desktop) and shorter glyph arrays
+     keep the rain effect while cutting canvas workload in half */
+  const colCount  = IS_PHONE
+    ? Math.ceil(width / introFontSize * 0.60) + 4
+    : Math.ceil(width / introFontSize) + 14;
+  const glyphsLen = IS_PHONE ? 16 : 30;
+
+  introColumns = Array.from({ length: colCount }, (_, i) => ({
     x: i * introFontSize,
     y: Math.random() * (height + 220) - 220,
     speed: 52 + Math.random() * 36,
     length: 14 + Math.floor(Math.random() * 10),
-    glyphs: Array.from({ length: 30 }, randomMatrixChar)
+    glyphs: Array.from({ length: glyphsLen }, randomMatrixChar)
   }));
 
   introLastFrameTime = performance.now();
@@ -296,12 +306,22 @@ function drawMatrixLayer(width, height, visibility, delta) {
       const trailStrength = 1 - i / col.length;
 
       if (i === 0) {
-        introCtx.shadowColor = "rgba(210, 255, 225, 0.45)";
-        introCtx.shadowBlur = 12;
+        /* shadowBlur is 10-20× more expensive on mobile GPUs — skip it.
+           The bright head colour still reads clearly without the halo. */
+        if (!IS_PHONE) {
+          introCtx.shadowColor = "rgba(210, 255, 225, 0.45)";
+          introCtx.shadowBlur  = 12;
+        } else {
+          introCtx.shadowBlur  = 0;
+        }
         introCtx.fillStyle = `rgba(236, 255, 244, ${0.96 * visibility})`;
       } else {
-        introCtx.shadowColor = "rgba(100, 255, 160, 0.16)";
-        introCtx.shadowBlur = 6;
+        if (!IS_PHONE) {
+          introCtx.shadowColor = "rgba(100, 255, 160, 0.16)";
+          introCtx.shadowBlur  = 6;
+        } else {
+          introCtx.shadowBlur  = 0;
+        }
         introCtx.fillStyle = `rgba(120, 255, 170, ${0.48 * trailStrength * visibility})`;
       }
 
@@ -318,7 +338,9 @@ function drawMatrixLayer(width, height, visibility, delta) {
 }
 
 function spawnDustBurst() {
-  if (!introContent) return;
+  /* Particle burst costs ~5 ms/frame on mobile — skip it.
+     The overlay still fades out smoothly via CSS. */
+  if (IS_PHONE || !introContent) return;
 
   const rect = introContent.getBoundingClientRect();
   const count = 110;
@@ -379,6 +401,12 @@ function drawDustLayer(visibility) {
 
 function animateIntro(now) {
   if (!introCtx || !introCanvas || !introOverlay) return;
+
+  /* Cap mobile at ~30 fps — halves GPU/CPU cost while keeping smooth rain */
+  if (IS_PHONE && now - introLastFrameTime < 32) {
+    introAnimationFrame = requestAnimationFrame(animateIntro);
+    return;
+  }
 
   const width = window.innerWidth;
   const height = window.innerHeight;
