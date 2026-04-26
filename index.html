@@ -37,6 +37,9 @@
   <link rel="apple-touch-icon" href="images/favicon-192x192.png">
 
   <link rel="preload" as="image" href="images/ethos-empire-logo.webp">
+  <!-- Preload social icons that appear above the fold on Connect section -->
+  <link rel="preload" as="image" href="images/instagram.webp">
+  <link rel="preload" as="image" href="images/youtube.webp">
   <link rel="image_src" href="https://ethosempire.org/images/ethos-empire-logo.webp">
 
   <script type="application/ld+json">
@@ -118,6 +121,9 @@
       class="intro-backdrop-logo"
       width="900"
       height="900"
+      loading="eager"
+      fetchpriority="high"
+      decoding="sync"
     >
 
     <div class="intro-glow" aria-hidden="true"></div>
@@ -291,7 +297,9 @@
             but discipline is permanent.
           </p>
 
+        </div>
 
+        <span class="pillar-counter" aria-hidden="true">01 / 04</span>
 
       </section>
 

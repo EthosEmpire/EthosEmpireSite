@@ -28,7 +28,7 @@
   const WHEEL_THRESHOLD = 30;
   const TOUCH_THRESHOLD = 48;
 
-  let container, track, sections, dots, counter;
+  let container, track, sections, dots;
   let current   = 0;
   let animating = false;
   let statDone  = false;
@@ -53,7 +53,6 @@
     buildTrack();
     buildProgressLine();
     buildSideNav();
-    buildCounter();
     setupWheel();
     setupTouch();
     setupKeys();
@@ -117,22 +116,6 @@
   }
 
   /* ──────────────────────────────────────────────
-     SECTION COUNTER  e.g. "03 / 10"
-     ────────────────────────────────────────────── */
-  function buildCounter() {
-    counter = document.createElement('div');
-    counter.className = 'snap-counter';
-    document.body.appendChild(counter);
-  }
-
-  function updateCounter(index) {
-    if (!counter) return;
-    const n   = String(index + 1).padStart(2, '0');
-    const tot = String(sections.length).padStart(2, '0');
-    counter.innerHTML = `<span class="snap-counter-cur">${n}</span><span class="snap-counter-sep"> / </span><span class="snap-counter-tot">${tot}</span>`;
-  }
-
-  /* ──────────────────────────────────────────────
      GO TO — core navigation
      ────────────────────────────────────────────── */
   function goTo(index, animate) {
@@ -168,7 +151,6 @@
     /* ui */
     dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
     setProgress(index);
-    updateCounter(index);
 
     /* unlock */
     if (animate) {

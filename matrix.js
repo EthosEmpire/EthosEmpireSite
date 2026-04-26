@@ -40,7 +40,9 @@ function isMobileMatrixDevice() {
 function resizeIntroCanvas() {
   if (!introCanvas || !introCtx) return;
 
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const isMobilePhone = window.innerWidth <= 767 &&
+    window.matchMedia('(pointer: coarse)').matches;
+  const dpr = Math.min(window.devicePixelRatio || 1, isMobilePhone ? 1 : 2);
   const width = window.innerWidth;
   const height = window.innerHeight;
 
@@ -231,6 +233,15 @@ function startPageMatrix() {
 
 function setupPageMatrix() {
   if (!pageMatrixCanvas || !pageMatrixCtx) return;
+
+  // Disable the always-on background matrix on phones/coarse-pointer devices
+  // to prevent high CPU usage, jank, and Chrome crashes on mobile.
+  const isPhone = window.innerWidth <= 767 &&
+    window.matchMedia('(pointer: coarse)').matches;
+  if (isPhone) {
+    pageMatrixCanvas.style.display = 'none';
+    return;
+  }
 
   startPageMatrix();
 
