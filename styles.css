@@ -116,12 +116,14 @@ a {
 
 .intro-backdrop-logo {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.06);
   width: min(60vw, 540px);
   max-width: 540px;
   height: auto;
   opacity: 0.1;
   filter: blur(16px) brightness(1.05) saturate(1.1);
-  transform: scale(1.06);
   pointer-events: none;
   user-select: none;
   mix-blend-mode: screen;
@@ -186,7 +188,8 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.2));
+  /* drop-shadow removed: causes ghost/double text on iOS Safari when
+     combined with -webkit-text-fill-color: transparent */
   opacity: 0;
   animation: introRise 1.25s cubic-bezier(0.2, 0.75, 0.2, 1) 0.32s forwards;
 }
@@ -237,11 +240,11 @@ a {
 
 @keyframes introBackdropPulse {
   0%, 100% {
-    transform: scale(1.06);
+    transform: translate(-50%, -50%) scale(1.06);
     opacity: 0.08;
   }
   50% {
-    transform: scale(1.09);
+    transform: translate(-50%, -50%) scale(1.09);
     opacity: 0.14;
   }
 }
@@ -1860,7 +1863,9 @@ body {
   }
 
   .page-matrix-canvas {
-    display: block !important;
+    /* Do NOT force display:block here — JS hides this canvas on phones
+       via style.display='none'. The !important was overriding that,
+       making the background green matrix bleed through on mobile. */
     filter: brightness(1.15) contrast(1.08) saturate(1.05) !important;
   }
 
@@ -1879,15 +1884,8 @@ body {
     z-index: 2;
   }
 }
-.intro-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(255, 215, 0, 0.12), transparent 32%),
-    #000000;
-}
+/* intro-overlay core styles live in the main rule above (line ~75).
+   Only the matrix/page-layer helpers are re-declared here. */
 
 .intro-matrix,
 .page-matrix-canvas {
