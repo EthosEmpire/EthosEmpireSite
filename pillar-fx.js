@@ -42,6 +42,10 @@
 
   /* Apply mobile canvas opacity once after creation */
   function applyMobileCanvas(canvas) {
+    /* Promote canvas to its own GPU compositor layer */
+    canvas.style.willChange = 'transform';
+    canvas.style.transform  = 'translateZ(0)';
+    canvas.style.contain    = 'strict';
     if (MOBILE) canvas.style.opacity = '0.45';
   }
 
@@ -50,7 +54,7 @@
     if (!section) { startFn(); return; }
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { e.isIntersecting ? startFn() : stopFn(); });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.55 });
     io.observe(section);
   }
 
@@ -59,118 +63,192 @@
      Mobile-lite: neuron network only, no disco ball/orbit ball,
      fewer nodes and pulses.
      ============================================================ */
+  /* ============================================================
+     ANIMATION 1 — DISCIPLINE: Triple nested 3D cube (hypercube)
+     Three counter-rotating cubes with glowing edges, vertex orbs,
+     orbiting particles and an ambient energy ring.
+     Mobile-lite: single cube, reduced orbiters, no shadowBlur.
+     ============================================================ */
   function startDiscipline(wrap) {
-    const canvas=document.createElement('canvas'); wrap.appendChild(canvas);
+    const canvas = document.createElement('canvas'); wrap.appendChild(canvas);
     applyMobileCanvas(canvas);
-    const ctx=canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
 
-    /* Mobile: fewer nodes and pulses to keep CPU low */
-    const NUM_N = MOBILE ? 18 : 34;
-    const NUM_P = MOBILE ? 24 : 60;
-    let cW,cH,scene,animId=0,lastTime=0;
+    let cW, cH, CX, CY, SC, FOV_D, ZD, animId = 0, lastTime = 0;
 
-    function ctrlPt(ax,ay,bx,by,cv){const mx=(ax+bx)*.5,my=(ay+by)*.5,dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy)||1;return{x:mx+(-dy/len)*len*cv,y:my+(dx/len)*len*cv};}
-    function bezPt(ax,ay,bx,by,cv,t){const c=ctrlPt(ax,ay,bx,by,cv),u=1-t;return{x:u*u*ax+2*u*t*c.x+t*t*bx,y:u*u*ay+2*u*t*c.y+t*t*by};}
-    function bezPath(ax,ay,bx,by,cv){const c=ctrlPt(ax,ay,bx,by,cv);ctx.moveTo(ax,ay);ctx.quadraticCurveTo(c.x,c.y,bx,by);}
-    const NCOLS={cyan:{r:0,g:200,b:255,glow:'#00CCFF'},blue:{r:30,g:120,b:255,glow:'#1E78FF'},purple:{r:160,g:60,b:255,glow:'#AA3CFF'}};
-
-    function buildScene(){
-      const types=['cyan','blue','purple'];
-      const nodes=Array.from({length:NUM_N},(_,i)=>{const isHub=sr(i*19+1)>.72;return{bx:cW*(.30+sr(i*7)*.65),by:cH*(.07+sr(i*7+1)*.86),dax:(sr(i*7+2)-.5)*26,day:(sr(i*7+3)-.5)*26,dpx:sr(i*7+4)*TAU,dpy:sr(i*7+5)*TAU,dfx:1+Math.floor(sr(i*7+6)*3),dfy:1+Math.floor(sr(i*13+2)*3),r:isHub?7+sr(i*3)*5:3+sr(i*3+1)*4,isHub,type:types[Math.floor(sr(i*31+7)*3)],x:0,y:0,activation:0};});
-      const MAX=Math.min(cW,cH)*.30,edges=[];
-      nodes.forEach((a,i)=>nodes.forEach((b,j)=>{if(i>=j)return;const d=Math.hypot(a.bx-b.bx,a.by-b.by);if(d<MAX)edges.push({i,j,d,curve:(sr((i+1)*(j+3)*17)-.5)*.42,activity:0});}));
-      const pulses=Array.from({length:NUM_P},(_,p)=>{const ei=Math.floor(sr(p*11+3)*edges.length),fwd=sr(p*13+5)>.5;return{edge:edges[ei]||edges[0],src:fwd?(edges[ei]||edges[0]).i:(edges[ei]||edges[0]).j,dst:fwd?(edges[ei]||edges[0]).j:(edges[ei]||edges[0]).i,startT:sr(p*17+7)*LOOP,duration:650+sr(p*19+9)*1500,brightness:.65+sr(p*23+11)*.35};});
-      return{nodes,edges,pulses};
+    function setup() {
+      cW = canvas.width  = wrap.offsetWidth  || window.innerWidth;
+      cH = canvas.height = wrap.offsetHeight || window.innerHeight;
+      CX = cW * 0.62; CY = cH * 0.50;
+      SC = Math.min(cW, cH) * 0.21;
+      FOV_D = SC * 9; ZD = SC * 4;
     }
-
-    function drawNode(n){
-      const c=NCOLS[n.type],act=n.activation;
-      if(act>.04&&!MOBILE){const gr=ctx.createRadialGradient(n.x,n.y,n.r*.5,n.x,n.y,n.r*(4+act*5));gr.addColorStop(0,`rgba(${c.r},${c.g},${c.b},${(act*.38).toFixed(3)})`);gr.addColorStop(1,`rgba(${c.r},${c.g},${c.b},0)`);ctx.beginPath();ctx.arc(n.x,n.y,n.r*(4+act*5),0,TAU);ctx.fillStyle=gr;ctx.fill();}
-      if(!MOBILE){const hR=n.r*2.2;const ha=ctx.createRadialGradient(n.x,n.y,n.r,n.x,n.y,hR);ha.addColorStop(0,`rgba(${c.r},${c.g},${c.b},${(.07+act*.2).toFixed(3)})`);ha.addColorStop(1,`rgba(${c.r},${c.g},${c.b},0)`);ctx.beginPath();ctx.arc(n.x,n.y,hR,0,TAU);ctx.fillStyle=ha;ctx.fill();}
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,TAU);
-      ctx.fillStyle=`rgba(${c.r},${Math.min(255,c.g+Math.round(act*55))},${c.b},${(.55+act*.45).toFixed(2)})`;
-      sb(ctx,8+act*20); sc(ctx,c.glow);
-      ctx.fill(); ctx.shadowBlur=0;
-      if(n.isHub){ctx.beginPath();ctx.arc(n.x,n.y,n.r*.38,0,TAU);ctx.fillStyle=`rgba(220,240,255,${(.28+act*.72).toFixed(2)})`;ctx.fill();}
-    }
-
-    function drawEdge(e){
-      const a=scene.nodes[e.i],b=scene.nodes[e.j];
-      const alpha=.05+(a.activation+b.activation)*.06+e.activity*.28;
-      ctx.beginPath();bezPath(a.x,a.y,b.x,b.y,e.curve);
-      if(e.activity>.08){ctx.strokeStyle=`rgba(0,170,255,${Math.min(.82,alpha+e.activity*.28).toFixed(3)})`;sb(ctx,6+e.activity*12);sc(ctx,'#0099FF');}
-      else{ctx.strokeStyle=`rgba(35,80,200,${alpha.toFixed(3)})`;ctx.shadowBlur=0;}
-      ctx.lineWidth=.75+e.activity*1.6;ctx.stroke();ctx.shadowBlur=0;
-    }
-
-    function drawPulse(px,py,br){
-      if(MOBILE){ctx.beginPath();ctx.arc(px,py,5,0,TAU);ctx.fillStyle=`rgba(160,230,255,${br.toFixed(2)})`;ctx.fill();return;}
-      const bl=ctx.createRadialGradient(px,py,0,px,py,11);bl.addColorStop(0,`rgba(160,230,255,${(br*.85).toFixed(2)})`);bl.addColorStop(.35,`rgba(0,180,255,${(br*.45).toFixed(2)})`);bl.addColorStop(1,'rgba(0,80,200,0)');ctx.beginPath();ctx.arc(px,py,11,0,TAU);ctx.fillStyle=bl;ctx.shadowBlur=18;ctx.shadowColor='#00DDFF';ctx.fill();ctx.beginPath();ctx.arc(px,py,2.4,0,TAU);ctx.fillStyle=`rgba(255,255,255,${br.toFixed(2)})`;ctx.shadowBlur=12;ctx.shadowColor='#FFF';ctx.fill();ctx.shadowBlur=0;
-    }
-
-    function setup(){cW=canvas.width=wrap.offsetWidth||window.innerWidth;cH=canvas.height=wrap.offsetHeight||window.innerHeight;scene=buildScene();}
+    let resizeT; window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(setup, 180); });
     setup();
-    let rt; window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(setup,180);});
 
-    /* Mobile: skip disco ball / orbit ball / dust entirely */
-    const DISCO_DUST=MOBILE?[]:Array.from({length:28},(_,i)=>({xFrac:.05+sr(i*11+1)*.90,spd:1+Math.floor(sr(i*11+2)*3),ph:sr(i*11+3),r:1+sr(i*11+4)*2.2,hOff:sr(i*11+5)*360}));
-    function getDisco(){return{cx:cW*.63,cy:cH*.50,r:Math.min(cW,cH)*.22};}
+    /* Unit cube geometry */
+    const UVERTS = [
+      {x:-1,y:-1,z:-1},{x:1,y:-1,z:-1},{x:1,y:1,z:-1},{x:-1,y:1,z:-1},
+      {x:-1,y:-1,z: 1},{x:1,y:-1,z: 1},{x:1,y:1,z: 1},{x:-1,y:1,z: 1}
+    ];
+    const EDGES = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+    const FACES = [
+      {v:[0,1,2,3],n:{x:0,y:0,z:-1}}, {v:[5,4,7,6],n:{x:0,y:0,z:1}},
+      {v:[0,1,5,4],n:{x:0,y:-1,z:0}}, {v:[3,2,6,7],n:{x:0,y:1,z:0}},
+      {v:[0,3,7,4],n:{x:-1,y:0,z:0}}, {v:[1,2,6,5],n:{x:1,y:0,z:0}}
+    ];
 
-    function drawHaloRing(tf,cx,cy,radius){const N=MOBILE?20:40,ringR=radius*1.38,tilt=.40,ringA=tf*TAU;ctx.lineWidth=1.4;for(let i=0;i<N;i++){const a0=ringA+(i/N)*TAU,a1=ringA+((i+.72)/N)*TAU;const hue=(tf*360+i*(360/N))%360,bright=.5+.5*Math.sin(a0*3+tf*TAU*2);ctx.beginPath();ctx.moveTo(cx+Math.cos(a0)*ringR,cy+Math.sin(a0)*ringR*Math.cos(tilt));ctx.lineTo(cx+Math.cos(a1)*ringR,cy+Math.sin(a1)*ringR*Math.cos(tilt));ctx.strokeStyle=`hsla(${hue.toFixed(0)},100%,65%,${(.22+bright*.42).toFixed(3)})`;sb(ctx,7);sc(ctx,`hsl(${hue.toFixed(0)},100%,60%)`);ctx.stroke();ctx.shadowBlur=0;}}
+    /* Orbiting particle spheres */
+    const ORB_N = MOBILE ? 5 : 13;
+    const ORBS = Array.from({length: ORB_N}, (_, i) => ({
+      rad:   1.55 + sr(i*7+1) * 0.85,
+      spd:   (1 + Math.floor(sr(i*7+2) * 3)) * (sr(i*7+3) > 0.5 ? 1 : -1),
+      phase: sr(i*7+4) * TAU,
+      tiltX: (sr(i*7+5) - 0.5) * 1.7,
+      tiltZ: (sr(i*7+6) - 0.5) * 1.1,
+      size:  2.8 + sr(i*7+7) * 3.2,
+      hOff:  sr(i*7+8) * 360
+    }));
 
-    function drawDiscoBall(tf,cx,cy,radius){
-      /* Mobile: draw a simple spinning circle outline instead of full disco ball */
-      if(MOBILE){
-        const hue=(tf*360)%360;
-        ctx.beginPath();ctx.arc(cx,cy,radius,0,TAU);
-        ctx.strokeStyle=`hsla(${hue.toFixed(0)},80%,55%,0.35)`;ctx.lineWidth=1.5;ctx.stroke();
-        ctx.beginPath();ctx.arc(cx,cy,radius*.5,0,TAU);
-        ctx.strokeStyle=`hsla(${(hue+90).toFixed(0)},80%,65%,0.25)`;ctx.lineWidth=1;ctx.stroke();
-        return;
+    function proj(p) {
+      const s = FOV_D / (FOV_D + p.z * SC + ZD);
+      return {x: CX + p.x * SC * s, y: CY + p.y * SC * s, s};
+    }
+
+    function xform(v, scale, aX, aY, aZ) {
+      let p = {x: v.x * scale, y: v.y * scale, z: v.z * scale};
+      p = rx(p, aX); p = ry(p, aY); p = rz(p, aZ);
+      return p;
+    }
+
+    /* Draw one cube at a given scale / rotation / colour offset */
+    function drawCube(tf, scale, aX, aY, aZ, hueBase, lineW, glowR) {
+      const tv = UVERTS.map(v => { const raw = xform(v, scale, aX, aY, aZ); return {raw, pr: proj(raw)}; });
+      const pulse = 0.5 + 0.5 * Math.sin(tf * TAU * 2.2 + hueBase * 0.017);
+
+      /* Faces — sorted back-to-front, glass fill on front-facing only */
+      const fd = FACES.map((face, fi) => {
+        let n = xform(face.n, 1, aX, aY, aZ);
+        const diffuse = Math.max(0, n.z);
+        const avgZ = face.v.reduce((s, vi) => s + tv[vi].raw.z, 0) / face.v.length;
+        return {face, diffuse, avgZ, isFront: n.z > -0.05, hue: (hueBase + fi * 60) % 360};
+      });
+      fd.sort((a, b) => a.avgZ - b.avgZ);
+      fd.forEach(d => {
+        if (!d.isFront) return;
+        const pts = d.face.v.map(vi => tv[vi].pr);
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let k = 1; k < pts.length; k++) ctx.lineTo(pts[k].x, pts[k].y);
+        ctx.closePath();
+        ctx.fillStyle = `hsla(${d.hue.toFixed(0)},78%,52%,${(0.04 + d.diffuse * 0.17).toFixed(3)})`;
+        ctx.fill();
+      });
+
+      /* Edges — colour-cycling with glow */
+      ctx.lineCap = 'round';
+      EDGES.forEach((edge, ei) => {
+        const p0 = tv[edge[0]].pr, p1 = tv[edge[1]].pr;
+        const hue = (hueBase + ei * 30) % 360;
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y); ctx.lineTo(p1.x, p1.y);
+        ctx.strokeStyle = `hsla(${hue.toFixed(0)},100%,68%,${(0.55 + pulse * 0.40).toFixed(3)})`;
+        ctx.lineWidth = lineW + pulse * 0.9;
+        sb(ctx, glowR + pulse * 7); sc(ctx, `hsl(${hue.toFixed(0)},100%,74%)`);
+        ctx.stroke(); ctx.shadowBlur = 0;
+      });
+
+      /* Vertices — bright glowing orbs at each corner */
+      UVERTS.forEach((_, vi) => {
+        const pr = tv[vi].pr;
+        const hue = (hueBase + vi * 45) % 360;
+        ctx.beginPath();
+        ctx.arc(pr.x, pr.y, (scale * 4.8 + pulse * 2.8), 0, TAU);
+        ctx.fillStyle = `hsla(${hue.toFixed(0)},100%,80%,${(0.65 + pulse * 0.35).toFixed(2)})`;
+        sb(ctx, 16 + pulse * 10); sc(ctx, `hsl(${hue.toFixed(0)},100%,78%)`);
+        ctx.fill(); ctx.shadowBlur = 0;
+      });
+    }
+
+    /* Orbiting particle spheres that fly around the whole structure */
+    function drawOrbs(tf, gh) {
+      ORBS.forEach(o => {
+        const a = tf * TAU * o.spd + o.phase;
+        let pos = {x: Math.cos(a) * o.rad, y: 0, z: Math.sin(a) * o.rad};
+        pos = rx(pos, o.tiltX); pos = rz(pos, o.tiltZ);
+        const pr = proj(pos);
+        const hue = (gh + o.hOff) % 360;
+        const pulse = 0.55 + 0.45 * Math.sin(tf * TAU * 3 + o.phase);
+        const sz = o.size * pulse * Math.max(0.5, pr.s);
+        ctx.beginPath(); ctx.arc(pr.x, pr.y, sz, 0, TAU);
+        ctx.fillStyle = `hsla(${hue.toFixed(0)},96%,68%,0.82)`;
+        sb(ctx, 12 + pulse * 8); sc(ctx, `hsl(${hue.toFixed(0)},100%,72%)`);
+        ctx.fill(); ctx.shadowBlur = 0;
+      });
+    }
+
+    /* Tilted equatorial energy ring */
+    function drawRing(tf, gh) {
+      const N = MOBILE ? 24 : 48, ringR = 1.82, tilt = 0.38, rotA = tf * TAU;
+      ctx.lineWidth = 1.6;
+      for (let i = 0; i < N; i++) {
+        const a0 = rotA + (i / N) * TAU, a1 = rotA + ((i + 0.74) / N) * TAU;
+        const hue = (gh + i * (360 / N)) % 360;
+        const bright = 0.5 + 0.5 * Math.sin(a0 * 4 + tf * TAU * 3);
+        ctx.beginPath();
+        ctx.moveTo(CX + Math.cos(a0) * ringR * SC, CY + Math.sin(a0) * ringR * SC * Math.cos(tilt));
+        ctx.lineTo(CX + Math.cos(a1) * ringR * SC, CY + Math.sin(a1) * ringR * SC * Math.cos(tilt));
+        ctx.strokeStyle = `hsla(${hue.toFixed(0)},100%,65%,${(0.20 + bright * 0.45).toFixed(3)})`;
+        sb(ctx, 7); sc(ctx, `hsl(${hue.toFixed(0)},100%,62%)`);
+        ctx.stroke(); ctx.shadowBlur = 0;
       }
-      const LAT=16,LON=24;const rotY=tf*TAU;const gh=tf*360,pulse=.5+.5*Math.sin(tf*TAU);const ag=ctx.createRadialGradient(cx,cy,radius*.08,cx,cy,radius*(1.65+.18*pulse));ag.addColorStop(0,`hsla(${gh.toFixed(0)},72%,28%,${(.09+.03*pulse).toFixed(3)})`);ag.addColorStop(.55,`hsla(${gh.toFixed(0)},55%,15%,.03)`);ag.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=ag;ctx.fillRect(0,0,cW,cH);ctx.beginPath();ctx.moveTo(cx,cy-radius);ctx.lineTo(cx,0);ctx.strokeStyle='rgba(180,180,195,.20)';ctx.lineWidth=1;ctx.stroke();for(let lat=0;lat<LAT;lat++){const phi1=(lat/LAT)*Math.PI-Math.PI/2,phi2=((lat+1)/LAT)*Math.PI-Math.PI/2;const y1=Math.sin(phi1),y2=Math.sin(phi2),r1=Math.cos(phi1),r2=Math.cos(phi2);for(let lon=0;lon<LON;lon++){const th1=(lon/LON)*TAU+rotY,th2=((lon+1)/LON)*TAU+rotY;const thC=(th1+th2)/2,phC=(phi1+phi2)/2;const nz=Math.cos(phC)*Math.sin(thC);if(nz>-.04) continue;const corners=[{sx:cx+r1*Math.cos(th1)*radius,sy:cy-y1*radius},{sx:cx+r1*Math.cos(th2)*radius,sy:cy-y1*radius},{sx:cx+r2*Math.cos(th2)*radius,sy:cy-y2*radius},{sx:cx+r2*Math.cos(th1)*radius,sy:cy-y2*radius}];ctx.beginPath();ctx.moveTo(corners[0].sx,corners[0].sy);for(let k=1;k<4;k++)ctx.lineTo(corners[k].sx,corners[k].sy);ctx.closePath();ctx.fillStyle='rgba(20,20,35,.07)';ctx.strokeStyle='rgba(80,80,120,.08)';ctx.lineWidth=.5;ctx.fill();ctx.stroke();}}ctx.save();ctx.beginPath();ctx.arc(cx,cy,radius,0,TAU);ctx.clip();for(let lat=0;lat<LAT;lat++){const phi1=(lat/LAT)*Math.PI-Math.PI/2,phi2=((lat+1)/LAT)*Math.PI-Math.PI/2;const y1=Math.sin(phi1),y2=Math.sin(phi2),r1=Math.cos(phi1),r2=Math.cos(phi2);for(let lon=0;lon<LON;lon++){const th1=(lon/LON)*TAU+rotY,th2=((lon+1)/LON)*TAU+rotY;const thC=(th1+th2)/2,phC=(phi1+phi2)/2;const nz=Math.cos(phC)*Math.sin(thC);if(nz<=0) continue;const specular=Math.max(0,nz),flash=Math.pow(specular,5.2);const edgeFade=Math.pow(specular,.38);const corners=[{sx:cx+r1*Math.cos(th1)*radius,sy:cy-y1*radius},{sx:cx+r1*Math.cos(th2)*radius,sy:cy-y1*radius},{sx:cx+r2*Math.cos(th2)*radius,sy:cy-y2*radius},{sx:cx+r2*Math.cos(th1)*radius,sy:cy-y2*radius}];const hue=((lat*LON+lon)*47+tf*360)%360;ctx.beginPath();ctx.moveTo(corners[0].sx,corners[0].sy);for(let k=1;k<4;k++)ctx.lineTo(corners[k].sx,corners[k].sy);ctx.closePath();if(flash>.20){ctx.fillStyle=`hsla(${hue.toFixed(0)},100%,${(50+flash*50).toFixed(0)}%,${((.58+flash*.40)*edgeFade).toFixed(2)})`;ctx.shadowBlur=28;ctx.shadowColor=`hsl(${hue.toFixed(0)},100%,72%)`;}else{const g=Math.round(52+specular*90);ctx.fillStyle=`rgba(${g},${g},${Math.round(g*1.22)},${(.68*edgeFade).toFixed(2)})`;ctx.shadowBlur=0;}ctx.fill();ctx.strokeStyle=`rgba(0,0,0,${(.48*edgeFade).toFixed(2)})`;ctx.lineWidth=.6;ctx.stroke();ctx.shadowBlur=0;}}const sh=ctx.createRadialGradient(cx-radius*.30,cy-radius*.33,0,cx,cy,radius);sh.addColorStop(0,'rgba(255,255,255,.13)');sh.addColorStop(.36,'rgba(210,222,255,.03)');sh.addColorStop(1,'rgba(0,0,0,.48)');ctx.beginPath();ctx.arc(cx,cy,radius,0,TAU);ctx.fillStyle=sh;ctx.fill();ctx.restore();const NB=14;for(let i=0;i<NB;i++){const bAng=(i/NB)*TAU+tf*TAU+i*.449;const hue=((i*26)+tf*360)%360;const bLen=radius*(1.8+Math.sin(tf*TAU*2+i*1.05)*.85);const bx1=cx+Math.cos(bAng)*(radius*.82),by1=cy+Math.sin(bAng)*(radius*.82);const bx2=cx+Math.cos(bAng)*(radius+bLen),by2=cy+Math.sin(bAng)*(radius+bLen);const lg=ctx.createLinearGradient(bx1,by1,bx2,by2);lg.addColorStop(0,`hsla(${hue.toFixed(0)},100%,70%,.48)`);lg.addColorStop(1,`hsla(${hue.toFixed(0)},100%,70%,0)`);ctx.beginPath();ctx.moveTo(bx1,by1);ctx.lineTo(bx2,by2);ctx.strokeStyle=lg;ctx.lineWidth=1.2+Math.sin(tf*TAU*2+i)*.3;ctx.shadowBlur=9;ctx.shadowColor=`hsl(${hue.toFixed(0)},100%,70%)`;ctx.stroke();ctx.shadowBlur=0;}
     }
 
-    function drawOrbitBall(tf,cx,cy,radius){
-      if(MOBILE) return; /* skip on mobile */
-      const oRx=radius*2.10,oRy=radius*.68,tilt=-.28;const angle=tf*TAU;function orbitPt(a){return{x:cx+Math.cos(a)*oRx,y:cy+Math.sin(a)*oRy*Math.cos(tilt)};}ctx.save();ctx.beginPath();for(let s=0;s<=120;s++){const pt=orbitPt((s/120)*TAU);s===0?ctx.moveTo(pt.x,pt.y):ctx.lineTo(pt.x,pt.y);}ctx.closePath();ctx.strokeStyle='rgba(0,195,255,.14)';ctx.lineWidth=1.2;ctx.setLineDash([4,11]);ctx.stroke();ctx.setLineDash([]);ctx.restore();const TRAIL=72;for(let t=1;t<TRAIL;t++){const ta=angle-(t/TRAIL)*Math.PI*1.65,pt=orbitPt(ta),frac=1-t/TRAIL;ctx.beginPath();ctx.arc(pt.x,pt.y,3.6*frac,0,TAU);ctx.fillStyle=`rgba(0,215,255,${(frac*.52).toFixed(3)})`;ctx.fill();}const op=orbitPt(angle);const orbHue=(tf*360)%360,ballR=radius*.088+Math.sin(tf*TAU*4)*radius*.010;const gg=ctx.createRadialGradient(op.x,op.y,0,op.x,op.y,ballR*5.8);gg.addColorStop(0,`hsla(${orbHue.toFixed(0)},100%,72%,.40)`);gg.addColorStop(1,`hsla(${orbHue.toFixed(0)},100%,72%,0)`);ctx.beginPath();ctx.arc(op.x,op.y,ballR*5.8,0,TAU);ctx.fillStyle=gg;ctx.fill();const cg=ctx.createRadialGradient(op.x-ballR*.28,op.y-ballR*.28,0,op.x,op.y,ballR);cg.addColorStop(0,'rgba(255,255,255,.95)');cg.addColorStop(.35,`hsla(${orbHue.toFixed(0)},100%,78%,.85)`);cg.addColorStop(1,`hsla(${orbHue.toFixed(0)},100%,48%,.12)`);ctx.beginPath();ctx.arc(op.x,op.y,ballR,0,TAU);ctx.fillStyle=cg;ctx.shadowBlur=30;ctx.shadowColor=`hsl(${orbHue.toFixed(0)},100%,72%)`;ctx.fill();ctx.shadowBlur=0;ctx.beginPath();ctx.arc(op.x-ballR*.28,op.y-ballR*.28,ballR*.20,0,TAU);ctx.fillStyle='rgba(255,255,255,.80)';ctx.fill();
-    }
+    function frame(now) {
+      if (shouldSkipFrame(lastTime, now)) { animId = requestAnimationFrame(frame); return; }
+      lastTime = now;
 
-    function drawDiscoDust(tf){
-      if(MOBILE||DISCO_DUST.length===0) return;
-      DISCO_DUST.forEach(d=>{const progress=(tf*d.spd+d.ph)%1;const fade=progress<.06?progress/.06:progress>.9?(1-progress)/.1:1;if(fade<.01) return;const y=cH*.5+cH*.45-progress*cH*1.3;const hue=(d.hOff+tf*360)%360,pulse=.7+.3*Math.sin(tf*TAU*d.spd*3+d.ph*TAU);ctx.beginPath();ctx.arc(cW*d.xFrac,y,d.r*pulse,0,TAU);ctx.fillStyle=`hsla(${hue.toFixed(0)},95%,65%,${(fade*.75).toFixed(3)})`;ctx.shadowBlur=8;ctx.shadowColor=`hsl(${hue.toFixed(0)},100%,65%)`;ctx.fill();ctx.shadowBlur=0;});
-    }
+      const tf = (now % LOOP) / LOOP;
+      const gh = tf * 360;
 
-    function frame(now){
-      if(!scene){animId=requestAnimationFrame(frame);return;}
-      if(shouldSkipFrame(lastTime,now)){animId=requestAnimationFrame(frame);return;}
-      lastTime=now;
-      const T=now%LOOP,tf=T/LOOP;
-      const{nodes,edges,pulses}=scene;
-      ctx.clearRect(0,0,cW,cH);
-      const pulse=.5+.5*Math.sin(tf*TAU);
-      const ag=ctx.createRadialGradient(cW*.65,cH*.5,0,cW*.65,cH*.5,Math.min(cW,cH)*(.28+.06*pulse));
-      ag.addColorStop(0,`rgba(55,18,175,${(.05+.025*pulse).toFixed(3)})`);ag.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=ag;ctx.fillRect(0,0,cW,cH);
-      nodes.forEach(n=>{n.x=n.bx+n.dax*Math.sin(tf*TAU*n.dfx+n.dpx);n.y=n.by+n.day*Math.cos(tf*TAU*n.dfy+n.dpy);n.activation=0;});
-      edges.forEach(e=>{e.activity=0;});
-      const live=[];
-      pulses.forEach(p=>{const el=(T-p.startT+LOOP)%LOOP,fd=450;if(el>p.duration+fd)return;const inT=el<=p.duration,prog=inT?el/p.duration:1;if(inT){nodes[p.src].activation=Math.max(nodes[p.src].activation,Math.max(0,1-prog*2.5)*.55);nodes[p.dst].activation=Math.max(nodes[p.dst].activation,Math.pow(prog,1.8)*p.brightness);p.edge.activity=Math.max(p.edge.activity,Math.sin(prog*Math.PI)*p.brightness);live.push({p,prog});}else{nodes[p.dst].activation=Math.max(nodes[p.dst].activation,(1-(el-p.duration)/fd)*p.brightness);}});
-      ctx.lineCap='round';edges.forEach(drawEdge);
-      live.forEach(({p,prog})=>{const a=nodes[p.src],b=nodes[p.dst];const pt=bezPt(a.x,a.y,b.x,b.y,p.edge.curve,prog);drawPulse(pt.x,pt.y,p.brightness);});
-      nodes.forEach(drawNode);
-      const{cx:_dcx,cy:_dcy,r:_dr}=getDisco();
-      drawHaloRing(tf,_dcx,_dcy,_dr);
-      drawDiscoBall(tf,_dcx,_dcy,_dr);
-      drawOrbitBall(tf,_dcx,_dcy,_dr);
-      drawDiscoDust(tf);
-      animId=requestAnimationFrame(frame);
+      ctx.clearRect(0, 0, cW, cH);
+
+      /* Ambient radial glow behind the cube */
+      const gp = 0.5 + 0.5 * Math.sin(tf * TAU);
+      const ag = ctx.createRadialGradient(CX, CY, 0, CX, CY, SC * (1.7 + 0.3 * gp));
+      ag.addColorStop(0, `hsla(${gh.toFixed(0)},85%,22%,${(0.09 + 0.04 * gp).toFixed(3)})`);
+      ag.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = ag; ctx.fillRect(0, 0, cW, cH);
+
+      /* Rotation axes — multi-frequency wobble for organic feel */
+      const aY =  tf * TAU * 0.90;
+      const aX =  tf * TAU * 0.52 + Math.sin(tf * TAU * 1.4) * 0.28;
+      const aZ =  Math.sin(tf * TAU * 0.38) * 0.18;
+
+      /* Draw ring behind the cubes */
+      drawRing(tf, gh);
+
+      /* Outer cube */
+      drawCube(tf, 1.00,  aX,        aY,        aZ,       gh,           2.4, 15);
+
+      /* Middle cube — counter-rotating on Y, faster X wobble */
+      if (!MOBILE) {
+        drawCube(tf, 0.57, -aX * 1.5, -aY * 1.7,  aZ * 2.1, (gh + 120) % 360, 1.5, 11);
+      }
+
+      /* Inner cube — fastest, rolling Z as well */
+      drawCube(tf, 0.27,  aX * 2.4,  aY * 2.6, -aZ * 3.2, (gh + 240) % 360, 1.0,  8);
+
+      /* Orbiting particles on top */
+      drawOrbs(tf, gh);
+
+      animId = requestAnimationFrame(frame);
     }
 
     watchVisibility(
       wrap.closest('section'),
-      ()=>{ if(!animId) animId=requestAnimationFrame(frame); },
-      ()=>{ if(animId){ cancelAnimationFrame(animId); animId=0; } }
+      () => { if (!animId) animId = requestAnimationFrame(frame); },
+      () => { if (animId)  { cancelAnimationFrame(animId); animId = 0; } }
     );
   }
 

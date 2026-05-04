@@ -194,19 +194,19 @@ function updateCenteredCard(wrapper, itemSelector) {
   const cards = Array.from(wrapper.querySelectorAll(itemSelector));
   if (cards.length === 0) return;
 
-  // Batch ALL getBoundingClientRect calls before any writes (avoids forced reflow)
   const wrapperRect = wrapper.getBoundingClientRect();
   const center = wrapperRect.left + wrapperRect.width / 2;
-  const rects = cards.map(card => card.getBoundingClientRect());
 
   let closestCard = null;
   let closestDistance = Number.POSITIVE_INFINITY;
 
-  cards.forEach((card, i) => {
-    const rect = rects[i];
+  cards.forEach((card) => {
+    const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
     const distance = Math.abs(center - cardCenter);
+
     card.classList.toggle("is-near", distance < rect.width * 1.1);
+
     if (distance < closestDistance) {
       closestDistance = distance;
       closestCard = card;
@@ -395,6 +395,11 @@ function setupInfiniteCarousel(config) {
   };
 
   const step = () => {
+    if (document.hidden) {
+      controller.rafId = requestAnimationFrame(step);
+      return;
+    }
+
     if (!controller.setWidth) {
       refreshCarouselMetrics(controller);
     }

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | Ethos Empire</title>
+  <meta name="description" content="Ethos Empire Terms of Service — rules for using our site, purchasing ebooks and merchandise, and our refund and intellectual property policies.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48x48.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:        #060606;
+      --bg-card:   rgba(255,255,255,0.032);
+      --gold-1:    #8b6914;
+      --gold-2:    #c9952a;
+      --gold-3:    #ffd700;
+      --gold-4:    #fff0b0;
+      --text:      #e8d9b0;
+      --text-dim:  #9a8060;
+      --border:    rgba(255,215,0,0.13);
+      --radius:    18px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 10%, rgba(201,149,42,0.07) 0%, transparent 45%),
+        radial-gradient(ellipse at 20% 90%, rgba(255,215,0,0.04) 0%, transparent 35%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Top nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(6,6,6,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .topbar-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c9952a, #ffd700, #c9952a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.06em;
+    }
+
+    .topbar-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--gold-2);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+    }
+
+    .topbar-back:hover {
+      border-color: rgba(255,215,0,0.4);
+      color: var(--gold-3);
+      background: rgba(255,215,0,0.06);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 80px 24px 60px;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold-2);
+      margin-bottom: 20px;
+      padding: 6px 16px;
+      border: 1px solid rgba(201,149,42,0.28);
+      border-radius: 999px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #fff8dc 0%, #ffd700 40%, #c9952a 70%, #fff0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero-date {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    .hero-rule {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold-3), transparent);
+      margin: 28px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ── Table of contents ── */
+    .toc {
+      max-width: 780px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .toc-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toc-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,215,0,0.22), transparent);
+    }
+
+    .toc-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      color: var(--gold-1);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 6px 20px;
+    }
+
+    .toc-grid a {
+      font-size: 0.875rem;
+      color: var(--gold-2);
+      text-decoration: none;
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .toc-grid a:hover {
+      color: var(--gold-3);
+      border-color: rgba(255,215,0,0.2);
+    }
+
+    /* ── Main layout ── */
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    /* ── Sections ── */
+    .policy-section {
+      margin-bottom: 40px;
+      padding: 32px 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+      scroll-margin-top: 80px;
+      animation: sectionFadeIn 0.6s ease both;
+    }
+
+    .policy-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,215,0,0.22), transparent);
+    }
+
+    @keyframes sectionFadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .policy-section:nth-child(1)  { animation-delay: 0.05s; }
+    .policy-section:nth-child(2)  { animation-delay: 0.09s; }
+    .policy-section:nth-child(3)  { animation-delay: 0.13s; }
+    .policy-section:nth-child(4)  { animation-delay: 0.17s; }
+    .policy-section:nth-child(5)  { animation-delay: 0.21s; }
+    .policy-section:nth-child(6)  { animation-delay: 0.25s; }
+    .policy-section:nth-child(7)  { animation-delay: 0.29s; }
+    .policy-section:nth-child(8)  { animation-delay: 0.33s; }
+    .policy-section:nth-child(9)  { animation-delay: 0.37s; }
+    .policy-section:nth-child(10) { animation-delay: 0.41s; }
+    .policy-section:nth-child(11) { animation-delay: 0.45s; }
+    .policy-section:nth-child(12) { animation-delay: 0.49s; }
+    .policy-section:nth-child(13) { animation-delay: 0.53s; }
+    .policy-section:nth-child(14) { animation-delay: 0.57s; }
+    .policy-section:nth-child(15) { animation-delay: 0.61s; }
+    .policy-section:nth-child(16) { animation-delay: 0.65s; }
+    .policy-section:nth-child(17) { animation-delay: 0.69s; }
+    .policy-section:nth-child(18) { animation-delay: 0.73s; }
+    .policy-section:nth-child(19) { animation-delay: 0.77s; }
+    .policy-section:nth-child(20) { animation-delay: 0.81s; }
+    .policy-section:nth-child(21) { animation-delay: 0.85s; }
+
+    .section-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--gold-1);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-3);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .policy-section p {
+      color: var(--text);
+      margin-bottom: 14px;
+      font-size: 0.965rem;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 14px;
+    }
+
+    .policy-section ul li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 0.965rem;
+    }
+
+    .policy-section ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--gold-2);
+      font-size: 0.75rem;
+      top: 3px;
+    }
+
+    .highlight-box {
+      background: rgba(255,215,0,0.06);
+      border: 1px solid rgba(255,215,0,0.18);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 0.92rem;
+      color: var(--gold-4);
+    }
+
+    .warning-box {
+      background: rgba(255,100,60,0.07);
+      border: 1px solid rgba(255,100,60,0.22);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 0.92rem;
+      color: #ffcab0;
+    }
+
+    strong { color: var(--gold-3); font-weight: 600; }
+
+    a {
+      color: var(--gold-3);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    a:hover { color: var(--gold-4); }
+
+    /* ── Footer ── */
+    .page-footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px 48px;
+      border-top: 1px solid var(--border);
+    }
+
+    .page-footer p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--gold-2);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: var(--gold-3); }
+
+    @media (max-width: 600px) {
+      .policy-section { padding: 24px 20px; }
+      .topbar { padding: 14px 18px; }
+      .hero { padding: 60px 18px 44px; }
+      .toc-inner { padding: 20px; }
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top nav -->
+  <nav class="topbar" aria-label="Site navigation">
+    <a href="index.html" class="topbar-brand" aria-label="Ethos Empire home">
+      <span class="topbar-brand-name">ETHOS EMPIRE</span>
+    </a>
+    <a href="index.html" class="topbar-back" onclick="event.preventDefault(); history.length > 1 ? history.back() : window.location.href='index.html'">
+      ← Back to Site
+    </a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <p class="hero-eyebrow">Legal</p>
+    <h1 class="hero-title">Terms of Service</h1>
+    <p class="hero-date">Last updated: May 2026</p>
+    <div class="hero-rule"></div>
+  </header>
+
+  <!-- Table of contents -->
+  <nav class="toc" aria-label="Jump to section">
+    <div class="toc-inner">
+      <p class="toc-label">Contents</p>
+      <div class="toc-grid">
+        <a href="#acceptance">1. Acceptance of Terms</a>
+        <a href="#eligibility">2. Eligibility</a>
+        <a href="#digital">3. Digital Products</a>
+        <a href="#merch">4. Physical Merchandise</a>
+        <a href="#ip">5. Intellectual Property</a>
+        <a href="#conduct">6. Acceptable Use</a>
+        <a href="#third-party">7. Third-Party Links</a>
+        <a href="#disclaimer-warranties">8. Disclaimer of Warranties</a>
+        <a href="#liability">9. Limitation of Liability</a>
+        <a href="#changes">10. Changes to Terms</a>
+        <a href="#disclaimer">11. Content Disclaimer</a>
+        <a href="#results">12. No Guarantee of Results</a>
+        <a href="#trademark">13. Trademark &amp; Brand Protection</a>
+        <a href="#dmca">14. DMCA &amp; Copyright</a>
+        <a href="#indemnification">15. Indemnification</a>
+        <a href="#governing-law">16. Governing Law</a>
+        <a href="#disputes">17. Dispute Resolution</a>
+        <a href="#force-majeure">18. Force Majeure</a>
+        <a href="#termination">19. Termination of Access</a>
+        <a href="#harmful-content">20. Harmful Content &amp; Reporting</a>
+        <a href="#contact">21. Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="page-wrap" id="main-content">
+
+    <div class="policy-section" id="acceptance">
+      <p class="section-num">Section 1</p>
+      <h2 class="section-title">Acceptance of Terms</h2>
+      <p>
+        By accessing or using the Ethos Empire website at
+        <a href="https://ethosempire.org">ethosempire.org</a>,
+        you agree to be bound by these Terms of Service ("Terms").
+        If you do not agree to these Terms, please do not use our website.
+      </p>
+      <p>
+        These Terms apply to all visitors, users, and anyone who accesses or uses
+        the site — including those who purchase digital products or merchandise through
+        our linked third-party stores.
+      </p>
+      <div class="highlight-box">
+        By clicking "Buy", completing a purchase through Gumroad or Printful, or
+        continuing to use this site, you confirm that you have read and agreed to
+        these Terms.
+      </div>
+    </div>
+
+    <div class="policy-section" id="eligibility">
+      <p class="section-num">Section 2</p>
+      <h2 class="section-title">Eligibility</h2>
+      <p>
+        You must be at least <strong>18 years old</strong> to use this website
+        or purchase any of our products. By using this site, you represent and
+        warrant that you meet this age requirement.
+      </p>
+      <p>
+        If you are under 18, you may only use this site with the direct involvement
+        and consent of a parent or legal guardian who agrees to these Terms on your behalf.
+      </p>
+    </div>
+
+    <div class="policy-section" id="digital">
+      <p class="section-num">Section 3</p>
+      <h2 class="section-title">Digital Products (Ebooks)</h2>
+      <p>
+        Ethos Empire sells digital ebooks and guides through
+        <strong>Gumroad</strong> (<a href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer">ethosempire.gumroad.com</a>).
+        All purchases are processed directly by Gumroad, and their Terms of Service
+        and Privacy Policy apply to those transactions.
+      </p>
+
+      <p><strong>Refund Policy — Digital Products</strong></p>
+      <div class="warning-box">
+        Due to the instant-access nature of digital downloads, <strong>all ebook and digital product purchases are final and non-refundable</strong> once the file has been delivered or the download link has been accessed. Please review product descriptions carefully before purchasing.
+      </div>
+
+      <p>
+        If you experience a genuine technical issue that prevents you from accessing
+        a product you have purchased, contact us and we will work to resolve it.
+      </p>
+
+      <p><strong>Licence for Personal Use</strong></p>
+      <p>
+        When you purchase an ebook from Ethos Empire, you receive a
+        <strong>personal, non-exclusive, non-transferable licence</strong> to read
+        and use the content for your own personal, non-commercial purposes.
+      </p>
+      <ul>
+        <li>You may not resell, redistribute, or re-upload any purchased ebook</li>
+        <li>You may not share download links with others</li>
+        <li>You may not use the content to create derivative works for commercial sale</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="merch">
+      <p class="section-num">Section 4</p>
+      <h2 class="section-title">Physical Merchandise</h2>
+      <p>
+        All physical merchandise (hoodies and apparel) is fulfilled and shipped by
+        <strong>Printful</strong> through our storefront at
+        <a href="https://ethosempireo.printful.me/" target="_blank" rel="noopener noreferrer">ethosempireo.printful.me</a>.
+        Purchases are subject to Printful's own Terms of Service and policies.
+      </p>
+
+      <p><strong>Shipping</strong></p>
+      <p>
+        Shipping times and costs are determined by Printful based on your location
+        and selected shipping method. We do not control shipping carriers or
+        delivery timescales. International orders may be subject to customs duties
+        or import taxes, which are the buyer's responsibility.
+      </p>
+
+      <p><strong>Returns & Exchanges</strong></p>
+      <p>
+        Because our merchandise is <strong>made-to-order on demand</strong>,
+        we do not accept returns or exchanges for buyer's remorse, incorrect size
+        selection, or change of mind.
+      </p>
+      <p>
+        If your order arrives damaged, defective, or incorrectly printed, please
+        contact Printful directly with photos of the issue within
+        <strong>30 days of delivery</strong>. Printful will arrange a
+        replacement or refund for confirmed defects.
+      </p>
+      <div class="highlight-box">
+        Please check the size guide carefully before ordering. Printful's
+        return policy applies to all merchandise orders.
+        <br><br>
+        <a href="https://www.printful.com/policies/returns" target="_blank" rel="noopener noreferrer">View Printful's Return Policy →</a>
+      </div>
+    </div>
+
+    <div class="policy-section" id="ip">
+      <p class="section-num">Section 5</p>
+      <h2 class="section-title">Intellectual Property</h2>
+      <p>
+        All content on ethosempire.org — including but not limited to text, graphics,
+        logos, images, animations, ebook content, and brand identity — is the
+        intellectual property of Ethos Empire and is protected by applicable copyright
+        and trademark laws.
+      </p>
+      <ul>
+        <li>You may not reproduce, copy, or distribute site content without written permission</li>
+        <li>You may not use our name, logo, or branding for any commercial purpose</li>
+        <li>Screenshots or quotes shared for personal, non-commercial purposes
+          (e.g. social media) must credit Ethos Empire</li>
+      </ul>
+      <p>
+        Any unauthorised use of our intellectual property may result in legal action.
+      </p>
+    </div>
+
+    <div class="policy-section" id="conduct">
+      <p class="section-num">Section 6</p>
+      <h2 class="section-title">Acceptable Use</h2>
+      <p>By using our website, you agree not to:</p>
+      <ul>
+        <li>Use the site for any unlawful purpose or in violation of any applicable laws</li>
+        <li>Attempt to gain unauthorised access to our systems or servers</li>
+        <li>Scrape, crawl, or otherwise collect data from our site in bulk without permission</li>
+        <li>Impersonate Ethos Empire or any of its representatives</li>
+        <li>Distribute spam, malware, or any harmful content through any contact with us</li>
+        <li>Misrepresent your identity or affiliation with any person or organisation</li>
+      </ul>
+      <p>
+        We reserve the right to refuse access to this website to anyone who violates
+        these Terms or whose conduct we determine to be harmful to the site or our users.
+      </p>
+    </div>
+
+    <div class="policy-section" id="third-party">
+      <p class="section-num">Section 7</p>
+      <h2 class="section-title">Third-Party Links & Services</h2>
+      <p>
+        Our website contains links to third-party websites and services including
+        Gumroad, Printful, Instagram, TikTok, YouTube, Facebook, X, Discord,
+        LinkedIn, Snapchat, and Pinterest.
+      </p>
+      <p>
+        We have no control over, and assume no responsibility for, the content,
+        privacy policies, or practices of any third-party sites. Visiting any
+        external link is at your own risk. We encourage you to review the terms
+        and privacy policies of every external service you use.
+      </p>
+    </div>
+
+    <div class="policy-section" id="disclaimer-warranties">
+      <p class="section-num">Section 8</p>
+      <h2 class="section-title">Disclaimer of Warranties</h2>
+      <p>
+        Our website and all content, products, and services are provided on an
+        <strong>"as is" and "as available"</strong> basis without any warranties
+        of any kind, either express or implied.
+      </p>
+      <p>
+        Ethos Empire does not warrant that the site will be uninterrupted,
+        error-free, or free of viruses or other harmful components.
+        The content of our ebooks represents personal insights and opinions
+        and does not constitute professional financial, medical, legal,
+        or psychological advice.
+      </p>
+      <p>
+        Results mentioned or implied by our content will vary from person to person.
+        We make no guarantees about specific outcomes from using our products.
+      </p>
+    </div>
+
+    <div class="policy-section" id="liability">
+      <p class="section-num">Section 9</p>
+      <h2 class="section-title">Limitation of Liability</h2>
+      <p>
+        To the maximum extent permitted by applicable law, Ethos Empire shall not
+        be liable for any indirect, incidental, special, consequential, or punitive
+        damages arising from:
+      </p>
+      <ul>
+        <li>Your use of, or inability to use, our website or products</li>
+        <li>Any errors or omissions in our content</li>
+        <li>Unauthorised access to or alteration of your data</li>
+        <li>Actions of third-party services (Gumroad, Printful, social platforms)</li>
+      </ul>
+      <p>
+        Our total liability for any claim arising from or related to these Terms
+        or the use of our products shall not exceed the amount you paid for the
+        specific product giving rise to the claim.
+      </p>
+    </div>
+
+    <div class="policy-section" id="changes">
+      <p class="section-num">Section 10</p>
+      <h2 class="section-title">Changes to These Terms</h2>
+      <p>
+        We reserve the right to update or modify these Terms of Service at any time.
+        Changes will take effect immediately upon posting to this page. The "Last updated"
+        date at the top will reflect when the most recent changes were made.
+      </p>
+      <p>
+        Your continued use of the website after any changes constitutes your acceptance
+        of the new Terms. We encourage you to review this page periodically.
+      </p>
+    </div>
+
+    <div class="policy-section" id="disclaimer">
+      <p class="section-num">Section 11</p>
+      <h2 class="section-title">Content Disclaimer</h2>
+      <p>
+        All content published by Ethos Empire — including ebooks, website text, social media
+        posts, and any other materials — is provided for <strong>informational and motivational
+        purposes only</strong>. It does not constitute, and should not be treated as, professional
+        medical, fitness, financial, legal, or psychological advice.
+      </p>
+      <div class="warning-box">
+        Always consult a qualified professional before making decisions about your health,
+        fitness, finances, or any other area where professional guidance is recommended.
+        Ethos Empire is not liable for any decisions you make based on our content.
+      </div>
+      <p>
+        Our ebooks on topics such as gym training, nutrition, skincare, confidence, relationships,
+        and financial discipline are written from a personal growth perspective. They are not
+        a substitute for professional medical diagnosis, treatment, financial planning, or
+        legal counsel.
+      </p>
+    </div>
+
+    <div class="policy-section" id="results">
+      <p class="section-num">Section 12</p>
+      <h2 class="section-title">No Guarantee of Results</h2>
+      <p>
+        Ethos Empire makes <strong>no guarantees, representations, or warranties</strong>
+        regarding specific outcomes or results from using our content, ebooks, or products.
+      </p>
+      <p>
+        Individual results will vary significantly based on personal circumstances, effort,
+        consistency, starting point, genetics, lifestyle, and many other factors outside
+        our control. Any examples of progress, transformation, or success referenced in
+        our content are illustrative and not typical results.
+      </p>
+      <p>
+        You are solely responsible for your own decisions, actions, and outcomes.
+        Ethos Empire shall not be held responsible for any result — positive or negative —
+        arising from the application of our content.
+      </p>
+    </div>
+
+    <div class="policy-section" id="trademark">
+      <p class="section-num">Section 13</p>
+      <h2 class="section-title">Trademark &amp; Brand Protection</h2>
+      <p>
+        <strong>"Ethos Empire"</strong> and the Ethos Empire logo are proprietary marks
+        belonging exclusively to Ethos Empire. All rights are reserved.
+      </p>
+      <ul>
+        <li>You may not use the name "Ethos Empire" or our logo in any commercial context without prior written permission</li>
+        <li>You may not register social media handles, domain names, or business names that include "Ethos Empire" or any confusingly similar variation</li>
+        <li>You may not create, sell, or distribute merchandise that uses our name, logo, or brand identity</li>
+        <li>You may not impersonate Ethos Empire online or claim any affiliation with us</li>
+        <li>You may not use our branding in any way that could mislead consumers or damage our reputation</li>
+      </ul>
+      <div class="warning-box">
+        Unauthorised use of our name, logo, or branding constitutes trademark infringement
+        and may result in immediate legal action including claims for damages and injunctive relief.
+      </div>
+      <p>
+        If you believe someone is misusing the Ethos Empire brand, please contact us
+        immediately so we can take appropriate action.
+      </p>
+    </div>
+
+    <div class="policy-section" id="dmca">
+      <p class="section-num">Section 14</p>
+      <h2 class="section-title">DMCA &amp; Copyright Protection</h2>
+      <p>
+        All content on this website and within our ebooks is protected under copyright law.
+        Ethos Empire takes intellectual property rights seriously — both our own and those of others.
+      </p>
+
+      <p><strong>Our Content is Protected</strong></p>
+      <p>
+        Reproducing, copying, distributing, reselling, or republishing any content from
+        Ethos Empire — including ebook text, graphics, logos, animations, or website copy —
+        without express written permission is a violation of copyright law and may result
+        in legal action under the Digital Millennium Copyright Act (DMCA) and applicable
+        international copyright treaties.
+      </p>
+
+      <p><strong>Reporting Copyright Infringement Against Us</strong></p>
+      <p>
+        If you discover that Ethos Empire content has been copied or distributed without
+        authorisation, please notify us immediately via Instagram
+        <a href="https://www.instagram.com/ethos_empireo/" target="_blank" rel="noopener noreferrer">@ethos_empireo</a>
+        or through our website. Include: a description of the infringed work, the URL or
+        location of the infringing content, and your contact information.
+        We will act swiftly to have infringing content removed.
+      </p>
+
+      <p><strong>Filing a Claim Against Us</strong></p>
+      <p>
+        If you believe content on our site infringes your copyright, send a DMCA takedown
+        notice to us with the following information:
+      </p>
+      <ul>
+        <li>Identification of the copyrighted work you claim has been infringed</li>
+        <li>The URL where the allegedly infringing content appears on our site</li>
+        <li>Your contact details (name, address, email, phone number)</li>
+        <li>A statement that you have a good-faith belief the use is not authorised</li>
+        <li>A statement under penalty of perjury that the information is accurate</li>
+        <li>Your physical or electronic signature</li>
+      </ul>
+      <p>
+        False DMCA claims are a serious legal matter. Anyone who knowingly makes a false
+        claim may be liable for damages, including legal costs.
+      </p>
+    </div>
+
+    <div class="policy-section" id="indemnification">
+      <p class="section-num">Section 15</p>
+      <h2 class="section-title">Indemnification</h2>
+      <p>
+        You agree to <strong>defend, indemnify, and hold harmless</strong> Ethos Empire
+        and its owners, contributors, and affiliates from and against any and all claims,
+        damages, losses, liabilities, costs, and expenses (including reasonable legal fees)
+        arising out of or related to:
+      </p>
+      <ul>
+        <li>Your use of or access to our website or products</li>
+        <li>Your violation of these Terms of Service</li>
+        <li>Your violation of any applicable law or regulation</li>
+        <li>Any decisions or actions you take based on our content</li>
+        <li>Any injury, harm, or damage you claim resulted from using our products</li>
+        <li>Any content you submit or transmit through our platforms</li>
+        <li>Your infringement of any third-party rights</li>
+      </ul>
+      <p>
+        This indemnification obligation survives the termination of these Terms and your
+        use of our website. Ethos Empire reserves the right to assume exclusive defence
+        of any matter subject to indemnification, at your expense.
+      </p>
+    </div>
+
+    <div class="policy-section" id="governing-law">
+      <p class="section-num">Section 16</p>
+      <h2 class="section-title">Governing Law &amp; Jurisdiction</h2>
+      <p>
+        These Terms of Service and any disputes arising from them shall be governed by
+        and construed in accordance with the laws of the <strong>United States</strong>,
+        without regard to its conflict of law provisions.
+      </p>
+      <p>
+        By using our website or purchasing our products, you agree that any legal action
+        or proceeding related to these Terms shall be brought exclusively in the appropriate
+        courts of the United States, and you consent to the personal jurisdiction of those courts.
+      </p>
+      <p>
+        If you access our website from outside the United States, you do so at your own
+        risk and are responsible for compliance with your local laws. Ethos Empire makes
+        no representation that our content or products comply with laws of other jurisdictions.
+      </p>
+    </div>
+
+    <div class="policy-section" id="disputes">
+      <p class="section-num">Section 17</p>
+      <h2 class="section-title">Dispute Resolution &amp; No Class Action</h2>
+      <p>
+        Before filing any legal claim, you agree to first contact Ethos Empire directly
+        and give us a reasonable opportunity — no less than <strong>30 days</strong> —
+        to resolve the dispute informally. Most concerns can be resolved quickly through
+        direct communication.
+      </p>
+      <p><strong>Binding Arbitration</strong></p>
+      <p>
+        If a dispute cannot be resolved informally, you agree that it shall be resolved
+        through binding individual arbitration rather than in court, except where
+        prohibited by law. Arbitration shall be conducted on an individual basis.
+      </p>
+      <div class="warning-box">
+        <strong>You waive your right to participate in any class action lawsuit,
+        class-wide arbitration, or representative action against Ethos Empire.</strong>
+        All claims must be brought individually, not as part of a group or class.
+      </div>
+      <p>
+        This clause does not prevent either party from seeking emergency injunctive relief
+        from a court to prevent irreparable harm (for example, in cases of intellectual
+        property infringement or brand impersonation).
+      </p>
+    </div>
+
+    <div class="policy-section" id="force-majeure">
+      <p class="section-num">Section 18</p>
+      <h2 class="section-title">Force Majeure</h2>
+      <p>
+        Ethos Empire shall not be held liable for any failure or delay in performance
+        of our obligations under these Terms where such failure or delay results from
+        causes beyond our reasonable control, including but not limited to:
+      </p>
+      <ul>
+        <li>Acts of God, natural disasters, fire, flood, or severe weather</li>
+        <li>Platform outages or failures by third-party services (Gumroad, Printful, hosting providers)</li>
+        <li>Internet or telecommunications failures</li>
+        <li>Government actions, laws, or regulations</li>
+        <li>Pandemics, epidemics, or public health emergencies</li>
+        <li>Cyberattacks, hacking, or denial-of-service attacks</li>
+        <li>War, terrorism, civil unrest, or acts of violence</li>
+      </ul>
+      <p>
+        In such events, our obligations will be suspended for the duration of the
+        disruption. We will make reasonable efforts to notify users and resume
+        normal operations as quickly as possible. This clause does not affect your
+        statutory rights as a consumer.
+      </p>
+    </div>
+
+    <div class="policy-section" id="termination">
+      <p class="section-num">Section 19</p>
+      <h2 class="section-title">Termination of Access</h2>
+      <p>
+        Ethos Empire reserves the right, at our sole discretion and without prior
+        notice, to suspend, restrict, or permanently terminate your access to our
+        website and any associated products or services if we determine that:
+      </p>
+      <ul>
+        <li>You have violated any provision of these Terms of Service</li>
+        <li>You have engaged in fraudulent, abusive, or illegal behaviour</li>
+        <li>You have infringed or attempted to infringe on our intellectual property</li>
+        <li>You have impersonated Ethos Empire or misused our brand identity</li>
+        <li>Your conduct is harmful to other users, third parties, or our business</li>
+        <li>You have attempted to circumvent our no-refund policy through chargebacks or fraud</li>
+      </ul>
+      <p>
+        Upon termination, all licences granted to you under these Terms will
+        immediately cease. Provisions that by their nature should survive termination
+        — including intellectual property rights, disclaimer of warranties, limitation
+        of liability, and indemnification — will continue to apply.
+      </p>
+      <div class="warning-box">
+        Termination does not entitle you to a refund of any purchases already made.
+        Purchases completed prior to termination remain non-refundable in accordance
+        with our digital products policy.
+      </div>
+    </div>
+
+    <div class="policy-section" id="harmful-content">
+      <p class="section-num">Section 20</p>
+      <h2 class="section-title">Harmful Content &amp; Reporting</h2>
+      <p>
+        Ethos Empire is committed to maintaining a safe and respectful environment.
+        We take reports of harmful content seriously and will act swiftly when notified.
+      </p>
+
+      <p><strong>Non-Consensual Intimate Imagery — TAKE IT DOWN Act (2025)</strong></p>
+      <p>
+        In compliance with the TAKE IT DOWN Act, signed into US federal law in May 2025,
+        if you discover any non-consensual intimate imagery (NCII) or AI-generated
+        intimate imagery appearing in connection with our brand, website, or any
+        affiliated content, please report it to us immediately.
+      </p>
+      <div class="highlight-box">
+        Report harmful content including non-consensual intimate imagery to:<br><br>
+        <strong>Email:</strong> <a href="mailto:info.ethosempire@gmail.com">info.ethosempire@gmail.com</a><br>
+        <strong>Instagram:</strong> <a href="https://www.instagram.com/ethos_empireo/" target="_blank" rel="noopener noreferrer">@ethos_empireo</a><br><br>
+        We will respond and take action within <strong>48 hours</strong> of receiving a valid report.
+      </div>
+      <p>
+        Reports must include a description of the content, where it appears, and
+        your contact information. False or malicious reports may result in legal action.
+      </p>
+
+      <p><strong>General Harmful or Illegal Content</strong></p>
+      <p>
+        To report any other harmful, illegal, or infringing content associated with
+        Ethos Empire, contact us using the details in Section 21 below.
+      </p>
+    </div>
+
+    <div class="policy-section" id="contact">
+      <p class="section-num">Section 21</p>
+      <h2 class="section-title">Contact Us</h2>
+      <p>
+        If you have any questions about these Terms of Service, please reach out through
+        any of the following channels. We aim to respond within <strong>5 business days</strong>.
+      </p>
+      <div class="highlight-box">
+        <strong>Ethos Empire</strong><br><br>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+          <img src="images/gmail.webp" alt="Email" width="24" height="24" style="border-radius:4px; flex-shrink:0;">
+          <span>Email: <a href="mailto:info.ethosempire@gmail.com">info.ethosempire@gmail.com</a></span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+          <img src="images/instagram.webp" alt="Instagram" width="24" height="24" style="border-radius:4px; flex-shrink:0;">
+          <span>Instagram: <a href="https://www.instagram.com/ethos_empireo/" target="_blank" rel="noopener noreferrer">@ethos_empireo</a></span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:1rem;">🌐</span>
+          <span>Website: <a href="https://ethosempire.org">ethosempire.org</a></span>
+        </div>
+      </div>
+      <p>
+        For order issues related to digital products, contact
+        <a href="https://help.gumroad.com" target="_blank" rel="noopener noreferrer">Gumroad support</a> directly.
+        For shipping or merchandise issues, contact
+        <a href="https://www.printful.com/contact" target="_blank" rel="noopener noreferrer">Printful support</a> directly.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <p>© 2026 Ethos Empire. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer">Shop Ebooks</a>
+    </div>
+  </footer>
+
+</body>
+</html>

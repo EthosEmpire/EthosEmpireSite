@@ -49,12 +49,17 @@ function setupPointerGlow(selector) {
   const cards = document.querySelectorAll(selector);
 
   cards.forEach((card) => {
+    let glowRaf = 0;
     card.addEventListener("pointermove", (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width) * 100;
-      const y = ((event.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty("--card-glow-x", `${x}%`);
-      card.style.setProperty("--card-glow-y", `${y}%`);
+      if (glowRaf) return;
+      glowRaf = requestAnimationFrame(() => {
+        glowRaf = 0;
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty("--card-glow-x", `${x}%`);
+        card.style.setProperty("--card-glow-y", `${y}%`);
+      });
     });
   });
 }
@@ -65,22 +70,29 @@ function setupTilt(selector) {
   cards.forEach((card) => {
     if (card.classList.contains("ethos-bubble-card")) return;
 
+    let tiltRaf = 0;
+
     const reset = () => {
+      if (tiltRaf) { cancelAnimationFrame(tiltRaf); tiltRaf = 0; }
       card.style.transform = "";
       card.classList.remove("is-tilting");
     };
 
     card.addEventListener("pointermove", (event) => {
       if (window.innerWidth < 768) return;
+      if (tiltRaf) return;
 
-      const rect = card.getBoundingClientRect();
-      const px = (event.clientX - rect.left) / rect.width;
-      const py = (event.clientY - rect.top) / rect.height;
-      const rx = (0.5 - py) * 6;
-      const ry = (px - 0.5) * 8;
+      tiltRaf = requestAnimationFrame(() => {
+        tiltRaf = 0;
+        const rect = card.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width;
+        const py = (event.clientY - rect.top) / rect.height;
+        const rx = (0.5 - py) * 6;
+        const ry = (px - 0.5) * 8;
 
-      card.classList.add("is-tilting");
-      card.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+        card.classList.add("is-tilting");
+        card.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+      });
     });
 
     card.addEventListener("pointerleave", reset);

@@ -37,7 +37,7 @@ function isMobileMatrixDevice() {
   return (
     window.matchMedia("(hover: none)").matches ||
     window.matchMedia("(pointer: coarse)").matches ||
-    window.innerWidth <= 1024
+    window.innerWidth < 768
   );
 }
 
@@ -149,14 +149,18 @@ function drawPageMatrixLayer(width, height, delta) {
   const isMobile = isMobileMatrixDevice();
   pageMatrixTime += delta;
 
-  const headAlphaBase = isMobile ? 0.42 : 0.52;
-  const trailAlphaBase = isMobile ? 0.18 : 0.24;
+  const headAlphaBase = isMobile ? 0.52 : 0.65;
+  const trailAlphaBase = isMobile ? 0.22 : 0.30;
   const fadeFill = isMobile ? 0.06 : 0.045;
 
   pageMatrixCtx.clearRect(0, 0, width, height);
   pageMatrixCtx.fillStyle = `rgba(0, 0, 0, ${fadeFill})`;
   pageMatrixCtx.fillRect(0, 0, width, height);
   pageMatrixCtx.textBaseline = "top";
+
+  /* shadowBlur removed from inner loop — it forces a full GPU composite
+     pass per draw call. Colour alpha provides the glow at zero GPU cost. */
+  pageMatrixCtx.shadowBlur = 0;
 
   for (const col of pageMatrixColumns) {
     const fontSize = pageMatrixFontSize * col.sizeScale;
@@ -176,18 +180,12 @@ function drawPageMatrixLayer(width, height, delta) {
       const trailStrength = 1 - i / col.length;
 
       if (i === 0) {
-        pageMatrixCtx.shadowColor = `rgba(200, 255, 220, ${0.3 * col.headBoost})`;
-        pageMatrixCtx.shadowBlur = col.blur * 2;
-        pageMatrixCtx.fillStyle = `rgba(235, 255, 242, ${headAlphaBase * col.headBoost})`;
+        pageMatrixCtx.fillStyle = `rgba(245, 255, 248, ${(headAlphaBase * col.headBoost).toFixed(3)})`;
       } else if (i <= 2) {
-        const subFade = i === 1 ? 0.65 : 0.42;
-        pageMatrixCtx.shadowColor = `rgba(150, 255, 185, ${0.16 * col.headBoost * subFade})`;
-        pageMatrixCtx.shadowBlur = col.blur * 1.2 * subFade;
-        pageMatrixCtx.fillStyle = `rgba(190, 255, 210, ${(headAlphaBase * subFade) * col.headBoost})`;
+        const subFade = i === 1 ? 0.68 : 0.44;
+        pageMatrixCtx.fillStyle = `rgba(195, 255, 215, ${(headAlphaBase * subFade * col.headBoost).toFixed(3)})`;
       } else {
-        pageMatrixCtx.shadowColor = `rgba(80, 200, 130, ${0.08 * col.trailBoost * trailStrength})`;
-        pageMatrixCtx.shadowBlur = Math.max(0.5, col.blur * 0.5);
-        pageMatrixCtx.fillStyle = `rgba(100, 220, 150, ${trailAlphaBase * trailStrength * col.trailBoost})`;
+        pageMatrixCtx.fillStyle = `rgba(100, 220, 150, ${(trailAlphaBase * trailStrength * col.trailBoost).toFixed(3)})`;
       }
 
       pageMatrixCtx.fillText(col.glyphs[i % col.glyphs.length], x, y);
@@ -215,6 +213,13 @@ function drawPageMatrixLayer(width, height, delta) {
 
 function animatePageMatrix(now) {
   if (!pageMatrixCtx || !pageMatrixCanvas) return;
+
+  /* 30 fps cap on ALL devices — page matrix is a background effect,
+     30 fps is imperceptible vs 60 fps but halves GPU cost. */
+  if (now - pageMatrixLastFrameTime < 33) {
+    pageMatrixAnimationFrame = requestAnimationFrame(animatePageMatrix);
+    return;
+  }
 
   const width = window.innerWidth;
   const height = window.innerHeight;
