@@ -2,6 +2,344 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- ═══════════════════════════════════════
+       MAIN SITE
+       ═══════════════════════════════════════ -->
+  <url>
+    <loc>https://ethosempire.org/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-logo.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-built-by-money-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-command-the-room-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-confidence-guide-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-philosophy-of-becoming-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-life-lessons-in-faith-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-relationship-code-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-architecture-of-health-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-gym-mindset-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-clear-skin-guide-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hair-care-blueprint-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-looksmaxxing-guide-ebook-cover-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-black-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-bone-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-latte-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-lavender-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-navy-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-oatmeal-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-vintage-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-white-gold-logo-1200.webp</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/ethos-empire-hoodie-pink-gold-logo-1200.webp</image:loc>
+    </image:image>
+  </url>
+
+  <!-- ═══════════════════════════════════════
+       LEGAL PAGES
+       ═══════════════════════════════════════ -->
+  <url>
+    <loc>https://ethosempire.org/privacy-policy.html</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/terms.html</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- ═══════════════════════════════════════
+       FREE COURSES
+       ═══════════════════════════════════════ -->
+  <url>
+    <loc>https://ethosempire.org/course/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/clear-skin-protocol/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/sc-7.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/command-the-room/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-8.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/pc-2.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/finacial-discipline/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-6.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-9.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-8.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-11.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/mp-1.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/hair-mastery/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-1.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-8.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-9.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-14.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-3.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-11.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hc-18.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/relationship-code/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/rl-5.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/rl-8.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/scent-hygiene/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-2.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-4.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-10.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-7.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ethosempire.org/images/hg-8.webp</image:loc>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/chest/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/back/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/shoulders/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/biceps/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/triceps/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/legs/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://ethosempire.org/course/training-foundation/abs/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>
+
   <url>
     <loc>https://ethosempire.org/</loc>
 
