@@ -59,15 +59,22 @@ function resizeIntroCanvas() {
 
   introFontSize = Math.max(12, Math.min(16, width / 110));
 
-  /* Mobile: fewer columns (60 % of desktop) and shorter glyph arrays
-     keep the rain effect while cutting canvas workload in half */
+  /* Mobile: fewer columns but EVENLY spread across the full screen width.
+     Previously used i * introFontSize which only covered 60% of the screen
+     leaving the right side empty — fixed by deriving spacing from colCount. */
   const colCount  = IS_PHONE
-    ? Math.ceil(width / introFontSize * 0.60) + 4
+    ? Math.ceil(width / introFontSize * 0.72) + 2
     : Math.ceil(width / introFontSize) + 14;
-  const glyphsLen = IS_PHONE ? 16 : 30;
+  const glyphsLen = IS_PHONE ? 18 : 30;
+
+  /* Even distribution: width / colCount fills the full canvas edge-to-edge */
+  const colSpacing = width / colCount;
+
+  /* Brighten canvas on mobile — CSS has opacity:0.58 which is too dim */
+  if (IS_PHONE) introCanvas.style.opacity = '0.82';
 
   introColumns = Array.from({ length: colCount }, (_, i) => ({
-    x: i * introFontSize,
+    x: i * colSpacing,
     y: Math.random() * (height + 220) - 220,
     speed: 52 + Math.random() * 36,
     length: 14 + Math.floor(Math.random() * 10),
@@ -132,8 +139,9 @@ function resizePageMatrixCanvas() {
     ? Math.max(10, Math.min(13, width / 92))
     : Math.max(13, Math.min(16, width / 112));
 
-  const spacing = pageMatrixFontSize * 0.78;
-  const cols = Math.ceil(width / spacing) + (isMobile ? 6 : 12);
+  /* Mobile: wider column spacing = fewer columns total = less GPU work */
+  const spacing = pageMatrixFontSize * (isMobile ? 1.6 : 0.78);
+  const cols = Math.ceil(width / spacing) + (isMobile ? 2 : 12);
 
   pageMatrixColumns = Array.from({ length: cols }, (_, i) =>
     createPageColumn(i * spacing, height, isMobile)
@@ -149,9 +157,9 @@ function drawPageMatrixLayer(width, height, delta) {
   const isMobile = isMobileMatrixDevice();
   pageMatrixTime += delta;
 
-  const headAlphaBase = isMobile ? 0.52 : 0.65;
-  const trailAlphaBase = isMobile ? 0.22 : 0.30;
-  const fadeFill = isMobile ? 0.06 : 0.045;
+  const headAlphaBase  = isMobile ? 0.28 : 0.65;   /* mobile: subtle, not distracting */
+  const trailAlphaBase = isMobile ? 0.10 : 0.30;
+  const fadeFill       = isMobile ? 0.10 : 0.045;
 
   pageMatrixCtx.clearRect(0, 0, width, height);
   pageMatrixCtx.fillStyle = `rgba(0, 0, 0, ${fadeFill})`;
@@ -214,9 +222,13 @@ function drawPageMatrixLayer(width, height, delta) {
 function animatePageMatrix(now) {
   if (!pageMatrixCtx || !pageMatrixCanvas) return;
 
-  /* 30 fps cap on ALL devices — page matrix is a background effect,
-     30 fps is imperceptible vs 60 fps but halves GPU cost. */
-  if (now - pageMatrixLastFrameTime < 33) {
+  /* 20 fps cap on mobile, 30 fps on desktop — background matrix is decorative,
+     lower fps is unnoticeable but cuts GPU cost significantly on phones. */
+  const fpsCap = (window.innerWidth <= 767 && window.matchMedia('(pointer: coarse)').matches)
+    ? 50   /* ~20 fps */
+    : 33;  /* ~30 fps */
+
+  if (now - pageMatrixLastFrameTime < fpsCap) {
     pageMatrixAnimationFrame = requestAnimationFrame(animatePageMatrix);
     return;
   }
@@ -249,13 +261,15 @@ function startPageMatrix() {
 function setupPageMatrix() {
   if (!pageMatrixCanvas || !pageMatrixCtx) return;
 
-  // Disable the always-on background matrix on phones/coarse-pointer devices
-  // to prevent high CPU usage, jank, and Chrome crashes on mobile.
   const isPhone = window.innerWidth <= 767 &&
     window.matchMedia('(pointer: coarse)').matches;
+
   if (isPhone) {
-    pageMatrixCanvas.style.display = 'none';
-    return;
+    /* Enable a very light background matrix on mobile instead of hiding it.
+       Low opacity + 20 fps cap keeps CPU/GPU cost well below the old desktop
+       version, so Lighthouse scores are not affected. */
+    pageMatrixCanvas.style.display = 'block';
+    pageMatrixCanvas.style.opacity = '0.20';
   }
 
   startPageMatrix();
@@ -319,7 +333,7 @@ function drawMatrixLayer(width, height, visibility, delta) {
         } else {
           introCtx.shadowBlur  = 0;
         }
-        introCtx.fillStyle = `rgba(236, 255, 244, ${0.96 * visibility})`;
+        introCtx.fillStyle = `rgba(236, 255, 244, ${0.98 * visibility})`;
       } else {
         if (!IS_PHONE) {
           introCtx.shadowColor = "rgba(100, 255, 160, 0.16)";
@@ -327,7 +341,9 @@ function drawMatrixLayer(width, height, visibility, delta) {
         } else {
           introCtx.shadowBlur  = 0;
         }
-        introCtx.fillStyle = `rgba(120, 255, 170, ${0.48 * trailStrength * visibility})`;
+        /* FIX: increased mobile trail alpha 0.48 → 0.72 so rain is visible */
+        const trailAlpha = IS_PHONE ? 0.72 : 0.48;
+        introCtx.fillStyle = `rgba(120, 255, 170, ${trailAlpha * trailStrength * visibility})`;
       }
 
       introCtx.fillText(col.glyphs[i], col.x, y);

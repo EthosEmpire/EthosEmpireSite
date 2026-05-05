@@ -1923,7 +1923,20 @@ body {
 }
 
 @media (max-width: 767px) {
+  /* JS sets canvas opacity to 0.20 for a light subtle mobile effect.
+     Lighten the vignette overlay so the matrix can show through. */
   .page-matrix-canvas {
-    opacity: 0.34;
+    opacity: 0.20;
+  }
+
+  .page-matrix-vignette {
+    background:
+      radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.18) 65%, rgba(0, 0, 0, 0.45) 100%) !important;
+  }
+
+  /* Intro matrix — ensure the canvas is always full-width on mobile */
+  .intro-matrix {
+    width: 100% !important;
+    left: 0 !important;
   }
 }
