@@ -210,7 +210,8 @@ body.snap-ready {
    ────────────────────────────────────────────── */
 .snap-hero { padding: 0 24px; }
 
-/* Pulsing rings behind the logo */
+/* Concentric rings behind the logo — static, no continuous pulse.
+   The layered opacity creates a spotlight/target feel without motion. */
 .hero-ring {
   position: absolute;
   border-radius: 50%;
@@ -218,16 +219,10 @@ body.snap-ready {
   pointer-events: none;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  animation: ringPulse 4.2s ease-in-out infinite;
 }
 .hero-ring:nth-child(1) { width: 230px; height: 230px; }
-.hero-ring:nth-child(2) { width: 320px; height: 320px; border-color: rgba(255,215,0,0.055); animation-delay: 0.9s; }
-.hero-ring:nth-child(3) { width: 420px; height: 420px; border-color: rgba(255,215,0,0.03); animation-delay: 1.8s; }
-
-@keyframes ringPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  50% { transform: translate(-50%, -50%) scale(1.06); opacity: 0.28; }
-}
+.hero-ring:nth-child(2) { width: 320px; height: 320px; border-color: rgba(255,215,0,0.055); }
+.hero-ring:nth-child(3) { width: 420px; height: 420px; border-color: rgba(255,215,0,0.03); }
 
 .hero-inner {
   position: relative; z-index: 2;

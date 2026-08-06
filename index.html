@@ -165,12 +165,10 @@
   </a>
 
   <!-- =============================================
-       MATRIX BACKGROUND  (fixed, behind everything)
+       AMBIENT BACKDROP  (static gradient, GPU-cheap)
+       Replaces the previous continuous matrix canvas.
        ============================================= -->
-  <div class="page-matrix-layer" aria-hidden="true">
-    <canvas id="pageMatrixCanvas" class="page-matrix-canvas"></canvas>
-    <div class="page-matrix-vignette"></div>
-  </div>
+  <div class="page-backdrop" aria-hidden="true"></div>
 
   <!-- =============================================
        SNAP SCROLL CONTAINER
