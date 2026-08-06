@@ -110,54 +110,10 @@
   </script>
 
   <link rel="stylesheet" href="tailwind.css?v=3">
-  <link rel="stylesheet" href="styles.css?v=3">
-  <link rel="stylesheet" href="slider.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 
 <body>
-
-  <!-- =============================================
-       INTRO OVERLAY  (unchanged)
-       ============================================= -->
-  <div id="introOverlay" class="intro-overlay" role="dialog" aria-modal="true" aria-label="Ethos Empire intro screen" tabindex="0">
-    <canvas id="matrixCanvas" class="intro-matrix" aria-hidden="true"></canvas>
-    <div class="intro-vignette" aria-hidden="true"></div>
-
-    <img
-      src="images/ethos-empire-logo.webp"
-      alt=""
-      aria-hidden="true"
-      class="intro-backdrop-logo"
-      width="900"
-      height="900"
-      loading="eager"
-      fetchpriority="high"
-      decoding="sync"
-    >
-
-    <div class="intro-glow" aria-hidden="true"></div>
-
-    <div class="intro-content">
-      <img
-        src="images/ethos-empire-logo.webp"
-        alt="Ethos Empire"
-        class="intro-logo"
-        width="240"
-        height="240"
-        loading="eager"
-        decoding="async"
-      >
-      <p class="intro-kicker">ETHOS EMPIRE</p>
-      <h2 class="intro-title">Ethos Empire</h2>
-      <p class="intro-subtitle">
-        Stop Wasting Time.<br>
-        Build Discipline, Confidence, and a Stronger Life.
-      </p>
-      <p class="intro-tip">Tap anywhere to enter</p>
-    </div>
-
-    <div class="intro-dust-layer" aria-hidden="true"></div>
-  </div>
 
   <!-- Skip link -->
   <a href="#snap-hero" class="sr-only focus:not-sr-only focus-ring fixed top-4 left-4 z-50 bg-black text-[#FFD700] px-4 py-2 rounded-full border border-[#FFD700]">
@@ -171,437 +127,286 @@
   <div class="page-backdrop" aria-hidden="true"></div>
 
   <!-- =============================================
-       SNAP SCROLL CONTAINER
+       MAIN CONTENT — natural document flow (no snap)
        ============================================= -->
-  <main id="content" class="w-full matrix-page-shell">
-    <div id="snapContainer">
+  <main id="content" class="site-main">
 
-      <!-- ─────────────────────────────────────────
-           SECTION 1 · HERO
-           ───────────────────────────────────────── -->
-      <section id="snap-hero" class="snap-section snap-hero" aria-label="Hero">
+    <!-- ─────────────────────────────────────────
+         HERO
+         ───────────────────────────────────────── -->
+    <section class="hero" aria-label="Ethos Empire">
+      <div class="hero-inner">
+        <img
+          src="images/ethos-empire-logo.webp"
+          alt="Ethos Empire official logo"
+          class="hero-logo"
+          width="512"
+          height="512"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        >
 
-        <!-- Pulsing logo rings -->
-        <div class="hero-ring" aria-hidden="true"></div>
-        <div class="hero-ring" aria-hidden="true"></div>
-        <div class="hero-ring" aria-hidden="true"></div>
+        <p class="hero-kicker">Discipline&nbsp;·&nbsp;Self-Mastery&nbsp;·&nbsp;Mindset&nbsp;·&nbsp;Legacy</p>
 
-        <div class="hero-inner">
-          <img
-            src="images/ethos-empire-logo.webp"
-            alt="Ethos Empire official logo"
-            width="512"
-            height="512"
-            class="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover mx-auto mb-8"
-            style="box-shadow:0 0 60px rgba(255,215,0,0.45)"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          >
+        <h1 class="hero-title gold-text">Ethos Empire</h1>
 
-          <p class="text-xs md:text-sm tracking-[0.35em] uppercase text-[#C5A55A] mb-4 snap-reveal">
-            Discipline&nbsp;•&nbsp;Self-Mastery&nbsp;•&nbsp;Mindset&nbsp;•&nbsp;Legacy
-          </p>
+        <p class="hero-tagline">
+          Stop wasting time. Build discipline, confidence, and a stronger life.
+        </p>
 
-          <h1 class="text-4xl md:text-6xl font-extrabold gold-text leading-snug pb-2 snap-reveal">
-            Ethos Empire
-            <span class="block text-2xl md:text-4xl mt-3 text-[#D4AF37] font-semibold">
-              Stop Wasting Time. Build Discipline, Confidence, and a Stronger Life.
-            </span>
-          </h1>
+        <p class="hero-motto">⚔️&nbsp; Ethos means character. Empire means legacy.</p>
 
-          <div class="w-24 h-0.5 mx-auto my-6 snap-reveal"
-               style="background:linear-gradient(to right,transparent,#FFD700,transparent)"></div>
-
-          <p class="text-xl md:text-2xl font-semibold italic text-[#C9952A] max-w-2xl mx-auto snap-reveal">
-            ⚔️ Ethos means character. Empire means legacy.
-          </p>
-
-          <a
-            href="course/"
-            class="hero-free-btn snap-reveal"
-            aria-label="Get the Free Course"
-          >
-            <span class="hero-free-btn-text">Free Course</span>
-            <span class="hero-free-btn-arrow" aria-hidden="true">→</span>
+        <div class="hero-cta-row">
+          <a href="course/" class="btn btn-primary" aria-label="Get the Free Course">
+            Free Course <span aria-hidden="true">→</span>
           </a>
-
+          <a href="#library" class="btn btn-ghost">Empire Library</a>
         </div>
+      </div>
 
-        <!-- Bottom marquee ticker -->
-        <div class="snap-marquee" aria-hidden="true">
-          <div class="snap-marquee-track">
-            <span class="snap-mq-item hi">DISCIPLINE</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">CONFIDENCE</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">HEALTH</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">LEGACY</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">MINDSET</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">SELF-MASTERY</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">ETHOS EMPIRE</span><span class="snap-mq-item">•</span>
-            <!-- Duplicate for seamless loop -->
-            <span class="snap-mq-item hi">DISCIPLINE</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">CONFIDENCE</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">HEALTH</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">LEGACY</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">MINDSET</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">SELF-MASTERY</span><span class="snap-mq-item">•</span>
-            <span class="snap-mq-item hi">ETHOS EMPIRE</span><span class="snap-mq-item">•</span>
-          </div>
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee-track">
+          <span class="hero-mq hi">DISCIPLINE</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">CONFIDENCE</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">HEALTH</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">LEGACY</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">MINDSET</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">SELF-MASTERY</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">ETHOS EMPIRE</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">DISCIPLINE</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">CONFIDENCE</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">HEALTH</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">LEGACY</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">MINDSET</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">SELF-MASTERY</span><span class="hero-mq">•</span>
+          <span class="hero-mq hi">ETHOS EMPIRE</span><span class="hero-mq">•</span>
         </div>
+      </div>
+    </section>
 
-      </section>
-
-      <!-- ─────────────────────────────────────────
-           SECTION 2 · MANIFESTO / STATS
-           ───────────────────────────────────────── -->
-      <section id="snap-manifesto" class="snap-section snap-manifesto" aria-label="Mission">
-
-        <p class="manifesto-headline snap-reveal">ONE&nbsp;LIFE.</p>
-        <p class="manifesto-sub snap-reveal">We only get one. What you do with it defines you.</p>
-
-        <div class="manifesto-rule"></div>
-
-        <div class="stats-trio snap-reveal">
-          <div class="stat-box">
-            <span class="stat-num" data-count="11">11</span>
-            <span class="stat-desc">Ebooks &amp; guides</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-num" data-count="9">9</span>
-            <span class="stat-desc">Social platforms</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-num" data-count="1">1</span>
-            <span class="stat-desc">Clear mission</span>
-          </div>
+    <!-- ─────────────────────────────────────────
+         MANIFESTO / STATS
+         ───────────────────────────────────────── -->
+    <section class="manifesto" aria-label="Mission">
+      <p class="manifesto-headline gold-text">ONE&nbsp;LIFE.</p>
+      <p class="manifesto-sub">We only get one. What you do with it defines you.</p>
+      <div class="manifesto-rule" aria-hidden="true"></div>
+      <div class="manifesto-stats">
+        <div class="stat-box">
+          <span class="stat-num">11</span>
+          <span class="stat-desc">Ebooks &amp; guides</span>
         </div>
+        <div class="stat-box">
+          <span class="stat-num">9</span>
+          <span class="stat-desc">Social platforms</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">1</span>
+          <span class="stat-desc">Clear mission</span>
+        </div>
+      </div>
+    </section>
 
+    <!-- ─────────────────────────────────────────
+         FOUR PILLARS — single section, 4-card grid
+         (was four full-viewport snap sections with
+         per-section canvas animations)
+         ───────────────────────────────────────── -->
+    <section class="pillars-section" aria-label="The Four Pillars">
+      <header class="section-head">
+        <span class="section-eyebrow">The Four Pillars</span>
+        <h2 class="section-title">
+          Character. Confidence. <span class="gold-text">Health. Legacy.</span>
+        </h2>
+      </header>
 
-      </section>
-
-      <!-- ─────────────────────────────────────────
-           SECTION 3 · PILLAR: DISCIPLINE
-           ───────────────────────────────────────── -->
-      <section id="snap-discipline" class="snap-section snap-pillar" aria-label="Discipline">
-
-        <div class="pillar-bg-num" aria-hidden="true">01</div>
-        <div class="pillar-anim-wrap" id="discipline-anim" aria-hidden="true"></div>
-        <div class="pillar-vert" aria-hidden="true">DISCIPLINE</div>
-
-        <div class="pillar-content">
-          <p class="pillar-eyebrow snap-reveal">The First Pillar</p>
-
-          <h2 class="pillar-headline snap-reveal">
-            Discipline
-            <span class="line-gold">that lasts.</span>
-          </h2>
-
-          <div class="pillar-rule"></div>
-
-          <p class="pillar-body snap-reveal">
+      <div class="pillars-grid">
+        <article class="pillar-card soft-card">
+          <span class="pillar-num" aria-hidden="true">01</span>
+          <h3 class="pillar-card-title">Discipline</h3>
+          <p class="pillar-card-body">
             Discipline is the foundation of progress. Without it, goals stay ideas.
-            Ethos Empire focuses on building systems, routines, and habits that keep
-            you consistent when motivation disappears — because motivation is temporary,
-            but discipline is permanent.
+            Ethos Empire builds systems, routines, and habits that keep you consistent
+            when motivation disappears — because motivation is temporary, but discipline
+            is permanent.
           </p>
+        </article>
 
-        </div>
-
-        <span class="pillar-counter" aria-hidden="true">01 / 04</span>
-
-      </section>
-
-      <!-- ─────────────────────────────────────────
-           SECTION 4 · PILLAR: CONFIDENCE
-           ───────────────────────────────────────── -->
-      <section id="snap-confidence" class="snap-section snap-pillar" aria-label="Confidence">
-
-        <div class="pillar-bg-num" aria-hidden="true">02</div>
-        <div class="pillar-anim-wrap" id="confidence-anim" aria-hidden="true"></div>
-        <div class="pillar-vert" aria-hidden="true">CONFIDENCE</div>
-
-        <div class="pillar-content">
-          <p class="pillar-eyebrow snap-reveal">The Second Pillar</p>
-
-          <h2 class="pillar-headline snap-reveal">
-            Confidence
-            <span class="line-gold">with substance.</span>
-          </h2>
-
-          <div class="pillar-rule"></div>
-
-          <p class="pillar-body snap-reveal">
-            Confidence is not about pretending to be perfect. It comes from real progress.
-            When your habits improve, your appearance improves, your communication improves —
-            and your self-respect grows. Ethos Empire gives you tools to become more
-            grounded, more attractive, and more certain in who you are.
+        <article class="pillar-card soft-card">
+          <span class="pillar-num" aria-hidden="true">02</span>
+          <h3 class="pillar-card-title">Confidence</h3>
+          <p class="pillar-card-body">
+            Confidence is not about pretending to be perfect. It comes from real
+            progress — when your habits improve, your appearance improves, your
+            communication improves, and your self-respect grows.
           </p>
+        </article>
 
-        </div>
-
-        <span class="pillar-counter" aria-hidden="true">02 / 04</span>
-
-      </section>
-
-      <!-- ─────────────────────────────────────────
-           SECTION 5 · PILLAR: HEALTH
-           ───────────────────────────────────────── -->
-      <section id="snap-health" class="snap-section snap-pillar" aria-label="Health and self-care">
-
-        <div class="pillar-bg-num" aria-hidden="true">03</div>
-        <div class="pillar-anim-wrap" id="health-anim" aria-hidden="true"></div>
-        <div class="pillar-vert" aria-hidden="true">HEALTH</div>
-
-        <div class="pillar-content">
-          <p class="pillar-eyebrow snap-reveal">The Third Pillar</p>
-
-          <h2 class="pillar-headline snap-reveal">
-            Health
-            <span class="line-gold">and self-care.</span>
-          </h2>
-
-          <div class="pillar-rule"></div>
-
-          <p class="pillar-body snap-reveal">
-            Your body affects your energy, your mood, and your discipline.
-            From skincare to hair care to fitness mindset — the brand encourages
-            simple, effective habits that help you look better, feel better,
-            and perform better in every area of daily life.
+        <article class="pillar-card soft-card">
+          <span class="pillar-num" aria-hidden="true">03</span>
+          <h3 class="pillar-card-title">Health</h3>
+          <p class="pillar-card-body">
+            Your body affects your energy, your mood, and your discipline. From
+            skincare to hair care to fitness mindset — simple, effective habits
+            that help you perform in every area of daily life.
           </p>
+        </article>
 
-        </div>
-
-        <span class="pillar-counter" aria-hidden="true">03 / 04</span>
-
-      </section>
-
-      <!-- ─────────────────────────────────────────
-           SECTION 6 · PILLAR: LEGACY
-           ───────────────────────────────────────── -->
-      <section id="snap-legacy" class="snap-section snap-pillar" aria-label="Legacy and personal growth">
-
-        <div class="pillar-bg-num" aria-hidden="true">04</div>
-        <div class="pillar-anim-wrap" id="legacy-anim" aria-hidden="true"></div>
-        <div class="pillar-vert" aria-hidden="true">LEGACY</div>
-
-        <div class="pillar-content">
-          <p class="pillar-eyebrow snap-reveal">The Fourth Pillar</p>
-
-          <h2 class="pillar-headline snap-reveal">
-            Legacy
-            <span class="line-gold">and growth.</span>
-          </h2>
-
-          <div class="pillar-rule"></div>
-
-          <p class="pillar-body snap-reveal">
-            A legacy is built through repeated choices. The books and products here
-            are designed to support a bigger vision: becoming the kind of person who
-            leads, grows, and leaves something meaningful behind.
-            That is the Ethos Empire standard.
+        <article class="pillar-card soft-card">
+          <span class="pillar-num" aria-hidden="true">04</span>
+          <h3 class="pillar-card-title">Legacy</h3>
+          <p class="pillar-card-body">
+            A legacy is built through repeated choices. The books and products
+            here are designed to support a bigger vision — becoming the kind of
+            person who leads, grows, and leaves something meaningful behind.
           </p>
+        </article>
+      </div>
+    </section>
 
-        </div>
+    <!-- ─────────────────────────────────────────
+         EMPIRE KNOWLEDGE LIBRARY
+         ───────────────────────────────────────── -->
+    <section id="library" class="library-section" aria-label="Empire Knowledge Library">
+      <header class="section-head">
+        <span class="section-eyebrow">Empire Knowledge Library</span>
+        <h2 class="section-title">
+          11&nbsp;Books. <span class="gold-text">Endless Growth.</span>
+        </h2>
+        <p class="section-hint">Drag to explore&nbsp;·&nbsp;Tap any book to open</p>
+      </header>
 
-        <span class="pillar-counter" aria-hidden="true">04 / 04</span>
-
-      </section>
-
-      <!-- ─────────────────────────────────────────
-           SECTION 7 · EMPIRE KNOWLEDGE LIBRARY
-           ───────────────────────────────────────── -->
-      <section id="snap-knowledge" class="snap-section snap-library" aria-label="Empire Knowledge Library">
-
-        <div class="snap-section-header">
-          <span class="snap-section-eyebrow snap-reveal">Empire Knowledge Library</span>
-          <h2 class="snap-section-title snap-reveal">
-            11&nbsp;Books. <span>Endless Growth.</span>
-          </h2>
-          <p class="snap-section-hint snap-reveal">Drag to explore &nbsp;·&nbsp; Tap any book to open</p>
-        </div>
-
-        <div class="ebook-wrapper soft-card rounded-3xl p-5 md:p-8 snap-reveal"
-             id="ebookWrapper"
-             aria-label="Ethos Empire ebook collection">
-          <div class="ebook-track" id="ebookTrack">
-            <!-- Populated by carousel.js — static SEO fallback below -->
-            <div class="ebook-card">
-              <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer bookmark">
-                <img src="images/ethos-empire-built-by-money-ebook-cover-320.webp" alt="Built by Money ebook" width="160" height="226" loading="lazy" decoding="async" draggable="false">
-              </a>
-              <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer bookmark" class="mt-3 text-[#FFD700] font-semibold leading-tight hover:text-[#FFE082] transition">Built by Money</a>
-              <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
-            </div>
+      <div class="ebook-wrapper soft-card rounded-3xl p-5 md:p-8"
+           id="ebookWrapper"
+           aria-label="Ethos Empire ebook collection">
+        <div class="ebook-track" id="ebookTrack">
+          <!-- Populated by carousel.js — static SEO fallback below -->
+          <div class="ebook-card">
+            <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer bookmark">
+              <img src="images/ethos-empire-built-by-money-ebook-cover-320.webp" alt="Built by Money ebook" width="160" height="226" loading="lazy" decoding="async" draggable="false">
+            </a>
+            <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer bookmark" class="ebook-card-title">Built by Money</a>
+            <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
           </div>
         </div>
+      </div>
+    </section>
 
-      </section>
+    <!-- ─────────────────────────────────────────
+         EMPIRE MERCH
+         ───────────────────────────────────────── -->
+    <section id="merch" class="merch-section" aria-label="Empire Merch">
+      <header class="section-head">
+        <span class="section-eyebrow">Empire Merch</span>
+        <h2 class="section-title">
+          Wear the <span class="gold-text">Standard.</span>
+        </h2>
+        <p class="section-hint">Premium hoodies&nbsp;·&nbsp;Gold emblem finish&nbsp;·&nbsp;9 colorways</p>
+      </header>
 
-      <!-- ─────────────────────────────────────────
-           SECTION 8 · EMPIRE MERCH
-           ───────────────────────────────────────── -->
-      <section id="snap-merch-sec" class="snap-section snap-merch-sec" aria-label="Empire Merch">
-
-        <div class="snap-section-header">
-          <span class="snap-section-eyebrow snap-reveal">Empire Merch</span>
-          <h2 class="snap-section-title snap-reveal">
-            Wear the <span>Standard.</span>
-          </h2>
-          <p class="snap-section-hint snap-reveal">Premium hoodies &nbsp;·&nbsp; Gold emblem finish &nbsp;·&nbsp; 9 colorways</p>
-        </div>
-
-        <div class="ebook-wrapper soft-card rounded-3xl p-5 md:p-8 snap-reveal"
-             id="merchWrapper"
-             aria-label="Ethos Empire merch collection">
-          <div class="ebook-track" id="merchTrack">
-            <!-- Populated by carousel.js -->
-            <div class="ebook-card">
-              <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer bookmark">
-                <img src="images/ethos-empire-hoodie-black-gold-logo-400.webp" alt="Black hoodie" width="160" height="226" loading="lazy" decoding="async" draggable="false">
-              </a>
-              <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer bookmark" class="mt-3 text-[#FFD700] font-semibold leading-tight hover:text-[#FFE082] transition">Black Hoodie</a>
-              <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
-            </div>
+      <div class="ebook-wrapper soft-card rounded-3xl p-5 md:p-8"
+           id="merchWrapper"
+           aria-label="Ethos Empire merch collection">
+        <div class="ebook-track" id="merchTrack">
+          <!-- Populated by carousel.js -->
+          <div class="ebook-card">
+            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer bookmark">
+              <img src="images/ethos-empire-hoodie-black-gold-logo-400.webp" alt="Black hoodie" width="160" height="226" loading="lazy" decoding="async" draggable="false">
+            </a>
+            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer bookmark" class="ebook-card-title">Black Hoodie</a>
+            <a href="https://ethosempireo.printful.me/product/ethos-unisex-hoodie" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
           </div>
         </div>
+      </div>
+    </section>
 
-      </section>
+    <!-- ─────────────────────────────────────────
+         CLOSING CTA (compressed — social lives at
+         the top of the page, so the closing area
+         is just a compact call-to-action)
+         ───────────────────────────────────────── -->
+    <section class="closing-cta" aria-label="Begin your legacy">
+      <div class="closing-cta-card soft-card">
+        <h2 class="closing-title">Begin Your Legacy</h2>
+        <p class="closing-sub">
+          Learn discipline, structure, and purpose. Build your legacy the right way
+          with a brand designed to push you forward.
+        </p>
+        <a href="course/" class="btn btn-primary btn-lg">
+          Free Course <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
 
-      <!-- ─────────────────────────────────────────
-           SECTION 9 · CONNECT
-           ───────────────────────────────────────── -->
-      <section id="snap-connect" class="snap-section snap-connect" aria-label="Connect with Ethos Empire">
-
-        <!-- CTA card -->
-        <div class="connect-cta-card soft-card snap-reveal">
-          <h2 class="connect-headline">Begin Your Legacy</h2>
-          <p class="connect-sub">
-            Learn discipline, structure, and purpose.
-            Build your legacy the right way with a brand designed to push you forward.
+    <!-- ─────────────────────────────────────────
+         FAQ
+         ───────────────────────────────────────── -->
+    <section id="faq" class="faq-section" aria-label="Frequently Asked Questions">
+      <header class="section-head">
+        <span class="section-eyebrow">Frequently Asked Questions</span>
+      </header>
+      <div class="faq-list">
+        <details class="soft-card faq-item">
+          <summary>What is Ethos Empire?</summary>
+          <p>
+            Ethos Empire is a brand built around discipline, self-mastery, and
+            personal growth. It offers ebooks, mindset content, and minimalist merch
+            centered on legacy and improvement.
           </p>
-          <a href="course/" class="connect-btn">
-            Free Course &nbsp;→
-          </a>
-        </div>
+        </details>
 
-        <!-- Social links -->
-        <div class="connect-social-wrap snap-reveal">
-          <div class="social-scroll-wrapper" id="socialWrapper">
-            <button class="social-arrow social-arrow-left" id="socialArrowLeft" aria-label="Scroll left">‹</button>
-
-            <div class="social-scroll-track text-sm" id="socialTrack">
-              <a href="https://www.instagram.com/ethos_empireo/" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/instagram.webp" class="social-icon" alt="Instagram" width="48" height="48" loading="lazy" decoding="async">Instagram
-              </a>
-              <a href="https://www.tiktok.com/@ethos.empire" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/tiktok.webp" class="social-icon" alt="TikTok" width="48" height="48" loading="lazy" decoding="async">TikTok
-              </a>
-              <a href="https://www.facebook.com/ethosempire.x" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/facebook.webp" class="social-icon" alt="Facebook" width="48" height="48" loading="lazy" decoding="async">Facebook
-              </a>
-              <a href="https://www.youtube.com/@Ethos.Empire.Official" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/youtube.webp" class="social-icon" alt="YouTube" width="48" height="48" loading="lazy" decoding="async">YouTube
-              </a>
-              <a href="https://x.com/EthosEmpire_X" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/x.webp" class="social-icon" alt="X" width="48" height="48" loading="lazy" decoding="async">X
-              </a>
-              <a href="https://discord.gg/h6HgQP4nWz" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/discord.webp" class="social-icon" alt="Discord" width="48" height="48" loading="lazy" decoding="async">Discord
-              </a>
-              <a href="https://www.linkedin.com/in/ethosempire/" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/linkedin.webp" class="social-icon" alt="LinkedIn" width="48" height="48" loading="lazy" decoding="async">LinkedIn
-              </a>
-              <a href="https://snapchat.com/t/bKxgI5dY" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/snapchat.webp" class="social-icon" alt="Snapchat" width="48" height="48" loading="lazy" decoding="async">Snapchat
-              </a>
-              <a href="https://www.pinterest.com/ethosempire/" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="images/pintrest.webp" class="social-icon" alt="Pinterest" width="48" height="48" loading="lazy" decoding="async">Pinterest
-              </a>
-              <a href="mailto:info.ethosempire@gmail.com" class="social-link">
-                <img src="images/gmail.webp" class="social-icon" alt="Email" width="48" height="48" loading="lazy" decoding="async">Email
-              </a>
-            </div>
-
-            <button class="social-arrow social-arrow-right" id="socialArrowRight" aria-label="Scroll right">›</button>
-          </div>
-
-          <div class="social-dots" id="socialDots" aria-hidden="true">
-            <span class="social-dot active"></span>
-            <span class="social-dot"></span>
-            <span class="social-dot"></span>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- ─────────────────────────────────────────
-           NON-SNAP ZONE · FAQ + FOOTER
-           (scrolls naturally below Connect section)
-           ───────────────────────────────────────── -->
-      <div class="snap-faq-zone" id="snap-faq">
-
-        <div class="section-line my-12"></div>
-
-        <span class="faq-zone-eyebrow">Frequently Asked Questions</span>
-
-        <div class="space-y-4">
-          <details class="soft-card rounded-2xl p-6">
-            <summary class="cursor-pointer font-semibold text-[#FFD700] text-lg">What is Ethos Empire?</summary>
-            <p class="mt-4 text-[#D4AF37] leading-relaxed">
-              Ethos Empire is a brand built around discipline, self-mastery, and personal growth.
-              It offers ebooks, mindset content, and minimalist merch centered on legacy and improvement.
-            </p>
-          </details>
-
-          <details class="soft-card rounded-2xl p-6">
-            <summary class="cursor-pointer font-semibold text-[#FFD700] text-lg">Who is this for?</summary>
-            <p class="mt-4 text-[#D4AF37] leading-relaxed">
-              This is for people who want to become more disciplined, confident, healthy, attractive, and focused on long-term growth.
-            </p>
-          </details>
-
-          <details class="soft-card rounded-2xl p-6">
-            <summary class="cursor-pointer font-semibold text-[#FFD700] text-lg">Do you sell digital products?</summary>
-            <p class="mt-4 text-[#D4AF37] leading-relaxed">
-              Yes. Ethos Empire sells ebooks and guides covering confidence, relationships, grooming, health, mindset, and more.
-            </p>
-          </details>
-
-          <details class="soft-card rounded-2xl p-6">
-            <summary class="cursor-pointer font-semibold text-[#FFD700] text-lg">Do you sell clothing?</summary>
-            <p class="mt-4 text-[#D4AF37] leading-relaxed">
-              Yes. Ethos Empire offers premium-style hoodies with a gold logo finish in several colorways.
-            </p>
-          </details>
-
-          <details class="soft-card rounded-2xl p-6">
-            <summary class="cursor-pointer font-semibold text-[#FFD700] text-lg">When was Ethos Empire created?</summary>
-            <p class="mt-4 text-[#D4AF37] leading-relaxed">
-              Ethos Empire was created on September 23, 2025. It was built on a simple truth:
-              we only get one life, and if we live it with discipline, purpose, and intention,
-              we don't need a second one.
-            </p>
-          </details>
-        </div>
-
-        <div class="section-line my-12"></div>
-
-        <footer class="site-footer" role="contentinfo">
-          <div class="site-footer-inner">
-            <span class="site-footer-copy">© 2026 Ethos Empire</span>
-            <span class="site-footer-sep" aria-hidden="true">|</span>
-            <a class="site-footer-link" href="privacy-policy.html">Privacy Policy</a>
-            <span class="site-footer-sep" aria-hidden="true">|</span>
-            <a class="site-footer-link" href="terms.html">Terms of Service</a>
-          </div>
-          <p class="site-footer-tag">
-            Discipline&nbsp;·&nbsp;Confidence&nbsp;·&nbsp;Health&nbsp;·&nbsp;Legacy
+        <details class="soft-card faq-item">
+          <summary>Who is this for?</summary>
+          <p>
+            This is for people who want to become more disciplined, confident,
+            healthy, attractive, and focused on long-term growth.
           </p>
-        </footer>
+        </details>
 
-      </div><!-- /snap-faq-zone -->
+        <details class="soft-card faq-item">
+          <summary>Do you sell digital products?</summary>
+          <p>
+            Yes. Ethos Empire sells ebooks and guides covering confidence,
+            relationships, grooming, health, mindset, and more.
+          </p>
+        </details>
 
-    </div><!-- /snapContainer -->
+        <details class="soft-card faq-item">
+          <summary>Do you sell clothing?</summary>
+          <p>
+            Yes. Ethos Empire offers premium-style hoodies with a gold logo finish
+            in several colorways.
+          </p>
+        </details>
+
+        <details class="soft-card faq-item">
+          <summary>When was Ethos Empire created?</summary>
+          <p>
+            Ethos Empire was created on September 23, 2025. It was built on a
+            simple truth: we only get one life, and if we live it with discipline,
+            purpose, and intention, we don't need a second one.
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────
+         FOOTER
+         ───────────────────────────────────────── -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer-inner">
+        <span class="site-footer-copy">© 2026 Ethos Empire</span>
+        <span class="site-footer-sep" aria-hidden="true">|</span>
+        <a class="site-footer-link" href="privacy-policy.html">Privacy Policy</a>
+        <span class="site-footer-sep" aria-hidden="true">|</span>
+        <a class="site-footer-link" href="terms.html">Terms of Service</a>
+      </div>
+      <p class="site-footer-tag">
+        Discipline&nbsp;·&nbsp;Confidence&nbsp;·&nbsp;Health&nbsp;·&nbsp;Legacy
+      </p>
+    </footer>
+
   </main>
 
   <!-- =============================================
@@ -669,47 +474,14 @@
 
   <!-- =============================================
        SCRIPTS
+       Homepage-only.  matrix.js / slider.js / pillar-fx.js are no
+       longer loaded here — the intro overlay, snap-scroll engine
+       and per-pillar canvas animations were removed in the second
+       design pass.  matrix.js still ships with course pages that
+       reference it via ../matrix.js — the file is untouched.
        ============================================= -->
-  <script src="matrix.js" defer></script>
   <script src="carousel.js" defer></script>
   <script src="java.js" defer></script>
-  <script src="slider.js" defer></script>
-  <script src="pillar-fx.js" defer></script>
-
-  <!-- Social arrow scroll (inline, keeps exact IDs) -->
-  <script>
-  (function () {
-    var track    = document.getElementById("socialTrack");
-    var arrowL   = document.getElementById("socialArrowLeft");
-    var arrowR   = document.getElementById("socialArrowRight");
-    var dotsWrap = document.getElementById("socialDots");
-    if (!track || !arrowL || !arrowR || !dotsWrap) return;
-
-    var dots = dotsWrap.querySelectorAll(".social-dot");
-    var scrollAmount = 220;
-
-    function update() {
-      var sl = track.scrollLeft;
-      var max = track.scrollWidth - track.clientWidth;
-      arrowL.classList.toggle("hidden", sl <= 4);
-      arrowR.classList.toggle("hidden", sl >= max - 4);
-      if (dots.length === 3) {
-        var progress = max > 0 ? sl / max : 0;
-        var active = 0;
-        if (progress > 0.66) active = 2;
-        else if (progress > 0.25) active = 1;
-        dots.forEach(function (d, i) { d.classList.toggle("active", i === active); });
-      }
-    }
-
-    arrowL.addEventListener("click", function () { track.scrollBy({ left: -scrollAmount, behavior: "smooth" }); });
-    arrowR.addEventListener("click", function () { track.scrollBy({ left:  scrollAmount, behavior: "smooth" }); });
-    track.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    window.addEventListener("load", update);
-    update();
-  })();
-  </script>
 
   <!-- =============================================
        COOKIE CONSENT BANNER
