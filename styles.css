@@ -1,28 +1,50 @@
 :root {
-  /* Brand — derived from the Ethos Empire gold heraldic mark */
-  --bg: #040404;
-  --bg-deep: #000000;
+  /* --- Ambient surface -------------------------------------------
+     Warm charcoal instead of pure black, so gold reads warmer and
+     the Ethos A.I orange/teal partner accents sit naturally on the
+     same environment. */
+  --bg:        #0a0906;   /* warm near-black, page body           */
+  --bg-deep:   #050403;   /* deepest wells                        */
+  --bg-elev:   #14100b;   /* elevated surfaces (topbar, cards)    */
+  --surface:       rgba(255, 255, 255, 0.035);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+
+  /* --- Ethos Empire (dominant brand) --------------------------- */
+  --empire-gold:      #ffd700;
+  --empire-gold-soft: #ffe082;
+  --empire-gold-mid:  #c9952a;
+  --empire-gold-deep: #8b6914;
+  /* Back-compat aliases — many rules already reference --gold-* */
   --gold-1: #8b6914;
   --gold-2: #c9952a;
   --gold-3: #ffd700;
   --gold-4: #ffe082;
   --text-soft: #e7c970;
-  --text-mid: #d4af37;
-  --text-dim: #a07828;
+  --text-mid:  #d4af37;
+  --text-dim:  #a07828;
 
-  /* Surfaces */
-  --card: rgba(255, 255, 255, 0.035);
-  --card-strong: rgba(255, 255, 255, 0.06);
-  --border: rgba(255, 215, 0, 0.14);
+  /* --- Ethos A.I (partner — reserved for partnership surfaces) --
+     Sampled from the transparent Ethos A.I mark. Never use these
+     as body text or general accents; they belong to partnership. */
+  --partner-orange:      #e17726;
+  --partner-orange-soft: rgba(225, 119, 38, 0.28);
+  --partner-teal:        #17969c;
+  --partner-teal-soft:   rgba(23, 150, 156, 0.28);
+  --border-partner:      rgba(225, 119, 38, 0.22);
+
+  /* --- Surfaces / borders -------------------------------------- */
+  --card:          rgba(255, 255, 255, 0.035);
+  --card-strong:   rgba(255, 255, 255, 0.06);
+  --border:        rgba(255, 215, 0, 0.14);
   --border-strong: rgba(255, 215, 0, 0.28);
-  --shadow-soft: 0 18px 55px rgba(0, 0, 0, 0.42);
+  --shadow-soft:   0 18px 55px rgba(0, 0, 0, 0.42);
   --shadow-strong: 0 28px 80px rgba(0, 0, 0, 0.58);
 
-  /* Motion tokens */
+  /* --- Motion tokens ------------------------------------------- */
   --ease-smooth: cubic-bezier(0.22, 0.7, 0.2, 1);
-  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-soft:   cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-fast: 220ms;
-  --dur-med: 360ms;
+  --dur-med:  360ms;
   --dur-slow: 860ms;
 }
 
@@ -1917,7 +1939,7 @@ details.soft-card {
 
 html,
 body {
-  background: #000000;
+  background: var(--bg);
   min-height: 100%;
 }
 
@@ -1939,18 +1961,33 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  /* Layered STATIC gradient — gold-dominant with restrained partner
+     accents so Ethos Empire remains the primary identity and the
+     Ethos A.I orange/teal appear only as ambient co-brand presence. */
   background:
+    /* Empire gold spotlight — top centre */
     radial-gradient(ellipse 65% 45% at 50% 0%,
       rgba(255, 215, 0, 0.10),
       rgba(255, 215, 0, 0.03) 45%,
       transparent 70%),
+    /* Empire gold-mid wash — upper right */
     radial-gradient(ellipse 45% 40% at 82% 22%,
       rgba(201, 149, 42, 0.06),
       transparent 60%),
+    /* Empire deep-bronze — lower left */
     radial-gradient(ellipse 40% 35% at 12% 78%,
       rgba(139, 105, 20, 0.05),
       transparent 55%),
-    linear-gradient(180deg, #050505 0%, #000000 55%, #050505 100%);
+    /* Partner teal — tiny cool accent, upper left corner only */
+    radial-gradient(circle 32vw at 8% 6%,
+      rgba(23, 150, 156, 0.04),
+      transparent 60%),
+    /* Partner orange — tiny warm accent, lower right corner only */
+    radial-gradient(circle 30vw at 92% 88%,
+      rgba(225, 119, 38, 0.035),
+      transparent 60%),
+    /* Base — warm near-black */
+    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 55%, var(--bg-deep) 100%);
 }
 
 .page-backdrop::after {
@@ -2459,5 +2496,305 @@ body {
   .btn,
   .pillar-card {
     transition: none;
+  }
+}
+
+/* ================================================================
+   v4 — Top utility bar + partner strip + co-brand palette
+   Sticky thin header with the Ethos Empire mark on the left, the
+   full social row in the middle/right, and a compact Ethos A.I
+   partner chip pinned right. Below the hero, a small partner
+   strip repeats the mention with an outbound link. Ethos A.I is
+   an INDEPENDENT partner company — never presented as a sub-brand.
+   ================================================================ */
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 10000;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #000;
+  color: var(--empire-gold);
+  border: 1px solid var(--empire-gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-140%);
+  transition: transform 200ms var(--ease-soft);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: none;
+}
+
+/* ---------- Sticky top bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: rgba(10, 9, 6, 0.82);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+}
+
+.topbar-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--empire-gold);
+  flex-shrink: 0;
+  transition: opacity 200ms ease;
+}
+
+.topbar-brand:hover,
+.topbar-brand:focus-visible {
+  opacity: 0.9;
+  outline: none;
+}
+
+.topbar-brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.24);
+}
+
+.topbar-brand-word {
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--empire-gold);
+  white-space: nowrap;
+}
+
+.topbar-social {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.topbar-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  transition: transform 180ms var(--ease-soft), background 200ms ease;
+}
+
+.topbar-social-link img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.08));
+  transition: filter 180ms ease;
+}
+
+.topbar-social-link:hover,
+.topbar-social-link:focus-visible {
+  background: rgba(255, 215, 0, 0.08);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.topbar-social-link:hover img,
+.topbar-social-link:focus-visible img {
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.32));
+}
+
+/* --- Partner chip inside the top bar --- */
+.topbar-partner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    rgba(225, 119, 38, 0.09),
+    rgba(23, 150, 156, 0.09));
+  border: 1px solid var(--border-partner);
+  text-decoration: none;
+  color: var(--text-mid);
+  flex-shrink: 0;
+  transition: transform 180ms var(--ease-soft), border-color 200ms ease, background 200ms ease;
+}
+
+.topbar-partner:hover,
+.topbar-partner:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(225, 119, 38, 0.5);
+  background: linear-gradient(90deg,
+    rgba(225, 119, 38, 0.14),
+    rgba(23, 150, 156, 0.14));
+  outline: none;
+}
+
+.topbar-partner-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--partner-orange);
+}
+
+.topbar-partner-mark {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+/* --- Mobile: stack brand+partner on line 1, social scrolls line 2 --- */
+@media (max-width: 767px) {
+  .topbar-inner {
+    padding: 8px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .topbar-brand-word {
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+  }
+
+  .topbar-social {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 2px;
+    margin: 4px -6px 0;
+  }
+
+  .topbar-social-link {
+    width: 30px;
+    height: 30px;
+  }
+
+  .topbar-social-link img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .topbar-partner {
+    margin-left: auto;
+    padding: 5px 8px 5px 10px;
+  }
+
+  .topbar-partner-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+  }
+
+  .topbar-partner-mark {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .topbar-brand-word {
+    display: none;
+  }
+}
+
+/* ---------- Partner strip below the hero ---------- */
+.partner-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin: 32px auto 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    rgba(225, 119, 38, 0.06),
+    rgba(255, 215, 0, 0.04),
+    rgba(23, 150, 156, 0.06));
+  border: 1px solid var(--border-partner);
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.partner-strip-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.partner-strip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--partner-orange);
+  transition: transform 180ms var(--ease-soft), color 180ms ease;
+}
+
+.partner-strip-link:hover,
+.partner-strip-link:focus-visible {
+  transform: translateY(-1px);
+  color: #f3893a;
+  outline: none;
+}
+
+.partner-strip-mark {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.partner-strip-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--partner-orange) 20%, var(--partner-teal) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.partner-strip-note {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 520px) {
+  .partner-strip {
+    padding: 8px 14px;
+    gap: 8px;
+  }
+
+  .partner-strip-note {
+    display: none;
   }
 }

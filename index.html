@@ -116,9 +116,71 @@
 <body>
 
   <!-- Skip link -->
-  <a href="#snap-hero" class="sr-only focus:not-sr-only focus-ring fixed top-4 left-4 z-50 bg-black text-[#FFD700] px-4 py-2 rounded-full border border-[#FFD700]">
-    Skip to content
-  </a>
+  <a href="#content" class="skip-link">Skip to content</a>
+
+  <!-- =============================================
+       TOP UTILITY BAR — sticky, thin
+       Left: Ethos Empire mark + wordmark
+       Right: primary social icons + Ethos A.I partner chip
+       ============================================= -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <a href="/" class="topbar-brand" aria-label="Ethos Empire home">
+        <img src="images/ethos-empire-logo.webp"
+             alt=""
+             class="topbar-brand-mark"
+             width="512" height="512"
+             loading="eager" decoding="async">
+        <span class="topbar-brand-word">Ethos Empire</span>
+      </a>
+
+      <nav class="topbar-social" aria-label="Ethos Empire social media">
+        <a href="https://www.instagram.com/ethos_empireo/" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on Instagram">
+          <img src="images/instagram.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://www.tiktok.com/@ethos.empire" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on TikTok">
+          <img src="images/tiktok.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://www.youtube.com/@Ethos.Empire.Official" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on YouTube">
+          <img src="images/youtube.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://x.com/EthosEmpire_X" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on X">
+          <img src="images/x.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://www.facebook.com/ethosempire.x" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on Facebook">
+          <img src="images/facebook.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://discord.gg/h6HgQP4nWz" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on Discord">
+          <img src="images/discord.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://www.linkedin.com/in/ethosempire/" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on LinkedIn">
+          <img src="images/linkedin.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://snapchat.com/t/bKxgI5dY" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on Snapchat">
+          <img src="images/snapchat.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="https://www.pinterest.com/ethosempire/" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on Pinterest">
+          <img src="images/pintrest.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+        <a href="mailto:info.ethosempire@gmail.com" class="topbar-social-link" aria-label="Email Ethos Empire">
+          <img src="images/gmail.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        </a>
+      </nav>
+
+      <a href="https://ethosai.dev/"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="topbar-partner"
+         aria-label="In partnership with Ethos A.I (opens external site)">
+        <span class="topbar-partner-label">Partner</span>
+        <img src="images/partners/ethos-ai-logo.webp"
+             alt="Ethos A.I"
+             class="topbar-partner-mark"
+             width="500" height="500"
+             loading="lazy" decoding="async">
+      </a>
+    </div>
+  </header>
 
   <!-- =============================================
        AMBIENT BACKDROP  (static gradient, GPU-cheap)
@@ -164,6 +226,24 @@
           <a href="#library" class="btn btn-ghost">Empire Library</a>
         </div>
       </div>
+
+      <!-- Compact partnership strip — Ethos Empire and Ethos A.I
+           are separate, independent companies. -->
+      <aside class="partner-strip" aria-label="Partnership">
+        <span class="partner-strip-label">In partnership with</span>
+        <a href="https://ethosai.dev/"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="partner-strip-link">
+          <img src="images/partners/ethos-ai-logo.webp"
+               alt="Ethos A.I logo"
+               class="partner-strip-mark"
+               width="500" height="500"
+               loading="lazy" decoding="async">
+          <span class="partner-strip-name">Ethos A.I</span>
+        </a>
+        <span class="partner-strip-note">Independent partner company · ethosai.dev</span>
+      </aside>
 
       <div class="hero-marquee" aria-hidden="true">
         <div class="hero-marquee-track">
