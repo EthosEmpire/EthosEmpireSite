@@ -1,0 +1,13 @@
+# macOS metadata
+.DS_Store
+._*
+
+# Editor / OS junk
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
