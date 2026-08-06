@@ -2798,3 +2798,218 @@ body {
     display: none;
   }
 }
+
+/* ================================================================
+   v5 — Dual-brand partnership showcase
+   Compact, static, gold-dominant. Both logos at equal weight; the
+   two brand palettes visibly meet inside this single card and
+   nowhere else on the page. All motion is limited to hover/focus.
+   ================================================================ */
+
+.partnership {
+  padding-block: clamp(32px, 5vw, 56px);
+}
+
+.partnership-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 44px) clamp(24px, 4vw, 40px);
+  text-align: center;
+  border-radius: 28px;
+  border: 1px solid var(--border-partner);
+  background:
+    /* Empire gold spotlight, left side */
+    radial-gradient(ellipse 60% 90% at 12% 50%,
+      rgba(255, 215, 0, 0.08),
+      transparent 65%),
+    /* Partner teal spotlight, right side */
+    radial-gradient(ellipse 55% 90% at 88% 50%,
+      rgba(23, 150, 156, 0.09),
+      transparent 65%),
+    /* Warm midpoint where the two brands "meet" */
+    radial-gradient(ellipse 40% 60% at 50% 50%,
+      rgba(225, 119, 38, 0.05),
+      transparent 70%),
+    /* Base surface */
+    linear-gradient(180deg,
+      rgba(20, 16, 11, 0.9),
+      rgba(10, 9, 6, 0.85));
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle hairline gradient border that echoes the palette transition */
+.partnership-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg,
+    rgba(255, 215, 0, 0.35) 0%,
+    rgba(255, 215, 0, 0.10) 30%,
+    rgba(225, 119, 38, 0.18) 50%,
+    rgba(23, 150, 156, 0.20) 70%,
+    rgba(23, 150, 156, 0.35) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.partnership-marks {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 4vw, 40px);
+  margin-bottom: 22px;
+}
+
+.partnership-mark {
+  width: clamp(64px, 12vw, 96px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.partnership-mark-empire {
+  box-shadow: 0 0 32px rgba(255, 215, 0, 0.25);
+}
+
+.partnership-mark-partner {
+  box-shadow: 0 0 32px rgba(23, 150, 156, 0.22);
+}
+
+.partnership-x {
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1;
+  user-select: none;
+}
+
+.partnership-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 12px;
+}
+
+.partnership-headline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: clamp(1.5rem, 3.6vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0 0 18px;
+}
+
+.partnership-name-empire {
+  background: linear-gradient(135deg, var(--empire-gold-soft), var(--empire-gold), var(--empire-gold-mid));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.partnership-x-inline {
+  color: var(--text-dim);
+  font-weight: 300;
+  font-size: 0.85em;
+}
+
+.partnership-name-partner {
+  background: linear-gradient(135deg, var(--partner-orange), var(--partner-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.partnership-copy {
+  max-width: 60ch;
+  margin: 0 auto 24px;
+  color: var(--text-mid);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.partnership-copy strong {
+  color: var(--gold-3);
+  font-weight: 700;
+}
+
+.partnership-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px 22px;
+}
+
+/* Partner-flavored button — teal-to-orange gradient echoes the A.I mark
+   without letting the partner palette bleed anywhere else on the page. */
+.btn-partner {
+  background: linear-gradient(90deg, var(--partner-teal), var(--partner-orange));
+  color: #ffffff;
+  box-shadow: 0 12px 26px rgba(23, 150, 156, 0.25), 0 0 0 1px rgba(225, 119, 38, 0.2);
+}
+
+.btn-partner:hover,
+.btn-partner:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 16px 32px rgba(225, 119, 38, 0.35), 0 0 0 1px rgba(23, 150, 156, 0.3);
+  outline: none;
+}
+
+.partnership-independence-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(255, 215, 0, 0.28);
+  transition: color 220ms ease, text-decoration-color 220ms ease;
+}
+
+.partnership-independence-link:hover,
+.partnership-independence-link:focus-visible {
+  color: var(--gold-2);
+  text-decoration-color: var(--gold-3);
+  outline: none;
+}
+
+/* Mobile: stack the two marks vertically at very narrow widths only.
+   Keep them side-by-side on phones by default (both marks are square,
+   so they fit fine at 375px). */
+@media (max-width: 380px) {
+  .partnership-marks {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .partnership-x {
+    transform: rotate(90deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-partner,
+  .partnership-independence-link {
+    transition: none;
+  }
+}
