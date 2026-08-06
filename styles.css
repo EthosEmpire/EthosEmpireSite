@@ -197,67 +197,10 @@ a {
   filter: brightness(1.12) saturate(1.08) contrast(1.04);
 }
 
-.intro-kicker {
-  margin-top: 1.15rem;
-  letter-spacing: 0.56em;
-  text-transform: uppercase;
-  color: #f4d88d;
-  font-size: 0.78rem;
-  font-weight: 700;
-  opacity: 0;
-  animation: introRise 1s cubic-bezier(0.2, 0.75, 0.2, 1) 0.12s forwards;
-}
-
-.intro-title {
-  margin-top: 0.9rem;
-  font-size: clamp(2.35rem, 7vw, 5.2rem);
-  line-height: 0.95;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  background: linear-gradient(135deg, #fff8dc, #ffd966, #d4a837, #fff0b1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  /* drop-shadow removed: causes ghost/double text on iOS Safari when
-     combined with -webkit-text-fill-color: transparent */
-  opacity: 0;
-  animation: introRise 1.25s cubic-bezier(0.2, 0.75, 0.2, 1) 0.32s forwards;
-}
-
-.intro-subtitle {
-  margin-top: 1rem;
-  max-width: 16ch;
-  font-size: clamp(1.2rem, 3vw, 2.05rem);
-  line-height: 1.14;
-  font-weight: 700;
-  color: #ffe5a8;
-  text-shadow: 0 0 16px rgba(255, 215, 0, 0.18);
-  opacity: 0;
-  animation: introRise 1.7s cubic-bezier(0.2, 0.75, 0.2, 1) 0.75s forwards;
-}
-
-.intro-tip {
-  margin-top: 1.8rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255, 239, 200, 0.78);
-  opacity: 0;
-  animation: introRise 1.2s ease 1.15s forwards;
-}
-
-@keyframes introRise {
-  from {
-    opacity: 0;
-    transform: translateY(36px);
-    filter: blur(7px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
+/* Intro-overlay type styles (.intro-kicker/.intro-title/.intro-subtitle/
+   .intro-tip) and the introRise keyframe were removed in the pre-push
+   cleanup — the intro overlay DOM they styled was deleted in the
+   homepage rewrite and no page or script references them. */
 
 /* ---------------------------------
    Site progress + reveal motion
@@ -273,16 +216,6 @@ a {
   background: linear-gradient(90deg, rgba(255, 215, 0, 0), rgba(255, 215, 0, 0.85), rgba(255, 224, 130, 1));
   box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
   pointer-events: none;
-}
-
-.fade-up {
-  animation: fadeUp 900ms ease forwards;
-  opacity: 0;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .reveal-group > * {
@@ -376,24 +309,10 @@ a {
   box-shadow: var(--shadow-strong);
 }
 
-.stat {
-  border: 1px solid rgba(255, 215, 0, 0.14);
-  background: rgba(255, 255, 255, 0.025);
-}
-
-.stat p:first-child {
-  text-shadow: 0 0 24px rgba(255, 215, 0, 0.14);
-}
-
-.stat.is-visible p:first-child {
-  animation: statPulse 1.4s ease both;
-}
-
-@keyframes statPulse {
-  0% { transform: scale(0.92); opacity: 0.2; }
-  50% { transform: scale(1.06); }
-  100% { transform: scale(1); opacity: 1; }
-}
+/* Legacy .stat rules and the statPulse keyframe were removed in the
+   pre-push cleanup. The homepage stat display uses .stat-box/.stat-num/
+   .stat-desc; no page carries a bare "stat" class and nothing adds
+   "is-visible", so these rules could never match. */
 
 .section-title {
   letter-spacing: 0.28em;
@@ -1471,24 +1390,11 @@ details[open] summary::after {
    Reveal animations
 ------------------------------ */
 
-.fade-up {
-  animation: fadeUpSmooth 980ms var(--ease-smooth) forwards !important;
-  opacity: 0;
-  will-change: transform, opacity, filter;
-}
-
-@keyframes fadeUpSmooth {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 22px, 0);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    filter: blur(0);
-  }
-}
+/* The .fade-up rules and the fadeUp/fadeUpSmooth keyframes were removed
+   in the pre-push cleanup. No element in any page carries the class and
+   no script adds it, so the rules could never match. java.js still lists
+   ".fade-up" in its IntersectionObserver query, which is a harmless no-op
+   and was left untouched. */
 
 .reveal-group > * {
   opacity: 0;

@@ -609,11 +609,12 @@
 
   <!-- =============================================
        SCRIPTS
-       Homepage-only.  matrix.js / slider.js / pillar-fx.js are no
-       longer loaded here — the intro overlay, snap-scroll engine
-       and per-pillar canvas animations were removed in the second
-       design pass.  matrix.js still ships with course pages that
-       reference it via ../matrix.js — the file is untouched.
+       Homepage-only.  The intro overlay, snap-scroll engine and
+       per-pillar canvas animations were removed in the second design
+       pass; slider.js / slider.css / pillar-fx.js had no remaining
+       consumers and were deleted in the pre-push cleanup.
+       matrix.js is NOT loaded here but is deliberately retained in
+       the repo — the course pages reference it via ../matrix.js.
        ============================================= -->
   <script src="carousel.js" defer></script>
   <script src="java.js" defer></script>
