@@ -1,4 +1,5 @@
 :root {
+  /* Brand — derived from the Ethos Empire gold heraldic mark */
   --bg: #040404;
   --bg-deep: #000000;
   --gold-1: #8b6914;
@@ -8,12 +9,21 @@
   --text-soft: #e7c970;
   --text-mid: #d4af37;
   --text-dim: #a07828;
+
+  /* Surfaces */
   --card: rgba(255, 255, 255, 0.035);
   --card-strong: rgba(255, 255, 255, 0.06);
   --border: rgba(255, 215, 0, 0.14);
   --border-strong: rgba(255, 215, 0, 0.28);
   --shadow-soft: 0 18px 55px rgba(0, 0, 0, 0.42);
   --shadow-strong: 0 28px 80px rgba(0, 0, 0, 0.58);
+
+  /* Motion tokens */
+  --ease-smooth: cubic-bezier(0.22, 0.7, 0.2, 1);
+  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 220ms;
+  --dur-med: 360ms;
+  --dur-slow: 860ms;
 }
 
 *,
@@ -1434,14 +1444,6 @@ details[open] summary::after {
    Added for smoother motion + more stable
    ebook / merch behavior on desktop + phone
 ========================================= */
-
-:root {
-  --ease-smooth: cubic-bezier(0.22, 0.7, 0.2, 1);
-  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --dur-fast: 220ms;
-  --dur-med: 360ms;
-  --dur-slow: 860ms;
-}
 
 /* ------------------------------
    Reveal animations
