@@ -208,6 +208,23 @@
       margin-bottom: 8px;
     }
 
+    .fineprint {
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--text-dim);
+      opacity: 0.85;
+      font-style: italic;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9em;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: rgba(255, 215, 0, 0.06);
+      color: var(--text);
+    }
+
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
@@ -322,7 +339,7 @@
   <header class="hero">
     <p class="hero-eyebrow">Legal</p>
     <h1 class="hero-title">Privacy Policy</h1>
-    <p class="hero-date">Last updated: May 2026</p>
+    <p class="hero-date">Last updated: August 6, 2026</p>
     <div class="hero-rule"></div>
   </header>
 
@@ -333,40 +350,66 @@
       <p class="section-num">Overview</p>
       <h2 class="section-title">Who We Are</h2>
       <p>
-        Ethos Empire ("we", "us", or "our") operates the website located at
+        <strong>Ethos Empire LLC</strong>, an Idaho limited liability company
+        ("Ethos Empire", "we", "us", or "our"), operates the website located at
         <a href="https://ethosempire.org">ethosempire.org</a>.
-        We are a personal growth and self-mastery brand that sells digital ebooks and physical merchandise.
+        We are a personal growth and self-mastery brand that sells digital ebooks
+        and physical merchandise through third-party platforms.
       </p>
       <p>
-        This Privacy Policy explains what information we collect when you visit our site,
-        how we use it, and what your rights are. We are committed to handling your data
-        with transparency and respect.
+        This Privacy Policy explains what information is collected in connection with
+        your visit to our site, how it is used, and what your rights are. It reflects
+        the site as it actually operates today — a static website with no accounts,
+        no checkout, no analytics scripts, and no first-party tracking.
       </p>
       <div class="highlight-box">
-        We do not sell, rent, or trade your personal information to any third party. Ever.
+        We do not sell, rent, or trade your personal information. We do not run our
+        own analytics. We do not maintain an email list.
       </div>
     </div>
 
     <div class="policy-section">
       <p class="section-num">Section 1</p>
       <h2 class="section-title">Information We Collect</h2>
-      <p>When you visit ethosempire.org, the following data may be collected automatically:</p>
-      <ul>
-        <li>Your IP address and general geographic location (country/region)</li>
-        <li>Browser type, device type, and operating system</li>
-        <li>Pages you visit, time spent on pages, and referring URLs</li>
-        <li>Cookies and similar tracking technologies (see Section 4)</li>
-      </ul>
+
+      <p><strong>Information we collect directly (first-party)</strong></p>
       <p>
-        We do <strong>not</strong> operate our own checkout or payment system.
-        All purchases are handled directly by <strong>Gumroad</strong> (ebooks) and
-        <strong>Printful</strong> (merch). We never see, store, or handle your payment
-        card details, billing address, or order details — those are processed entirely
-        by those third-party platforms under their own privacy policies.
+        The ethosempire.org site itself is a static website. It has no user accounts,
+        no login system, no checkout, no contact forms, no newsletter signup, and no
+        analytics or tracking scripts. The only information the site stores in your
+        browser is:
       </p>
+      <ul>
+        <li>
+          <strong>One <code>localStorage</code> preference</strong> (key
+          <code>ee_cookie_consent</code>) that records your choice on the cookie
+          consent banner (see Section 4). It stays on your device and is not
+          transmitted to us.
+        </li>
+      </ul>
+
+      <p><strong>Information our hosting provider may log</strong></p>
       <p>
-        If you contact us via social media or email, we may retain that communication
-        to respond to you.
+        The website is served from a third-party static-hosting provider. Standard
+        server-access data — such as your IP address, request timestamp, requested
+        URL, referrer, and user-agent string — may be logged by that provider for
+        security, abuse prevention, and uptime purposes. Ethos Empire does not
+        receive or process those raw server logs.
+      </p>
+
+      <p><strong>Information handled by third-party platforms</strong></p>
+      <p>
+        Purchases are processed entirely by <strong>Gumroad</strong> (ebooks) and
+        <strong>Printful</strong> (physical merchandise). We do not see, store, or
+        handle your payment card details, billing address, or order details — those
+        are collected and processed by those platforms under their own privacy
+        policies (see Section 3).
+      </p>
+
+      <p><strong>Direct correspondence</strong></p>
+      <p>
+        If you contact us by email or social media, we retain that correspondence for
+        as long as reasonably necessary to respond and to address any follow-up.
       </p>
     </div>
 
@@ -418,19 +461,47 @@
 
     <div class="policy-section">
       <p class="section-num">Section 4</p>
-      <h2 class="section-title">Cookies</h2>
+      <h2 class="section-title">Cookies &amp; Local Storage</h2>
+
+      <p><strong>What ethosempire.org actually stores in your browser</strong></p>
       <p>
-        Cookies are small text files stored in your browser. Our site may use cookies for:
+        The Ethos Empire website does not set first-party analytics cookies, advertising
+        cookies, or tracking pixels. The only browser-side storage it uses is:
       </p>
       <ul>
-        <li>Basic site functionality (session management, preferences)</li>
-        <li>Analytics — understanding traffic patterns (e.g. page views, visit duration)</li>
-        <li>Third-party cookies loaded by embedded social content or links</li>
+        <li>
+          <code>ee_cookie_consent</code> — a single <code>localStorage</code> entry that
+          remembers your response to the consent banner (either <code>all</code> or
+          <code>essential</code>). It stays on your device.
+        </li>
+      </ul>
+
+      <p><strong>The cookie consent banner</strong></p>
+      <p>
+        When you first visit the site, a banner appears at the bottom of the page. Because
+        we do not currently run first-party analytics or advertising trackers, both options
+        function primarily to record your preference:
+      </p>
+      <ul>
+        <li><strong>Accept All</strong> — records your acceptance in case optional analytics or preference features are added in the future.</li>
+        <li><strong>Essential Only</strong> — records that you decline any future non-essential storage.</li>
       </ul>
       <p>
-        You can control or disable cookies through your browser settings. Disabling cookies
-        may affect some site functionality but will not prevent you from reading content
-        or accessing our external store links.
+        If we later add optional analytics or similar features, we will honour your recorded
+        preference before loading them. You can change your choice at any time by clearing
+        <code>localStorage</code> for ethosempire.org in your browser and revisiting the site.
+      </p>
+
+      <p><strong>Third-party cookies</strong></p>
+      <p>
+        Third-party services you reach from this site — Gumroad, Printful, social platforms —
+        set their own cookies once you visit them. Those are governed by their own privacy
+        policies (see Section 3). Our site does not embed remote scripts, pixels, or iframes
+        from those services on ethosempire.org itself.
+      </p>
+      <p>
+        You can control or disable cookies through your browser settings. Doing so will not
+        prevent you from reading content on our site or accessing our external store links.
       </p>
     </div>
 
@@ -470,10 +541,17 @@
       <p class="section-num">Section 7</p>
       <h2 class="section-title">Data Security</h2>
       <p>
-        We take reasonable technical and organisational precautions to protect any data
-        associated with our site. However, no internet transmission is completely secure.
-        We do not store payment card information, passwords, or sensitive personal data
-        on our own servers.
+        We use reasonable technical and organisational measures appropriate to a static
+        website of this nature. Because the site has no accounts, no checkout, and no
+        first-party data store, there is no user database on our side to protect —
+        payment card information, billing details, and order records are handled by
+        Gumroad and Printful under their own security programmes.
+      </p>
+      <p>
+        No method of transmitting or storing information is completely secure. We do
+        not represent or warrant that any communication with us is impervious to
+        interception or compromise, and we will notify affected individuals of any
+        confirmed security incident to the extent required by applicable law.
       </p>
     </div>
 
@@ -490,78 +568,43 @@
 
     <div class="policy-section">
       <p class="section-num">Section 9</p>
-      <h2 class="section-title">DMCA &amp; Copyright Notice</h2>
+      <h2 class="section-title">Ethos A.I &amp; Third-Party Partners</h2>
       <p>
-        All content on ethosempire.org — including text, graphics, logos, animations,
-        and ebook content — is protected by copyright law. Unauthorised reproduction,
-        distribution, or resale of any Ethos Empire content is strictly prohibited
-        and may result in legal action.
+        Ethos Empire's website references and links to <strong>Ethos A.I</strong>, an
+        independent partner company. <strong>Ethos Empire LLC</strong> and
+        <strong>Ethos A.I LLC</strong> are separate legal entities. This Privacy Policy
+        covers only ethosempire.org.
       </p>
-      <p><strong>Reporting Infringement of Our Content</strong></p>
       <p>
-        If you find Ethos Empire content being used without authorisation on another
-        platform or website, please notify us immediately via Instagram
-        <a href="https://www.instagram.com/ethos_empireo/" target="_blank" rel="noopener noreferrer">@ethos_empireo</a>
-        so we can take action. Include the URL where the infringing content appears
-        and a description of what has been copied.
+        When you click through to Ethos A.I at
+        <a href="https://ethosai.dev/" target="_blank" rel="noopener noreferrer">ethosai.dev</a>,
+        Ethos A.I's own privacy policy applies. Ethos Empire does not share personal
+        information with Ethos A.I as part of the partnership, because the ethosempire.org
+        site does not collect personal information to share.
       </p>
-      <p><strong>Filing a DMCA Claim Against Our Site</strong></p>
       <p>
-        If you believe content on our site infringes your copyright, contact us with a
-        formal DMCA takedown notice including: identification of the original copyrighted
-        work, the location of the infringing content on our site, your contact details,
-        and a signed statement (physical or electronic) confirming your claim is made
-        in good faith and under penalty of perjury.
+        For the full independence clarification, see
+        <a href="terms.html#partnership">Terms of Service — Section 9</a>.
       </p>
-      <div class="highlight-box">
-        False DMCA claims are a criminal offence under US law. Anyone submitting a
-        knowingly false takedown notice may be liable for damages and legal costs.
-      </div>
     </div>
 
     <div class="policy-section">
       <p class="section-num">Section 10</p>
-      <h2 class="section-title">Cookie Consent</h2>
+      <h2 class="section-title">Copyright &amp; Harmful-Content Reports</h2>
       <p>
-        When you first visit ethosempire.org, a cookie consent banner appears at the
-        bottom of the screen. You have two choices:
+        Copyright infringement reports, DMCA-style takedown requests, and reports of
+        harmful content (including non-consensual intimate imagery under the TAKE IT DOWN
+        Act) are handled through the Terms of Service so we can keep a single, consistent
+        reporting process. See:
       </p>
       <ul>
-        <li><strong>Accept All</strong> — allows essential cookies and basic analytics that help us understand site traffic</li>
-        <li><strong>Essential Only</strong> — limits cookies to those strictly necessary for the site to function</li>
+        <li><a href="terms.html#dmca">Terms — Section 16: Copyright &amp; Infringement Reports</a></li>
+        <li><a href="terms.html#harmful-content">Terms — Section 22: Harmful Content &amp; Reporting</a></li>
       </ul>
-      <p>
-        Your preference is saved in your browser. You can change it at any time by
-        clearing your browser cookies and revisiting the site.
-        Declining non-essential cookies will not affect your ability to browse the
-        site or access any content.
-      </p>
-      <p>
-        We do not use cookies for advertising, retargeting, or building personal profiles.
-        Third-party services (Gumroad, Printful, social media platforms) may set their
-        own cookies when you click through to their sites — those are governed by their
-        respective privacy policies.
-      </p>
     </div>
 
     <div class="policy-section">
       <p class="section-num">Section 11</p>
-      <h2 class="section-title">Harmful Content &amp; TAKE IT DOWN Act</h2>
-      <p>
-        In compliance with the <strong>TAKE IT DOWN Act</strong> (US federal law, signed May 2025),
-        we provide a clear reporting channel for non-consensual intimate imagery (NCII)
-        or AI-generated intimate imagery that may appear in connection with our brand
-        or website.
-      </p>
-      <p>
-        If you discover such content, report it to us immediately using the contact
-        details below. We will respond within <strong>48 hours</strong> and take
-        appropriate action, including working with platforms to have the content removed.
-      </p>
-    </div>
-
-    <div class="policy-section">
-      <p class="section-num">Section 12</p>
       <h2 class="section-title">Contact Us</h2>
       <p>
         If you have any questions, concerns, or requests regarding this Privacy Policy
@@ -569,7 +612,8 @@
         privacy-related enquiries within <strong>30 days</strong>.
       </p>
       <div class="highlight-box">
-        <strong>Ethos Empire</strong><br><br>
+        <strong>Ethos Empire LLC</strong><br>
+        <span class="fineprint">An Idaho limited liability company</span><br><br>
 
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
           <img src="images/gmail.webp" alt="Email" width="24" height="24" style="border-radius:4px; flex-shrink:0;">
