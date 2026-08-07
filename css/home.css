@@ -71,6 +71,13 @@
    COOKIE CONSENT BANNER
    ============================== */
 
+/* The hidden attribute must win over display:flex below. Without this the
+   UA rule [hidden]{display:none} loses to the author rule, the banner can
+   never be hidden, and it reappears after every choice. */
+.cookie-banner[hidden] {
+  display: none;
+}
+
 .cookie-banner {
   position: fixed;
   bottom: 0;

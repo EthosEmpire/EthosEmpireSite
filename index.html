@@ -637,14 +637,17 @@
   <script src="js/site.js" defer></script>
 
   <!-- =============================================
-       COOKIE CONSENT BANNER
+       PRIVACY PREFERENCE NOTICE
+       Behaviour lives in js/cookie-consent.js. The wording matches what the
+       site actually does: it sets no cookies and loads no analytics, so this
+       records a preference rather than gating any script.
        ============================================= -->
-  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Cookie consent" hidden>
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Privacy preferences" hidden>
     <div class="cookie-banner-text">
       <span class="cookie-banner-icon" aria-hidden="true">🍪</span>
       <p>
-        We use essential cookies to keep this site running and basic analytics to improve it.
-        No personal data is sold.
+        This site sets no cookies and runs no analytics. We store one preference
+        on your device so this notice stays dismissed.
         <a href="privacy-policy.html">Privacy Policy</a>
       </p>
     </div>
@@ -654,27 +657,7 @@
     </div>
   </div>
 
-  <script>
-  (function () {
-    var banner = document.getElementById('cookieBanner');
-    if (!banner) return;
-
-    var storedConsent = null;
-    try { storedConsent = localStorage.getItem('ee_cookie_consent'); } catch (e) {}
-    if (storedConsent) return;
-
-    banner.hidden = false;
-
-    function dismiss(value) {
-      try { localStorage.setItem('ee_cookie_consent', value); } catch (e) {}
-      banner.classList.add('is-dismissing');
-      setTimeout(function () { banner.hidden = true; banner.classList.remove('is-dismissing'); }, 320);
-    }
-
-    document.getElementById('cookieAccept').addEventListener('click', function () { dismiss('all'); });
-    document.getElementById('cookieDecline').addEventListener('click', function () { dismiss('essential'); });
-  })();
-  </script>
+  <script src="js/cookie-consent.js" defer></script>
 
 </body>
 </html>
