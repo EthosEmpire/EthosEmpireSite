@@ -1,0 +1,407 @@
+/* ==========================================================================
+   Ethos Empire — legal pages (terms.html, privacy-policy.html)
+   --------------------------------------------------------------------------
+   Both legal pages previously carried their own near-identical <style> block.
+   Of their rules, 34 were byte-identical; the rest differed only in stagger
+   timing, one scroll-margin, and a mirrored background glow. Those are now
+   per-page custom properties rather than duplicated stylesheets.
+
+   Tokens: these pages load css/tokens.css first and this file overrides only
+   the handful of values where the legal surface deliberately differs from the
+   homepage (a darker ground, a slightly tighter border). Everything else is
+   inherited, so there is still one canonical token source.
+
+   Per-page variables (set in a small <style> on each page):
+     --glow-a-x / --glow-b-x   horizontal position of the two ambient glows
+     --stagger-base            delay before the first section fades in
+     --stagger-step            additional delay per subsequent section
+   ========================================================================== */
+
+:root {
+  /* Legal-surface overrides of css/tokens.css */
+  --bg:        #060606;
+  --gold-4:    #fff0b0;
+  --text-dim:  #9a8060;
+  --border:    rgba(255, 215, 0, 0.13);
+
+  /* Legal-only tokens (no homepage equivalent) */
+  --bg-card:   rgba(255, 255, 255, 0.032);
+  --text:      #e8d9b0;
+  --radius:    18px;
+
+  /* Defaults; each page may override */
+  --glow-a-x:  80%;
+  --glow-b-x:  20%;
+  --stagger-base: 0.05s;
+  --stagger-step: 0.04s;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at var(--glow-a-x) 10%, rgba(201, 149, 42, 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at var(--glow-b-x) 90%, rgba(255, 215, 0, 0.04) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+
+    /* ── Top nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(6,6,6,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .topbar-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c9952a, #ffd700, #c9952a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.06em;
+    }
+
+    .topbar-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--gold-2);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+    }
+
+    .topbar-back:hover {
+      border-color: rgba(255,215,0,0.4);
+      color: var(--gold-3);
+      background: rgba(255,215,0,0.06);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 80px 24px 60px;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--gold-2);
+      margin-bottom: 20px;
+      padding: 6px 16px;
+      border: 1px solid rgba(201,149,42,0.28);
+      border-radius: 999px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #fff8dc 0%, #ffd700 40%, #c9952a 70%, #fff0b0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero-date {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    .hero-rule {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold-3), transparent);
+      margin: 28px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ── Table of contents ── */
+    .toc {
+      max-width: 780px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .toc-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toc-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,215,0,0.22), transparent);
+    }
+
+    .toc-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      color: var(--gold-1);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 6px 20px;
+    }
+
+    .toc-grid a {
+      font-size: 0.875rem;
+      color: var(--gold-2);
+      text-decoration: none;
+      padding: 4px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .toc-grid a:hover {
+      color: var(--gold-3);
+      border-color: rgba(255,215,0,0.2);
+    }
+
+    /* ── Main layout ── */
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    /* ── Sections ── */
+    .policy-section {
+      margin-bottom: 40px;
+      padding: 32px 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+      scroll-margin-top: 80px;
+      animation: sectionFadeIn 0.6s ease both;
+    }
+
+    .policy-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,215,0,0.22), transparent);
+    }
+
+    @keyframes sectionFadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-num {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--gold-1);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .fineprint {
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--text-dim);
+      opacity: 0.85;
+      font-style: italic;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-3);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .policy-section p {
+      color: var(--text);
+      margin-bottom: 14px;
+      font-size: 0.965rem;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 14px;
+    }
+
+    .policy-section ul li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 0.965rem;
+    }
+
+    .policy-section ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--gold-2);
+      font-size: 0.75rem;
+      top: 3px;
+    }
+
+    .highlight-box {
+      background: rgba(255,215,0,0.06);
+      border: 1px solid rgba(255,215,0,0.18);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 0.92rem;
+      color: var(--gold-4);
+    }
+
+    .warning-box {
+      background: rgba(255,100,60,0.07);
+      border: 1px solid rgba(255,100,60,0.22);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-size: 0.92rem;
+      color: #ffcab0;
+    }
+
+    strong { color: var(--gold-3); font-weight: 600; }
+
+    a {
+      color: var(--gold-3);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    a:hover { color: var(--gold-4); }
+
+    /* ── Footer ── */
+    .page-footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px 48px;
+      border-top: 1px solid var(--border);
+    }
+
+    .page-footer p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--gold-2);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: var(--gold-3); }
+
+    @media (max-width: 600px) {
+      .policy-section { padding: 24px 20px; }
+      .topbar { padding: 14px 18px; }
+      .hero { padding: 60px 18px 44px; }
+      .toc-inner { padding: 20px; }
+      .toc-grid { grid-template-columns: 1fr; }
+    }
+
+/* Section stagger — one formula, driven by the per-page variables above. */
+.policy-section:nth-child(2) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 1); }
+.policy-section:nth-child(3) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 2); }
+.policy-section:nth-child(4) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 3); }
+.policy-section:nth-child(5) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 4); }
+.policy-section:nth-child(6) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 5); }
+.policy-section:nth-child(7) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 6); }
+.policy-section:nth-child(8) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 7); }
+.policy-section:nth-child(9) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 8); }
+.policy-section:nth-child(10) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 9); }
+.policy-section:nth-child(11) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 10); }
+.policy-section:nth-child(12) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 11); }
+.policy-section:nth-child(13) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 12); }
+.policy-section:nth-child(14) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 13); }
+.policy-section:nth-child(15) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 14); }
+.policy-section:nth-child(16) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 15); }
+.policy-section:nth-child(17) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 16); }
+.policy-section:nth-child(18) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 17); }
+.policy-section:nth-child(19) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 18); }
+.policy-section:nth-child(20) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 19); }
+.policy-section:nth-child(21) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 20); }
+.policy-section:nth-child(22) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 21); }
+.policy-section:nth-child(23) { animation-delay: calc(var(--stagger-base) + var(--stagger-step) * 22); }
