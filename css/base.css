@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Ethos Empire — base
+   --------------------------------------------------------------------------
+   Reset, document defaults, shared text treatments and the scroll progress
+   bar (created by js/site.js).
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  background:
+    radial-gradient(circle at top, rgba(201, 149, 42, 0.08), transparent 32%),
+    radial-gradient(circle at 80% 0%, rgba(255, 215, 0, 0.04), transparent 18%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+}
+
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #8b6914, #c9952a, #f0c040, #c9952a, #8b6914);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.08em;
+}
+
+
+/* ---------------------------------
+   Site progress + reveal motion
+--------------------------------- */
+
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 120;
+  height: 4px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0), rgba(255, 215, 0, 0.85), rgba(255, 224, 130, 1));
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
+  pointer-events: none;
+}

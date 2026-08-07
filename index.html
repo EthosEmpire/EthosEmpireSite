@@ -109,8 +109,27 @@
   }
   </script>
 
+  <!-- Stylesheets load in cascade order: tokens first, then base, then
+       components, then the legacy override layer, then page-level modules.
+       Reordering these changes which rules win. -->
   <link rel="stylesheet" href="tailwind.css?v=3">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/overrides.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <!-- Reveal guard. Must run before first paint, which is why it is inline
+       and not in js/site.js: it marks the document as reveal-capable only
+       when IntersectionObserver exists, so content can never be left hidden
+       by a script that fails to load. See css/animations.css. -->
+  <script>
+    if ("IntersectionObserver" in window) {
+      document.documentElement.classList.add("js-reveal");
+    }
+  </script>
 </head>
 
 <body>
@@ -609,15 +628,13 @@
 
   <!-- =============================================
        SCRIPTS
-       Homepage-only.  The intro overlay, snap-scroll engine and
-       per-pillar canvas animations were removed in the second design
-       pass; slider.js / slider.css / pillar-fx.js had no remaining
-       consumers and were deleted in the pre-push cleanup.
-       matrix.js is NOT loaded here but is deliberately retained in
-       the repo — the course pages reference it via ../matrix.js.
+       catalog.js  ebook/merch data + carousel rendering
+       site.js     shared behaviour: scroll progress, modals, reveal,
+                   card hover/tilt, FAQ accordion
+       js/matrix.js is not used here; the course pages load it directly.
        ============================================= -->
-  <script src="carousel.js" defer></script>
-  <script src="java.js" defer></script>
+  <script src="js/catalog.js" defer></script>
+  <script src="js/site.js" defer></script>
 
   <!-- =============================================
        COOKIE CONSENT BANNER

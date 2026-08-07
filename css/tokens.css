@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Ethos Empire — design tokens
+   --------------------------------------------------------------------------
+   THE single source of truth for colour, surface, border, shadow and motion.
+   No other stylesheet declares a :root block; everything else uses var().
+
+   Empire gold is the dominant brand accent. Ethos A.I partner orange and teal
+   are reserved for partnership surfaces only — never body text or general
+   accents. Ethos Empire LLC and Ethos A.I LLC are independent companies.
+   ========================================================================== */
+
+:root {
+  /* --- Ambient surface -------------------------------------------
+     Warm charcoal instead of pure black, so gold reads warmer and
+     the Ethos A.I orange/teal partner accents sit naturally on the
+     same environment. */
+  --bg:        #0a0906;   /* warm near-black, page body           */
+  --bg-deep:   #050403;   /* deepest wells                        */
+  --bg-elev:   #14100b;   /* elevated surfaces (topbar, cards)    */
+  --surface:       rgba(255, 255, 255, 0.035);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+
+  /* --- Ethos Empire (dominant brand) --------------------------- */
+  --empire-gold:      #ffd700;
+  --empire-gold-soft: #ffe082;
+  --empire-gold-mid:  #c9952a;
+  --empire-gold-deep: #8b6914;
+  /* Back-compat aliases — many rules already reference --gold-* */
+  --gold-1: #8b6914;
+  --gold-2: #c9952a;
+  --gold-3: #ffd700;
+  --gold-4: #ffe082;
+  --text-soft: #e7c970;
+  --text-mid:  #d4af37;
+  --text-dim:  #a07828;
+
+  /* --- Ethos A.I (partner — reserved for partnership surfaces) --
+     Sampled from the transparent Ethos A.I mark. Never use these
+     as body text or general accents; they belong to partnership. */
+  --partner-orange:      #e17726;
+  --partner-orange-soft: rgba(225, 119, 38, 0.28);
+  --partner-teal:        #17969c;
+  --partner-teal-soft:   rgba(23, 150, 156, 0.28);
+  --border-partner:      rgba(225, 119, 38, 0.22);
+
+  /* --- Surfaces / borders -------------------------------------- */
+  --card:          rgba(255, 255, 255, 0.035);
+  --card-strong:   rgba(255, 255, 255, 0.06);
+  --border:        rgba(255, 215, 0, 0.14);
+  --border-strong: rgba(255, 215, 0, 0.28);
+  --shadow-soft:   0 18px 55px rgba(0, 0, 0, 0.42);
+  --shadow-strong: 0 28px 80px rgba(0, 0, 0, 0.58);
+
+  /* --- Motion tokens ------------------------------------------- */
+  --ease-smooth: cubic-bezier(0.22, 0.7, 0.2, 1);
+  --ease-soft:   cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 220ms;
+  --dur-med:  360ms;
+  --dur-slow: 860ms;
+}

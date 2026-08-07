@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Ethos Empire — animation system
+   --------------------------------------------------------------------------
+   ONE reveal mechanism for the whole site, driven by a single
+   IntersectionObserver in js/site.js. No scroll listeners, no polling.
+
+   Replaces the previous arrangement, where the observer added a "visible"
+   class that no stylesheet ever styled, alongside a separate .reveal-group
+   rule set that no element carried. Both are gone.
+
+   How the no-JS / slow-JS case is handled
+   ---------------------------------------
+   Content is visible by default. The hiding rules are scoped to
+   html.js-reveal, a class set by a tiny inline snippet in <head> that runs
+   before first paint and only when IntersectionObserver is supported. If
+   JavaScript is disabled, blocked, or errors before it runs, the class is
+   never added and every element simply renders — there is no state in which
+   content can end up permanently invisible.
+
+   Only opacity and transform are animated, so there is no layout shift and
+   no CLS. Elements start 14px low and settle; nothing scales, bounces or
+   moves horizontally.
+   ========================================================================== */
+
+.js-reveal .soft-card,
+.js-reveal .section-head,
+.js-reveal .partnership-card {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.js-reveal .soft-card.is-visible,
+.js-reveal .section-head.is-visible,
+.js-reveal .partnership-card.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--dur-slow, 620ms) var(--ease-smooth),
+    transform var(--dur-slow, 620ms) var(--ease-smooth);
+}
+
+/* Anything already scrolled past on load settles without a transition, so a
+   refresh mid-page does not replay the animation. */
+.js-reveal .is-visible.no-anim {
+  transition: none;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion — content appears immediately, nothing transitions.
+   Accessibility wins over animation.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal .soft-card,
+  .js-reveal .section-head,
+  .js-reveal .partnership-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js-reveal .soft-card.is-visible,
+  .js-reveal .section-head.is-visible,
+  .js-reveal .partnership-card.is-visible {
+    transition: none;
+  }
+}

@@ -1,0 +1,781 @@
+/* ==========================================================================
+   Ethos Empire — components
+   --------------------------------------------------------------------------
+   Reusable pieces: cards, buttons, the ebook/merch carousels, the modal
+   system and the FAQ accordion, with their responsive and reduced-motion
+   rules.
+   ========================================================================== */
+
+/* ---------------------------------
+   Cards and subtle interaction
+--------------------------------- */
+
+.soft-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025)),
+    radial-gradient(circle at 20% 0%, rgba(255, 215, 0, 0.06), transparent 34%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    transform 380ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    border-color 320ms ease,
+    box-shadow 320ms ease,
+    background 320ms ease;
+  transform-style: preserve-3d;
+  --glow-x: 50%;
+  --glow-y: 18%;
+}
+
+.soft-card::before,
+.soft-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.soft-card::before {
+  background:
+    radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 25%),
+    radial-gradient(circle at 86% 120%, rgba(255, 215, 0, 0.16), rgba(255, 215, 0, 0) 40%);
+  opacity: 0.85;
+}
+
+.soft-card::after {
+  inset: 1px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  opacity: 0.8;
+}
+
+.soft-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.soft-card.is-tilting,
+.soft-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Legacy .stat rules and the statPulse keyframe were removed in the
+   pre-push cleanup. The homepage stat display uses .stat-box/.stat-num/
+   .stat-desc; no page carries a bare "stat" class and nothing adds
+   "is-visible", so these rules could never match. */
+
+.section-title {
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------
+   Buttons / links
+--------------------------------- */
+
+.buy-btn,
+.modal-buy {
+  position: relative;
+  overflow: hidden;
+}
+
+.buy-btn::before,
+.modal-buy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 10%, rgba(255, 255, 255, 0.35) 48%, transparent 60%);
+  transform: translateX(-130%);
+  transition: transform 650ms ease;
+  pointer-events: none;
+}
+
+.buy-btn:hover::before,
+.modal-buy:hover::before,
+.buy-btn:focus-visible::before,
+.modal-buy:focus-visible::before {
+  transform: translateX(130%);
+}
+
+.buy-btn {
+  background: linear-gradient(90deg, #ffd700, #c9952a);
+  color: black;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  box-shadow: 0 10px 20px rgba(201, 149, 42, 0.15);
+  cursor: pointer;
+  min-width: 92px;
+}
+
+.buy-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(201, 149, 42, 0.3);
+  filter: brightness(1.04);
+}
+
+.buy-btn:active {
+  transform: scale(0.98);
+}
+
+.buy-btn:focus-visible,
+.modal-close:focus-visible,
+.modal-nav:focus-visible,
+.modal-buy:focus-visible,
+.modal-social-link:focus-visible,
+.ebook-card > a:not(.buy-btn):focus-visible,
+summary:focus-visible {
+  outline: 2px solid #ffd700;
+  outline-offset: 3px;
+}
+
+/* ---------------------------------
+   Carousels
+--------------------------------- */
+
+.ebook-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  cursor: grab;
+  user-select: none;
+  position: relative;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-padding-inline: 18px;
+}
+
+.ebook-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.ebook-wrapper.dragging {
+  cursor: grabbing;
+}
+
+.ebook-track {
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
+  width: max-content;
+  padding: 6px 2px 10px;
+}
+
+.ebook-card {
+  position: relative;
+  width: 170px;
+  flex: 0 0 auto;
+  text-align: center;
+  color: white;
+  border-radius: 24px;
+  padding: 14px 14px 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.08), transparent 55%);
+  border: 1px solid rgba(255, 215, 0, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  transition:
+    transform 320ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    box-shadow 280ms ease,
+    border-color 280ms ease,
+    opacity 280ms ease,
+    filter 280ms ease;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  --card-glow-x: 50%;
+  --card-glow-y: 18%;
+}
+
+.ebook-card::before,
+.ebook-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ebook-card::before {
+  background:
+    radial-gradient(circle at var(--card-glow-x) var(--card-glow-y), rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 30%),
+    radial-gradient(circle at 80% 118%, rgba(255, 215, 0, 0.16), rgba(255, 215, 0, 0) 42%);
+  opacity: 0.9;
+}
+
+.ebook-card::after {
+  inset: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ebook-card:hover,
+.ebook-card.is-centered {
+  border-color: rgba(255, 215, 0, 0.32);
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(255, 215, 0, 0.08);
+}
+
+.ebook-card.is-centered {
+  transform: translateY(-6px) scale(1.03);
+}
+
+.ebook-card.is-near {
+  opacity: 0.96;
+}
+
+.ebook-card:not(.is-centered):not(:hover) {
+  opacity: 0.9;
+}
+
+.ebook-card img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 160 / 226;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+.ebook-card:hover img,
+.ebook-card.is-centered img {
+  transform: translateY(-3px) scale(1.045);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.26), 0 22px 46px rgba(0, 0, 0, 0.5);
+}
+
+.ebook-card-title {
+  display: inline-block;
+  margin-top: 12px;
+  color: #ffd700;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+  min-height: 2.8em;
+  transition: color 0.22s ease, transform 0.22s ease;
+}
+
+.ebook-card:hover .ebook-card-title,
+.ebook-card.is-centered .ebook-card-title {
+  color: #ffe082;
+  transform: translateY(-1px);
+}
+
+.card-eyebrow {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #0f0f0f;
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.96), rgba(255, 224, 130, 0.92));
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.card-preview {
+  position: absolute;
+  inset: auto 12px 72px;
+  z-index: 2;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  background: rgba(6, 6, 6, 0.82);
+  color: #f7e7b3;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+  pointer-events: none;
+}
+
+.ebook-card:hover .card-preview,
+.ebook-card.is-centered .card-preview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.card-preview.is-merch {
+  inset: auto 12px 64px;
+}
+
+/* ---------------------------------
+   Modal
+--------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-panel {
+  position: relative;
+  width: min(94vw, 720px);
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  background:
+    linear-gradient(180deg, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.78)),
+    radial-gradient(circle at top, rgba(255, 215, 0, 0.08), transparent 36%);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  transform: translateY(16px) scale(0.92);
+  opacity: 0;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+  padding: 20px;
+}
+
+.modal-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(255, 215, 0, 0.13), transparent 28%),
+    radial-gradient(circle at 110% 120%, rgba(255, 215, 0, 0.08), transparent 26%);
+}
+
+.modal-overlay.open .modal-panel {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 215, 0, 0.22);
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffd700;
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-close:hover {
+  transform: scale(1.05);
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.modal-grid {
+  display: grid;
+  gap: 18px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-cover-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 34px;
+}
+
+.modal-cover-wrap::before {
+  content: "";
+  position: absolute;
+  width: min(84%, 320px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.18), rgba(255, 215, 0, 0) 68%);
+  filter: blur(28px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.modal-cover {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 280px);
+  aspect-ratio: 160 / 226;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 215, 0, 0.12);
+  transform: scale(0.96);
+  animation: modalPop 0.3s ease forwards;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.88); opacity: 0.35; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-10%);
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 2;
+  font-size: 20px;
+  user-select: none;
+}
+
+.modal-nav:hover {
+  transform: translateY(-10%) scale(1.06);
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.modal-prev { left: 0; }
+.modal-next { right: 0; }
+
+.modal-meta,
+.modal-title,
+.modal-desc,
+.modal-actions,
+.modal-social {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(7px);
+}
+
+.modal-overlay.open .modal-panel.modal-animate .modal-meta,
+.modal-overlay.open .modal-panel.modal-animate .modal-title,
+.modal-overlay.open .modal-panel.modal-animate .modal-desc,
+.modal-overlay.open .modal-panel.modal-animate .modal-actions,
+.modal-overlay.open .modal-panel.modal-animate .modal-social {
+  animation: modalTextRise 620ms cubic-bezier(0.2, 0.75, 0.2, 1) forwards;
+}
+
+.modal-overlay.open .modal-panel.modal-animate .modal-title { animation-delay: 70ms; }
+.modal-overlay.open .modal-panel.modal-animate .modal-desc { animation-delay: 150ms; }
+.modal-overlay.open .modal-panel.modal-animate .modal-actions { animation-delay: 230ms; }
+.modal-overlay.open .modal-panel.modal-animate .modal-social { animation-delay: 310ms; }
+
+@keyframes modalTextRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.modal-title {
+  color: #ffd700;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.modal-desc {
+  color: #e7c970;
+  line-height: 1.65;
+  text-align: center;
+  max-width: 52ch;
+  margin: 0 auto;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.modal-buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 160px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  background: linear-gradient(90deg, #ffd700, #c9952a);
+  color: #000;
+  text-decoration: none;
+  box-shadow: 0 16px 30px rgba(201, 149, 42, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-buy:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 18px 34px rgba(201, 149, 42, 0.26);
+}
+
+.modal-social {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.modal-social-text {
+  color: #a78b42;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 14px;
+}
+
+.modal-social-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.modal-social-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #d4af37;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.modal-social-link img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.12));
+  transition: transform 0.2s ease;
+}
+
+.modal-social-link:hover img {
+  transform: scale(1.08);
+}
+
+.modal-meta {
+  color: #a78b42;
+  font-size: 0.8rem;
+  text-align: center;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------
+   FAQ
+--------------------------------- */
+
+details.soft-card {
+  transition:
+    border-color 240ms ease,
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+details.soft-card[open] {
+  border-color: rgba(255, 215, 0, 0.28);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.4);
+}
+
+details summary {
+  list-style: none;
+  position: relative;
+  padding-right: 34px;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #ffd700;
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform 0.24s ease;
+}
+
+details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+/* ---------------------------------
+   Desktop layout
+--------------------------------- */
+
+@media (min-width: 768px) {
+  .modal-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 28px;
+  }
+
+  .modal-title,
+  .modal-desc,
+  .modal-meta {
+    text-align: left;
+  }
+
+  .modal-actions {
+    justify-content: flex-start;
+  }
+
+  .modal-social {
+    text-align: left;
+  }
+
+  .modal-social-row {
+    justify-content: flex-start;
+  }
+
+  .modal-cover-wrap {
+    padding-top: 0;
+  }
+
+  .ebook-wrapper {
+    scroll-padding-inline: 28px;
+  }
+}
+
+/* ---------------------------------
+   Mobile
+--------------------------------- */
+
+@media (max-width: 767px) {
+  .ebook-track {
+    gap: 14px;
+  }
+
+  .ebook-card {
+    width: 146px;
+    padding: 12px 12px 15px;
+  }
+
+  .ebook-card-title {
+    min-height: 3.1em;
+    font-size: 0.92rem;
+  }
+
+  .ebook-card img {
+    width: 122px;
+    margin-inline: auto;
+  }
+
+  .card-eyebrow {
+    top: 10px;
+    left: 10px;
+    font-size: 0.56rem;
+    letter-spacing: 0.16em;
+    padding: 5px 8px;
+  }
+
+  .card-preview {
+    inset: auto 10px 66px;
+    font-size: 0.69rem;
+    line-height: 1.38;
+    padding: 8px 10px;
+    border-radius: 14px;
+  }
+
+  .buy-btn {
+    font-size: 11px;
+    padding: 7px 14px;
+    margin-top: 8px;
+    box-shadow: 0 14px 24px rgba(201, 149, 42, 0.22);
+  }
+
+  .modal-panel {
+    width: min(96vw, 720px);
+  }
+
+
+}
+
+/* ---------------------------------
+   Reduced motion
+--------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+
+  .soft-card,
+  .ebook-card,
+  .buy-btn,
+  .modal-panel,
+  .modal-overlay,
+  .modal-cover,
+  .modal-nav,
+  .modal-close {
+    transition: none;
+    animation: none;
+    transform: none !important;
+  }
+
+  .scroll-progress {
+    transition: none;
+  }
+}

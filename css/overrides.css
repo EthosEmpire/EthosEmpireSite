@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Ethos Empire — override layer  (legacy)
+   --------------------------------------------------------------------------
+   The historical "motion polish patch": rules that refine the components
+   above and rely on !important plus source order to win.
+
+   Kept as its own module, loaded immediately after components.css, so the
+   cascade behaves exactly as before. Deliberately NOT merged into
+   components.css — folding these back into their base rules is a real
+   rewrite and belongs in its own reviewed change, not an architecture pass
+   on an approved design. Known debt, with a clear payoff.
+   ========================================================================== */
+
+/* =========================================
+   Ethos Empire motion polish patch
+   Added for smoother motion + more stable
+   ebook / merch behavior on desktop + phone
+========================================= */
+
+/* ------------------------------
+   Reveal animations
+------------------------------ */
+
+/* The .fade-up rules and the fadeUp/fadeUpSmooth keyframes were removed
+   in the pre-push cleanup. No element in any page carries the class and
+   no script adds it, so the rules could never match. java.js still lists
+   ".fade-up" in its IntersectionObserver query, which is a harmless no-op
+   and was left untouched. */
+
+
+/* ------------------------------
+   Buttons + social
+------------------------------ */
+
+.buy-btn,
+.modal-buy {
+  transition:
+    transform var(--dur-fast) var(--ease-soft),
+    box-shadow var(--dur-fast) ease,
+    filter var(--dur-fast) ease !important;
+  will-change: transform, box-shadow;
+}
+
+.buy-btn:hover,
+.modal-buy:hover {
+  transform: translateY(-1px) scale(1.015) !important;
+}
+
+
+.modal-social-link img {
+  transition:
+    transform 260ms var(--ease-soft),
+    filter 260ms ease !important;
+}
+
+.modal-social-link:hover img {
+  transform: translateY(-2px) scale(1.04) !important;
+}
+
+/* ------------------------------
+   Ebook / merch stability
+------------------------------ */
+
+.ebook-wrapper {
+  scroll-behavior: auto !important;
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
+}
+
+.ebook-track {
+  will-change: transform;
+}
+
+.ebook-card {
+  transition:
+    box-shadow 320ms var(--ease-soft),
+    border-color 280ms ease,
+    opacity 280ms ease,
+    filter 280ms ease !important;
+  will-change: box-shadow, border-color, opacity;
+}
+
+.ebook-card.is-centered {
+  transform: none !important;
+}
+
+.ebook-card img {
+  transition:
+    box-shadow 320ms var(--ease-soft),
+    filter 320ms ease !important;
+}
+
+.ebook-card:hover img,
+.ebook-card.is-centered img {
+  transform: none !important;
+  box-shadow: 0 0 22px rgba(255, 215, 0, 0.22), 0 22px 46px rgba(0, 0, 0, 0.5) !important;
+  filter: brightness(1.02);
+}
+
+.ebook-card:hover .ebook-card-title,
+.ebook-card.is-centered .ebook-card-title {
+  transform: none !important;
+}
+
+.card-preview {
+  transform: translateY(8px);
+  transition:
+    opacity 280ms var(--ease-soft),
+    transform 280ms var(--ease-soft) !important;
+}
+
+/* ------------------------------
+   Modal smoothing
+------------------------------ */
+
+.modal-overlay {
+  transition:
+    opacity 340ms var(--ease-soft),
+    visibility 340ms var(--ease-soft) !important;
+}
+
+.modal-panel {
+  transform: translateY(14px) scale(0.975);
+  transition:
+    transform 360ms var(--ease-smooth),
+    opacity 320ms var(--ease-soft) !important;
+  will-change: transform, opacity;
+}
+
+.modal-overlay.open .modal-panel {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close,
+.modal-nav {
+  transition:
+    transform 220ms var(--ease-soft),
+    background 220ms ease !important;
+}
+
+.modal-close:hover,
+.modal-nav:hover {
+  transform: scale(1.03) !important;
+}
+
+.modal-cover {
+  animation: modalPopSmooth 420ms var(--ease-smooth) forwards !important;
+}
+
+@keyframes modalPopSmooth {
+  from {
+    transform: translateY(10px) scale(0.92);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-overlay.open .modal-panel.modal-animate .modal-meta,
+.modal-overlay.open .modal-panel.modal-animate .modal-title,
+.modal-overlay.open .modal-panel.modal-animate .modal-desc,
+.modal-overlay.open .modal-panel.modal-animate .modal-actions,
+.modal-overlay.open .modal-panel.modal-animate .modal-social {
+  animation: modalTextRiseSmooth 700ms var(--ease-smooth) forwards !important;
+}
+
+@keyframes modalTextRiseSmooth {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ------------------------------
+   Bubble cards + FAQ
+------------------------------ */
+
+
+details.soft-card {
+  transition:
+    border-color 260ms ease,
+    transform 260ms var(--ease-soft),
+    box-shadow 260ms ease !important;
+}
+
+/* ------------------------------
+   Mobile polish
+------------------------------ */
+
+@media (max-width: 767px) {
+  .ebook-card {
+    transition:
+      box-shadow 280ms var(--ease-soft),
+      border-color 240ms ease,
+      opacity 240ms ease,
+      filter 240ms ease !important;
+  }
+
+}
+
+/* ------------------------------
+   Reduced motion
+------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+
+  .buy-btn,
+  .modal-buy,
+  .modal-close,
+  .modal-nav,
+  .modal-cover,
+  .ebook-card,
+  .soft-card {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
