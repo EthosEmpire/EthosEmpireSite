@@ -45,6 +45,14 @@
   </url>
 
   <url>
+    <loc>https://ethosempire.org/logo/</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <image:image><image:loc>https://ethosempire.org/images/ethos-empire-logo.webp</image:loc></image:image>
+  </url>
+
+  <url>
     <loc>https://ethosempire.org/course/</loc>
     <lastmod>2026-05-04</lastmod>
     <changefreq>monthly</changefreq>
