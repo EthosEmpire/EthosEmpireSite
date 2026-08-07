@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ethosempire.org/sitemap.xml
+Sitemap: https://www.ethosempire.org/sitemap.xml
