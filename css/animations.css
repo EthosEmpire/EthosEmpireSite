@@ -22,6 +22,46 @@
    moves horizontally.
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   Ambient background drift
+   --------------------------------------------------------------------------
+   Two very soft cool glows that move slowly behind everything, so the page
+   feels alive without the visitor consciously noticing motion.
+
+   Deliberate constraints:
+     - one extra pseudo-element, no DOM, no JavaScript, no canvas
+     - only transform and opacity animate, so it composites on the GPU and
+       can never cause layout shift or CLS
+     - 54s and 72s cycles — slow enough to read as atmosphere, not motion
+     - drift distance is a few percent; the glows never sweep the screen
+     - sits at z-index 0 behind .page-backdrop::after's vignette, so text
+       contrast is unaffected
+   -------------------------------------------------------------------------- */
+
+.page-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 38vw at 22% 28%, var(--ambient-blue), transparent 62%),
+    radial-gradient(circle 34vw at 78% 68%, var(--ambient-cool), transparent 60%);
+  will-change: transform, opacity;
+  animation:
+    ambientDriftA 54s var(--ease-smooth) infinite alternate,
+    ambientBreathe 72s ease-in-out infinite alternate;
+}
+
+@keyframes ambientDriftA {
+  from { transform: translate3d(-2.5%, -1.5%, 0) scale(1); }
+  to   { transform: translate3d(2.5%, 1.5%, 0) scale(1.06); }
+}
+
+@keyframes ambientBreathe {
+  from { opacity: 0.75; }
+  to   { opacity: 1; }
+}
+
 .js-reveal .soft-card,
 .js-reveal .section-head,
 .js-reveal .partnership-card {
@@ -51,6 +91,15 @@
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
+  /* Ambient glows stay, but frozen — the atmosphere is kept, the motion
+     is removed. Held at the mid-point of the drift so the composition
+     matches what everyone else sees on average. */
+  .page-backdrop::before {
+    animation: none;
+    transform: none;
+    opacity: 0.85;
+  }
+
   .js-reveal .soft-card,
   .js-reveal .section-head,
   .js-reveal .partnership-card {

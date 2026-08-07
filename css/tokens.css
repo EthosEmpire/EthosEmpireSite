@@ -11,14 +11,24 @@
 
 :root {
   /* --- Ambient surface -------------------------------------------
-     Warm charcoal instead of pure black, so gold reads warmer and
-     the Ethos A.I orange/teal partner accents sit naturally on the
-     same environment. */
-  --bg:        #0a0906;   /* warm near-black, page body           */
-  --bg-deep:   #050403;   /* deepest wells                        */
-  --bg-elev:   #14100b;   /* elevated surfaces (topbar, cards)    */
+     Deep navy rather than near-black. Blue reads colder and more
+     premium than charcoal, gold gains contrast against it instead of
+     blending into brown, and the Ethos A.I teal sits naturally on a
+     blue ground while the partner orange still stands apart.
+
+     Legal pages deliberately keep their own darker surface — they
+     override --bg in css/legal.css. */
+  --bg:        #071322;   /* midnight navy — page body            */
+  --bg-deep:   #040b14;   /* deepest navy — wells and page edges  */
+  --bg-mid:    #0a1a2d;   /* dark blue — mid-depth band           */
+  --bg-elev:   #101c2b;   /* blue graphite — elevated surfaces    */
   --surface:       rgba(255, 255, 255, 0.035);
   --surface-hover: rgba(255, 255, 255, 0.06);
+
+  /* Ambient glow colours for the drifting background lights.
+     Cool and low-alpha on purpose: atmosphere, never a focal point. */
+  --ambient-blue: rgba(56, 116, 190, 0.10);
+  --ambient-cool: rgba(38, 88, 148, 0.07);
 
   /* --- Ethos Empire (dominant brand) --------------------------- */
   --empire-gold:      #ffd700;

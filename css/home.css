@@ -199,23 +199,32 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Layered STATIC gradient — gold-dominant with restrained partner
-     accents so Ethos Empire remains the primary identity and the
-     Ethos A.I orange/teal appear only as ambient co-brand presence. */
+  /* Layered STATIC navy gradient. Empire gold stays the dominant accent
+     and keeps the top-centre spotlight where the mark and hero sit; the
+     blues supply depth beneath it. The Ethos A.I teal and orange remain
+     tiny corner accents only — Ethos Empire is the primary identity and
+     Ethos A.I is the partner, not a co-owner of the palette.
+
+     The slow drifting lights are a separate layer: .page-backdrop::before
+     in css/animations.css. */
   background:
-    /* Empire gold spotlight — top centre */
+    /* Empire gold spotlight — top centre, unchanged in role */
     radial-gradient(ellipse 65% 45% at 50% 0%,
       rgba(255, 215, 0, 0.10),
       rgba(255, 215, 0, 0.03) 45%,
       transparent 70%),
-    /* Empire gold-mid wash — upper right */
+    /* Empire gold-mid warmth — upper right */
     radial-gradient(ellipse 45% 40% at 82% 22%,
-      rgba(201, 149, 42, 0.06),
+      rgba(201, 149, 42, 0.05),
       transparent 60%),
-    /* Empire deep-bronze — lower left */
-    radial-gradient(ellipse 40% 35% at 12% 78%,
-      rgba(139, 105, 20, 0.05),
-      transparent 55%),
+    /* Cool navy lift — mid left, gives the page depth */
+    radial-gradient(ellipse 55% 45% at 10% 45%,
+      rgba(56, 116, 190, 0.07),
+      transparent 62%),
+    /* Cool navy lift — lower right */
+    radial-gradient(ellipse 50% 40% at 88% 76%,
+      rgba(38, 88, 148, 0.06),
+      transparent 58%),
     /* Partner teal — tiny cool accent, upper left corner only */
     radial-gradient(circle 32vw at 8% 6%,
       rgba(23, 150, 156, 0.04),
@@ -224,8 +233,12 @@ body {
     radial-gradient(circle 30vw at 92% 88%,
       rgba(225, 119, 38, 0.035),
       transparent 60%),
-    /* Base — warm near-black */
-    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 55%, var(--bg-deep) 100%);
+    /* Base — deep navy, lighter through the middle for section depth */
+    linear-gradient(180deg,
+      var(--bg-deep) 0%,
+      var(--bg) 38%,
+      var(--bg-mid) 62%,
+      var(--bg-deep) 100%);
 }
 
 .page-backdrop::after {
