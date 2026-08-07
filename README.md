@@ -49,13 +49,34 @@ js/
   site.js           shared behaviour: scroll progress, modals, reveal,
                     card hover/tilt, FAQ accordion
   catalog.js        ebook/merch data and carousel rendering
+  cookie-consent.js the privacy preference notice
   matrix.js         background canvas — course pages only, NOT the homepage
 
 course/
   course.css        course landing page
   course-merch.js   shared merch carousel for all 7 topic pages
+  <topic>/styles.css                each topic's own theme (see below)
   training-foundation/workout.css   shared styles for the 8 workout pages
+
+source-assets/      master artwork, git-ignored, never deployed
 ```
+
+### Course themes: one stylesheet per topic, on purpose
+
+The seven course topics do **not** share a stylesheet, and that is
+deliberate. Measured across all seven, **zero** CSS rules are identical on
+every page, and of the 71 selectors they have in common only 29 share
+declarations — the rest differ on background, font-size, letter-spacing,
+transition and shadow. They are seven different designs, not one design with
+seven accent colours.
+
+So each topic owns `course/<topic>/styles.css`. What genuinely *is* shared
+lives in code, not CSS: `course/course-merch.js` (the merch carousel, proven
+behaviourally identical across all seven) and `js/matrix.js` (the background
+canvas). The eight workout pages are the opposite case — they were 96.8–100%
+identical, so they share `training-foundation/workout.css`.
+
+If you add a topic, give it its own `styles.css`. Do not try to merge them.
 
 ### CSS load order matters
 
@@ -109,6 +130,26 @@ The hero marquee is the only continuous animation on the site and it stops
 under reduced motion too. Do not add more.
 
 ---
+
+## Privacy preference notice
+
+`js/cookie-consent.js` plus the markup at the bottom of `index.html`.
+
+**This site sets no cookies and loads no analytics.** There is no
+`document.cookie` write anywhere, no tag manager, no pixels. The only
+browser storage is one `localStorage` key, `ee_cookie_consent`, holding
+`"all"` or `"essential"`, and its only job is remembering that the notice was
+dismissed. So it is a preference notice, not a consent platform — do not
+describe it as one, and do not add buttons that claim to block tracking that
+does not exist.
+
+If optional analytics are ever added, they must read that key **before**
+loading, or the control becomes fake.
+
+One trap worth knowing: `.cookie-banner` sets `display: flex`, which beats the
+user-agent `[hidden] { display: none }` rule. `css/home.css` therefore carries
+an explicit `.cookie-banner[hidden] { display: none }`. Remove it and the
+notice can never be dismissed.
 
 ## Conventions
 
@@ -167,11 +208,14 @@ scroll at 320px, and the reveal animation never leaves content invisible.
 `.github/workflows/static.yml` publishes the repository root to GitHub Pages on
 every push to `main`. **Pushing to `main` deploys to production immediately.**
 
-The site sits behind Cloudflare. `ethosempire.org` currently 301-redirects to
-`www.ethosempire.org`, while every canonical URL, `og:url` and sitemap entry in
-this repo uses the bare host. Those disagree and it is an open decision — either
-make the canonicals `www`, or change the redirect so bare is authoritative. Do
-not change one without the other.
+The site sits behind Cloudflare. **`www.ethosempire.org` is canonical.**
+`ethosempire.org` 301-redirects to it, so every canonical, `og:url`,
+structured-data URL, sitemap entry and the robots.txt sitemap line uses the
+`www` host. Keep it that way — mixing bare and `www` splits SEO signals.
+
+Two links in the Terms and Privacy contact blocks still point at the bare host
+because their visible text is approved legal copy; they resolve through the
+redirect.
 
 ---
 
