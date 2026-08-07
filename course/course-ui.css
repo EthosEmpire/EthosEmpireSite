@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Ethos Empire — shared Course-area UI
+   --------------------------------------------------------------------------
+   The one piece of chrome every Free Courses page shares: a thin sticky bar
+   carrying the Ethos Empire mark, a link back to Free Courses, and the social
+   row. Loaded BEFORE each page's theme stylesheet, so a theme can still
+   override it if it ever needs to.
+
+   Deliberately CSS-only. The bar reflows to a second line on small screens
+   the same way the homepage top bar does, so no JavaScript, no toggle button,
+   no aria-expanded state to keep in sync, and it works identically with
+   scripting disabled.
+
+   Course themes stay visually distinct below this bar; only the navigation is
+   shared, so a visitor always knows how to get back.
+   ========================================================================== */
+
+.course-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  background: rgba(6, 10, 16, 0.92);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ---------- Brand ---------- */
+
+.course-nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.course-nav-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: block;
+}
+
+.course-nav-word {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ffe082;
+  white-space: nowrap;
+}
+
+/* ---------- Section links ---------- */
+
+.course-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-right: auto;
+}
+
+.course-nav-link {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c9a44e;
+  text-decoration: none;
+  padding: 4px 2px;
+  border-bottom: 1px solid transparent;
+  transition: color .2s ease, border-color .2s ease;
+  white-space: nowrap;
+}
+
+.course-nav-link:hover,
+.course-nav-link:focus-visible {
+  color: #FFD700;
+  border-bottom-color: rgba(255, 215, 0, 0.5);
+  outline: none;
+}
+
+/* Marks the page you are currently on. */
+.course-nav-link[aria-current="page"] {
+  color: #FFD700;
+  border-bottom-color: rgba(255, 215, 0, 0.5);
+}
+
+/* ---------- Social ---------- */
+
+.course-nav-social {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.course-nav-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.course-nav-social img {
+  width: 17px;
+  height: 17px;
+  display: block;
+  opacity: .78;
+  transition: opacity .2s ease;
+}
+
+.course-nav-social a:hover,
+.course-nav-social a:focus-visible {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.course-nav-social a:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.55);
+}
+
+.course-nav-social a:hover img,
+.course-nav-social a:focus-visible img { opacity: 1 }
+
+/* ---------- Responsive ----------
+   Below 720px the social row drops to its own full-width line and centres,
+   which is what keeps ten icons from crushing the bar at 320px. */
+
+@media (max-width: 719px) {
+  .course-nav { padding: 9px 14px; gap: 10px }
+  .course-nav-links { gap: 13px }
+  .course-nav-social {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 1px;
+    margin-top: 2px;
+  }
+  .course-nav-social a { width: 28px; height: 28px }
+  .course-nav-social img { width: 16px; height: 16px }
+}
+
+@media (max-width: 359px) {
+  .course-nav-word { display: none }
+  .course-nav-link { font-size: 0.7rem }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-nav-link,
+  .course-nav-social a,
+  .course-nav-social img {
+    transition: none;
+  }
+  .course-nav-social a:hover,
+  .course-nav-social a:focus-visible {
+    transform: none;
+  }
+}
