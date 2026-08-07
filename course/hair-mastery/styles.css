@@ -382,7 +382,6 @@
       border-color: rgba(255,215,0,0.55);
       box-shadow: 0 6px 18px rgba(201,149,42,0.15);
     }
-    .cta-text { color: #f3df9a; font-size: 0.95rem; margin: 0 0 20px; }
     .cta-button {
       display: inline-block; padding: 16px 40px; border-radius: 14px;
       background: linear-gradient(135deg, rgba(201,149,42,0.22), rgba(201,149,42,0.1));
@@ -498,11 +497,6 @@
     .course-nav-row { display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; }
     .course-nav-btn { display: inline-block; padding: 14px 28px; border-radius: 14px; font-size: 0.88rem; font-weight: 700; color: #d4af37; text-decoration: none; border: 1px solid rgba(255,215,0,0.2); background: linear-gradient(135deg, rgba(201,149,42,0.08), rgba(201,149,42,0.03)); transition: all 0.28s; }
     .course-nav-btn:hover { border-color: rgba(255,215,0,0.4); color: #ffe082; background: linear-gradient(135deg, rgba(201,149,42,0.18), rgba(201,149,42,0.08)); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,149,42,0.12); }
-    .back-link {
-      display: inline-block; color: #a07828; font-size: 0.88rem;
-      font-weight: 600; text-decoration: none; transition: color 0.2s;
-    }
-    .back-link:hover { color: #FFD700; }
 
     .back-box {
       display: inline-block;
@@ -558,3 +552,18 @@
         transition: none !important; transform: none !important;
       }
     }
+
+/* ---------- Layout helpers (were inline style attributes) ---------- */
+
+.section-image-sm--spaced {
+  margin-top: 24px;
+}
+
+.cta-button--spaced {
+  margin-top: 32px;
+}
+
+.merch-cta {
+  text-align: center;
+  margin-top: 28px;
+}

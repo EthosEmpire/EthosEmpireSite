@@ -384,3 +384,18 @@
         transition: none !important; transform: none !important;
       }
     }
+
+/* ---------- Layout helpers (were inline style attributes) ---------- */
+
+.section-image-sm--spaced {
+  margin-top: 24px;
+}
+
+.cta-button--spaced {
+  margin-top: 32px;
+}
+
+.merch-cta {
+  text-align: center;
+  margin-top: 28px;
+}

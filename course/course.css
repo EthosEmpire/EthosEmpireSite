@@ -290,3 +290,8 @@ footer {
     transform: none !important;
   }
 }
+
+/* Footer tint (was an inline style attribute on course/index.html). */
+.course-footer {
+  color: #7A5C1E;
+}

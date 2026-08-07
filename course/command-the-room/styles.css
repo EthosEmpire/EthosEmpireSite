@@ -97,3 +97,18 @@
 
     @media(max-width:767px){.header{padding:32px 16px 16px}.main-content{padding:0 16px 48px}.content-section{margin-top:48px}.card-grid{grid-template-columns:1fr}.ebook-row{grid-template-columns:1fr;max-width:280px;margin-left:auto;margin-right:auto}.standard-pillars{flex-direction:column;gap:6px}.step-item{padding:22px 18px;gap:14px}.step-badge{width:36px;height:36px;font-size:.72rem}.hero-image-row{flex-direction:column;align-items:center}.hero-img{width:100%;max-width:300px;height:280px}.social-row{gap:24px}.course-nav-row{flex-direction:column;gap:12px}.course-nav-btn{width:100%;text-align:center}}
     @media(prefers-reduced-motion:reduce){.course-logo,.cta-button,.info-card,.type-card,.step-item,.ebook-card,.social-link,.merch-item,.back-box,.course-nav-btn{transition:none!important;transform:none!important}}
+
+/* ---------- Layout helpers (were inline style attributes) ---------- */
+
+.section-image-sm--spaced {
+  margin-top: 24px;
+}
+
+.cta-button--spaced {
+  margin-top: 32px;
+}
+
+.merch-cta {
+  text-align: center;
+  margin-top: 28px;
+}

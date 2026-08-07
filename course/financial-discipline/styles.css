@@ -174,3 +174,14 @@
     @media (prefers-reduced-motion: reduce) {
       .course-logo, .cta-button, .info-card, .type-card, .step-item, .budget-card, .ebook-card, .social-link, .merch-item, .back-box, .course-nav-btn { transition: none !important; transform: none !important; }
     }
+
+/* ---------- Layout helpers (were inline style attributes) ---------- */
+
+.cta-button--spaced {
+  margin-top: 32px;
+}
+
+.merch-cta {
+  text-align: center;
+  margin-top: 28px;
+}

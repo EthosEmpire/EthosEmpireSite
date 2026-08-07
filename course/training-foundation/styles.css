@@ -93,3 +93,65 @@
 
     @media(max-width:767px){.header{padding:32px 16px 16px}.main-content{padding:0 16px 48px}.content-section{margin-top:48px}.muscle-grid{grid-template-columns:1fr 1fr}.ebook-row{grid-template-columns:1fr;max-width:280px;margin-left:auto;margin-right:auto}.standard-pillars{flex-direction:column;gap:6px}.social-row{gap:24px}.course-nav-row{flex-direction:column;gap:12px}.course-nav-btn{width:100%;text-align:center}}
     @media(prefers-reduced-motion:reduce){.course-logo,.cta-button,.continue-btn,.muscle-card,.ebook-card,.social-link,.merch-item,.back-box,.course-nav-btn{transition:none!important;transform:none!important}}
+
+/* ---------- Layout helpers (were inline style attributes) ---------- */
+
+.group-title {
+  color: #ffe8a0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 40px 0 8px;
+}
+
+.group-intro {
+  color: #d4af37;
+  font-size: .9rem;
+  margin: 0 0 8px;
+  opacity: .9;
+}
+
+.center-cta {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.article-title--center {
+  text-align: center;
+}
+
+.section-lede-center {
+  color: #d4af37;
+  font-size: .95rem;
+  text-align: center;
+  margin: 4px 0 28px;
+}
+
+.block-title {
+  font-size: clamp(1.4rem, 3.5vw, 1.85rem);
+  font-weight: 800;
+  color: #ffe8a0;
+  margin: 0 0 6px;
+}
+
+.block-body-center {
+  color: #bfa86e;
+  font-size: .93rem;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.block-lede {
+  color: #d4af37;
+  font-size: .95rem;
+  margin: 4px 0 0;
+  opacity: .9;
+}
+
+.cta-button--spaced {
+  margin-top: 32px;
+}
+
+.merch-cta {
+  text-align: center;
+  margin-top: 28px;
+}
