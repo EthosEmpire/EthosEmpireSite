@@ -654,7 +654,7 @@
       <div class="course-nav-row">
         <a href="../hair-mastery/" class="course-nav-btn">← Hair Mastery</a>
         <a href="../" class="back-box">Back to Course</a>
-        <a href="../finacial-discipline/" class="course-nav-btn">Financial Discipline →</a>
+        <a href="../financial-discipline/" class="course-nav-btn">Financial Discipline →</a>
       </div>
     </div>
 
@@ -665,99 +665,6 @@
   </div>
 
   <script src="../../matrix.js"></script>
-  <script>
-  /* === MERCH CAROUSEL: auto-scroll + drag/swipe + infinite loop === */
-  (function () {
-    var carousel = document.getElementById("merchCarousel");
-    var track = document.getElementById("merchTrack");
-    if (!carousel || !track) return;
-
-    var hoodies = [
-      { name: "Black", img: "ethos-empire-hoodie-black-gold-logo-400.webp" },
-      { name: "Bone", img: "ethos-empire-hoodie-bone-gold-logo-400.webp" },
-      { name: "Latte", img: "ethos-empire-hoodie-latte-gold-logo-400.webp" },
-      { name: "Lavender", img: "ethos-empire-hoodie-lavender-gold-logo-400.webp" },
-      { name: "Navy", img: "ethos-empire-hoodie-navy-gold-logo-400.webp" },
-      { name: "Oatmeal", img: "ethos-empire-hoodie-oatmeal-gold-logo-400.webp" },
-      { name: "Vintage", img: "ethos-empire-hoodie-vintage-gold-logo-400.webp" },
-      { name: "White", img: "ethos-empire-hoodie-white-gold-logo-400.webp" },
-      { name: "Pink", img: "ethos-empire-hoodie-pink-gold-logo-400.webp" }
-    ];
-    var url = "https://ethosempireo.printful.me/product/ethos-unisex-hoodie";
-    var itemW = 170;
-    var setW = hoodies.length * itemW;
-
-    for (var s = 0; s < 3; s++) {
-      hoodies.forEach(function (h) {
-        var a = document.createElement("a");
-        a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
-        a.className = "merch-item"; a.draggable = false;
-        a.innerHTML =
-          '<img src="../../images/' + h.img + '" alt="' + h.name + ' Hoodie" loading="lazy" draggable="false">' +
-          '<span class="merch-name">' + h.name + '</span>' +
-          '<span class="merch-buy">Buy →</span>';
-        track.appendChild(a);
-      });
-    }
-
-    var pos = 0, autoSpeed = 0.4, isDragging = false, didDrag = false;
-    var startX = 0, dragStartPos = 0, velocity = 0, lastX = 0, lastTime = 0;
-    var momentumV = 0, resumeTimer = null, autoActive = true;
-
-    function wrap(p) {
-      while (p > 0) p -= setW;
-      while (p < -setW * 2) p += setW;
-      return p;
-    }
-    function render() { track.style.transform = "translateX(" + pos + "px)"; }
-
-    function tick() {
-      if (!isDragging) {
-        if (Math.abs(momentumV) > 0.3) { pos += momentumV; momentumV *= 0.95; }
-        else { momentumV = 0; if (autoActive) pos -= autoSpeed; }
-        pos = wrap(pos);
-      }
-      render();
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    carousel.addEventListener("click", function (e) {
-      if (didDrag) { e.preventDefault(); e.stopPropagation(); }
-    }, true);
-
-    carousel.addEventListener("mousedown", function (e) { beginDrag(e.clientX); });
-    window.addEventListener("mousemove", function (e) { if (isDragging) { e.preventDefault(); doDrag(e.clientX); } });
-    window.addEventListener("mouseup", function () { if (isDragging) endDrag(); });
-
-    carousel.addEventListener("touchstart", function (e) { beginDrag(e.touches[0].clientX); }, { passive: true });
-    carousel.addEventListener("touchmove", function (e) {
-      if (!isDragging) return;
-      doDrag(e.touches[0].clientX);
-      if (Math.abs(lastX - startX) > 10) e.preventDefault();
-    }, { passive: false });
-    carousel.addEventListener("touchend", function () { if (isDragging) endDrag(); });
-
-    function beginDrag(x) {
-      isDragging = true; didDrag = false; startX = x; lastX = x;
-      dragStartPos = pos; momentumV = 0; velocity = 0; lastTime = Date.now();
-      clearTimeout(resumeTimer); autoActive = false;
-    }
-    function doDrag(x) {
-      var delta = x - startX;
-      if (Math.abs(delta) > 10) { didDrag = true; carousel.classList.add("is-dragging"); }
-      var now = Date.now(), dt = now - lastTime;
-      if (dt > 0) { velocity = (x - lastX) / dt; lastX = x; lastTime = now; }
-      pos = wrap(dragStartPos + delta); render();
-    }
-    function endDrag() {
-      isDragging = false; carousel.classList.remove("is-dragging");
-      momentumV = velocity * 120;
-      clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(function () { autoActive = true; }, 2500);
-      setTimeout(function () { didDrag = false; }, 20);
-    }
-  })();
-  </script>
+  <script src="../course-merch.js" defer></script>
 </body>
 </html>
