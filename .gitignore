@@ -11,3 +11,8 @@ Desktop.ini
 
 # Node
 node_modules/
+
+# Source / master artwork — local only, never deployed.
+# These are masters (layered exports, opaque and transparent originals).
+# Production copies live under images/. See source-assets/README.md.
+source-assets/
