@@ -2,7 +2,7 @@
    Ethos Empire — override layer  (legacy)
    --------------------------------------------------------------------------
    The historical "motion polish patch": rules that refine the components
-   above and rely on !important plus source order to win.
+   above and rely on plus source order to win.
 
    Kept as its own module, loaded immediately after components.css, so the
    cascade behaves exactly as before. Deliberately NOT merged into
@@ -37,24 +37,24 @@
   transition:
     transform var(--dur-fast) var(--ease-soft),
     box-shadow var(--dur-fast) ease,
-    filter var(--dur-fast) ease !important;
+    filter var(--dur-fast) ease;
   will-change: transform, box-shadow;
 }
 
 .buy-btn:hover,
 .modal-buy:hover {
-  transform: translateY(-1px) scale(1.015) !important;
+  transform: translateY(-1px) scale(1.015);
 }
 
 
 .modal-social-link img {
   transition:
     transform 260ms var(--ease-soft),
-    filter 260ms ease !important;
+    filter 260ms ease;
 }
 
 .modal-social-link:hover img {
-  transform: translateY(-2px) scale(1.04) !important;
+  transform: translateY(-2px) scale(1.04);
 }
 
 /* ------------------------------
@@ -62,7 +62,7 @@
 ------------------------------ */
 
 .ebook-wrapper {
-  scroll-behavior: auto !important;
+  scroll-behavior: auto;
   overscroll-behavior-x: contain;
   touch-action: pan-y;
 }
@@ -76,37 +76,37 @@
     box-shadow 320ms var(--ease-soft),
     border-color 280ms ease,
     opacity 280ms ease,
-    filter 280ms ease !important;
+    filter 280ms ease;
   will-change: box-shadow, border-color, opacity;
 }
 
 .ebook-card.is-centered {
-  transform: none !important;
+  transform: none;
 }
 
 .ebook-card img {
   transition:
     box-shadow 320ms var(--ease-soft),
-    filter 320ms ease !important;
+    filter 320ms ease;
 }
 
 .ebook-card:hover img,
 .ebook-card.is-centered img {
-  transform: none !important;
-  box-shadow: 0 0 22px rgba(255, 215, 0, 0.22), 0 22px 46px rgba(0, 0, 0, 0.5) !important;
+  transform: none;
+  box-shadow: 0 0 22px rgba(255, 215, 0, 0.22), 0 22px 46px rgba(0, 0, 0, 0.5);
   filter: brightness(1.02);
 }
 
 .ebook-card:hover .ebook-card-title,
 .ebook-card.is-centered .ebook-card-title {
-  transform: none !important;
+  transform: none;
 }
 
 .card-preview {
   transform: translateY(8px);
   transition:
     opacity 280ms var(--ease-soft),
-    transform 280ms var(--ease-soft) !important;
+    transform 280ms var(--ease-soft);
 }
 
 /* ------------------------------
@@ -116,14 +116,14 @@
 .modal-overlay {
   transition:
     opacity 340ms var(--ease-soft),
-    visibility 340ms var(--ease-soft) !important;
+    visibility 340ms var(--ease-soft);
 }
 
 .modal-panel {
   transform: translateY(14px) scale(0.975);
   transition:
     transform 360ms var(--ease-smooth),
-    opacity 320ms var(--ease-soft) !important;
+    opacity 320ms var(--ease-soft);
   will-change: transform, opacity;
 }
 
@@ -135,16 +135,16 @@
 .modal-nav {
   transition:
     transform 220ms var(--ease-soft),
-    background 220ms ease !important;
+    background 220ms ease;
 }
 
 .modal-close:hover,
 .modal-nav:hover {
-  transform: scale(1.03) !important;
+  transform: scale(1.03);
 }
 
 .modal-cover {
-  animation: modalPopSmooth 420ms var(--ease-smooth) forwards !important;
+  animation: modalPopSmooth 420ms var(--ease-smooth) forwards;
 }
 
 @keyframes modalPopSmooth {
@@ -163,7 +163,7 @@
 .modal-overlay.open .modal-panel.modal-animate .modal-desc,
 .modal-overlay.open .modal-panel.modal-animate .modal-actions,
 .modal-overlay.open .modal-panel.modal-animate .modal-social {
-  animation: modalTextRiseSmooth 700ms var(--ease-smooth) forwards !important;
+  animation: modalTextRiseSmooth 700ms var(--ease-smooth) forwards;
 }
 
 @keyframes modalTextRiseSmooth {
@@ -188,7 +188,7 @@ details.soft-card {
   transition:
     border-color 260ms ease,
     transform 260ms var(--ease-soft),
-    box-shadow 260ms ease !important;
+    box-shadow 260ms ease;
 }
 
 /* ------------------------------
@@ -201,7 +201,7 @@ details.soft-card {
       box-shadow 280ms var(--ease-soft),
       border-color 240ms ease,
       opacity 240ms ease,
-      filter 240ms ease !important;
+      filter 240ms ease;
   }
 
 }
