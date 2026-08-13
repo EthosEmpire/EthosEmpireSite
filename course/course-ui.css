@@ -150,6 +150,58 @@
   .course-nav-social img { width: 16px; height: 16px }
 }
 
+/* ---------- Shared ebook card bits ----------
+   The seven topic pages keep their own designs for .ebook-card, but the
+   availability badge is rendered from the shared catalogue by
+   js/bookstore.js and should look the same everywhere, so it lives here
+   rather than being copied into seven stylesheets. */
+
+.ebook-status {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ebook-status.is-out {
+  color: #ffe082;
+  border-color: rgba(255, 215, 0, 0.38);
+  background: rgba(255, 215, 0, 0.09);
+}
+
+.ebook-status.is-soon {
+  color: #a07828;
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* A book with no checkout link is a plain container, not a link. Match the
+   card's own layout so the row stays even. */
+.ebook-card.is-unavailable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Three links plus the wordmark no longer fit on one line on a phone, so
+   the link row drops to its own centred line — the same treatment the
+   social row already gets above. */
+@media (max-width: 480px) {
+  .course-nav-links {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+    gap: 14px;
+  }
+}
+
 @media (max-width: 359px) {
   .course-nav-word { display: none }
   .course-nav-link { font-size: 0.7rem }

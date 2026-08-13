@@ -1,0 +1,760 @@
+/* ==========================================================================
+   Ethos Empire — bookstore
+   --------------------------------------------------------------------------
+   One stylesheet for both places the catalogue appears:
+
+     index.html      the featured shelf inside #library
+     bookstore.html  the full collection
+
+   Both render the same .book-card markup from js/bookstore.js, so the card
+   is styled once here and never duplicated. Page-level differences are two
+   modifier classes — .book-grid--featured and .bookstore-hero — and nothing
+   else.
+
+   Colours, shadows, easings and the cover ratio all come from
+   css/tokens.css. Buttons reuse .btn / .btn-primary / .btn-ghost from
+   css/home.css and the modal shell reuses .modal-overlay / .modal-panel
+   from css/components.css, so this file only adds what is genuinely new.
+
+   Motion budget: the drifting page backdrop is the site's ambient
+   animation. Everything here is hover- and focus-driven only, and nothing
+   moves the layout — hover changes shadow, border and transform, never
+   size or position in flow.
+   ========================================================================== */
+
+/* ==============================
+   SECTION FRAME
+   ============================== */
+
+.bookstore-section {
+  position: relative;
+}
+
+/* Reads better than .section-hint for a real paragraph: larger, warmer and
+   measured to a comfortable line length. */
+.bookstore-lede {
+  max-width: 60ch;
+  margin: 18px auto 0;
+  color: var(--text-mid);
+  font-size: clamp(0.95rem, 1.9vw, 1.05rem);
+  line-height: 1.65;
+}
+
+/* ==============================
+   SHELF
+   The bookstore's one piece of stagecraft: a soft spotlight behind the
+   covers and a faint gold line under them. Both are decorative, both are
+   pointer-events:none, and both sit behind the cards.
+   ============================== */
+
+.bookstore-shelf {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(18px, 3vw, 34px) clamp(12px, 2vw, 24px) clamp(30px, 4vw, 48px);
+}
+
+.bookstore-shelf::before {
+  /* Spotlight — widest at the top, fading out before the shelf line. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 12%,
+    rgba(255, 215, 0, 0.055),
+    transparent 68%);
+}
+
+.bookstore-shelf::after {
+  /* The shelf line. A hairline that fades out at both ends so it reads as
+     light catching an edge rather than as a border. */
+  content: "";
+  position: absolute;
+  left: clamp(12px, 4vw, 60px);
+  right: clamp(12px, 4vw, 60px);
+  bottom: clamp(12px, 2vw, 22px);
+  height: 1px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--shelf-line) 22%,
+    var(--shelf-line) 78%,
+    transparent);
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.12);
+}
+
+/* ==============================
+   GRID
+   ============================== */
+
+/* 210px is the smallest column that still fits a cover, a category, a
+   title, a two-line summary and two buttons without crowding. It gives
+   3-up at 768px and 4-up at 1280px. Changing it changes how many covers
+   fit per row, so the matching `sizes` strings in js/bookstore.js have to
+   be re-measured with it. */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: clamp(16px, 2.2vw, 26px);
+  align-items: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The homepage shows a curated handful, so it gets a fixed three-up rhythm
+   instead of auto-fill — six cards land as two even rows. The max-width
+   keeps each cover around 300px, which is both a better proportion for a
+   featured shelf and small enough that the 320w cover still serves it. */
+@media (min-width: 900px) {
+  .book-grid--featured {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 1040px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 599px) {
+  .book-grid {
+    /* Two-up on phones. One-up would push the third card below the fold on
+       every device and make the section read as a list, not a shop. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}
+
+/* ==============================
+   BOOK CARD
+   ============================== */
+
+.book-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: 14px 14px 16px;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at 50% 0%, rgba(255, 215, 0, 0.06), transparent 58%);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform var(--dur-med) var(--ease-soft),
+    border-color var(--dur-med) ease,
+    box-shadow var(--dur-med) ease;
+  /* Set by setupPointerGlow() in js/site.js on pointer devices. */
+  --card-glow-x: 50%;
+  --card-glow-y: 12%;
+}
+
+.book-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--card-glow-x) var(--card-glow-y),
+    rgba(255, 255, 255, 0.10),
+    transparent 42%);
+  transition: opacity var(--dur-med) ease;
+}
+
+.book-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.book-card:hover,
+.book-card:focus-within {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-strong);
+}
+
+.book-card:hover::before,
+.book-card:focus-within::before {
+  opacity: 1;
+}
+
+/* ---------- Cover ---------- */
+
+.book-card-cover {
+  position: relative;
+  border-radius: 16px;
+  /* Reserves the exact cover box before the image decodes, so the grid
+     never reflows as covers stream in. */
+  aspect-ratio: var(--cover-ratio);
+}
+
+.book-card-cover::before {
+  /* Soft spotlight behind the cover itself. */
+  content: "";
+  position: absolute;
+  inset: -12% -8%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.16), transparent 66%);
+  filter: blur(18px);
+  opacity: 0;
+  transition: opacity var(--dur-med) ease;
+}
+
+.book-card:hover .book-card-cover::before,
+.book-card:focus-within .book-card-cover::before {
+  opacity: 1;
+}
+
+.book-card-cover img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--cover-ratio);
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 215, 0, 0.14);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
+  transition:
+    transform var(--dur-med) var(--ease-soft),
+    box-shadow var(--dur-med) ease;
+}
+
+/* Cover tilt is for real pointers only. On touch there is no hover state to
+   leave, so the tilt would stick after a tap. */
+@media (hover: hover) and (pointer: fine) {
+  .book-card:hover .book-card-cover img,
+  .book-card:focus-within .book-card-cover img {
+    transform: rotate(-1.4deg) scale(1.035);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.55), 0 0 22px rgba(255, 215, 0, 0.16);
+  }
+}
+
+/* ---------- Featured badge (driven by data, not by position) ---------- */
+
+.book-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #100d05;
+  background: linear-gradient(90deg, var(--gold-3), var(--gold-4));
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Text ---------- */
+
+.book-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Pushes .book-card-actions to the bottom so buttons line up across a row
+     no matter how long the titles are. */
+  flex: 1 1 auto;
+}
+
+.book-card-category {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  margin: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+
+/* Availability badge. Rendered from the `status` field by
+   js/bookstore.js — the words live in one map there and are never typed
+   into a page. Sits beside the category, never over the artwork, because
+   most of these covers carry their title across the top third. */
+.book-badge-status {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  /* Status is carried by the label itself, not by colour alone. */
+  border: 1px solid transparent;
+}
+
+.book-badge-status.is-out {
+  color: var(--gold-4);
+  border-color: rgba(255, 215, 0, 0.38);
+  background: rgba(255, 215, 0, 0.09);
+}
+
+.book-badge-status.is-soon {
+  color: var(--text-dim);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.book-card-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--gold-3);
+}
+
+.book-card-summary {
+  margin: 0;
+  color: var(--text-mid);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  /* Clamped so a long summary cannot make one card taller than its row.
+     The full text is always available in the detail view. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+/* ---------- Actions ---------- */
+
+.book-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.book-card-actions > * {
+  flex: 1 1 auto;
+}
+
+/* Shared sizing for both card buttons. 44px tall so the tap target clears
+   the mobile minimum without the card growing. */
+.book-details-btn,
+.book-buy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-soft),
+    background var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    filter var(--dur-fast) ease;
+}
+
+.book-details-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: var(--gold-3);
+}
+
+.book-details-btn:hover,
+.book-details-btn:focus-visible {
+  border-color: var(--gold-3);
+  background: rgba(255, 215, 0, 0.06);
+  color: var(--gold-4);
+}
+
+.book-buy-btn {
+  border: 1px solid transparent;
+  background: linear-gradient(90deg, var(--gold-3), var(--gold-2));
+  color: #000;
+  box-shadow: 0 10px 22px rgba(201, 149, 42, 0.18);
+}
+
+.book-buy-btn:hover,
+.book-buy-btn:focus-visible {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+/* Not a button. A book with no purchase link gets a plain, clearly
+   non-interactive pill so nothing on the page looks clickable when it is
+   not. Driven entirely by the `status` / `purchaseUrl` fields in the data. */
+.book-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px dashed rgba(255, 215, 0, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.book-details-btn:focus-visible,
+.book-buy-btn:focus-visible,
+.bookstore-empty a:focus-visible {
+  outline: 2px solid var(--gold-3);
+  outline-offset: 3px;
+}
+
+/* Shown only if the catalogue file fails to load. Never seen in normal use,
+   but it means the section can never render as a blank hole. */
+.bookstore-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 28px 20px;
+  border-radius: 18px;
+  border: 1px dashed rgba(255, 215, 0, 0.22);
+  color: var(--text-mid);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.bookstore-empty a {
+  color: var(--gold-3);
+  text-underline-offset: 3px;
+}
+
+/* ==============================
+   SHELF CALL TO ACTION
+   ============================== */
+
+.bookstore-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: clamp(24px, 3vw, 36px);
+  text-align: center;
+}
+
+.bookstore-cta-note {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+/* ==============================
+   BOOKSTORE PAGE
+   ============================== */
+
+.bookstore-hero {
+  position: relative;
+  text-align: center;
+  padding-block: clamp(44px, 7vw, 84px) clamp(24px, 4vw, 40px);
+}
+
+.bookstore-hero-eyebrow {
+  display: block;
+  margin: 0 0 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+
+.bookstore-hero-title {
+  margin: 0;
+  font-size: clamp(2rem, 5.4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.08;
+}
+
+.bookstore-hero-copy {
+  max-width: 62ch;
+  margin: 20px auto 0;
+  color: var(--text-mid);
+  font-size: clamp(0.95rem, 2vw, 1.08rem);
+  line-height: 1.7;
+}
+
+.bookstore-hero-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 18px;
+  margin: 26px auto 0;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.bookstore-hero-meta b {
+  color: var(--gold-3);
+  font-weight: 800;
+}
+
+.bookstore-collection {
+  padding-bottom: clamp(40px, 6vw, 72px);
+}
+
+.bookstore-back {
+  padding-bottom: clamp(40px, 6vw, 64px);
+  text-align: center;
+}
+
+/* ==============================
+   BOOK DETAIL MODAL
+   Shell, animation, focus trap, Escape and scroll lock all come from the
+   shared modal system (css/components.css + js/site.js). Only the layout
+   inside the panel is new.
+   ============================== */
+
+.book-modal-panel {
+  width: min(94vw, 780px);
+  padding: 22px;
+}
+
+.book-modal-grid {
+  display: grid;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .book-modal-grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 30px;
+  }
+}
+
+.book-modal-cover-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /* Clears the close button, which is pinned to the panel's top-left. */
+  padding-top: 40px;
+}
+
+@media (min-width: 768px) {
+  .book-modal-cover-wrap {
+    padding-top: 46px;
+  }
+}
+
+.book-modal-cover-wrap::before {
+  content: "";
+  position: absolute;
+  top: 32%;
+  width: min(78%, 240px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.2), transparent 68%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.book-modal-cover {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 230px);
+  height: auto;
+  aspect-ratio: var(--cover-ratio);
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.6);
+}
+
+.book-modal-body {
+  min-width: 0;
+}
+
+/* The panel is a scroll container; give the text a little breathing room at
+   the bottom on short screens. */
+.book-modal-body > :last-child {
+  margin-bottom: 4px;
+}
+
+/* The detail view's category line is a flex row too, so the badge sits
+   beside the category rather than wrapping under it. */
+.book-modal-body .modal-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .book-modal-body .modal-meta {
+    justify-content: flex-start;
+  }
+}
+
+.book-modal-summary {
+  margin: 12px 0 0;
+  color: var(--gold-4);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.book-modal-topics {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.book-modal-topics-title {
+  margin: 0 0 10px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+
+.book-modal-topics-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book-modal-topics-list li {
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-soft);
+  font-size: 0.76rem;
+  line-height: 1.3;
+}
+
+.book-modal-reader {
+  margin: 18px 0 0;
+  color: var(--text-mid);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.book-modal-reader b {
+  color: var(--gold-2);
+  font-weight: 700;
+}
+
+.book-modal-actions {
+  align-items: center;
+}
+
+.book-modal-note {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .book-modal-summary,
+  .book-modal-note {
+    text-align: left;
+  }
+}
+
+/* Sized to match .modal-buy so an unavailable book leaves no visual hole. */
+.book-modal-actions .book-status {
+  min-width: 160px;
+  padding: 12px 18px;
+}
+
+/* ==============================
+   NARROW PHONES
+   ============================== */
+
+@media (max-width: 599px) {
+  .book-card {
+    gap: 11px;
+    padding: 11px 11px 13px;
+    border-radius: 18px;
+  }
+
+  .book-card-title {
+    font-size: 0.9rem;
+  }
+
+  .book-card-summary {
+    font-size: 0.76rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  /* Side by side, two buttons in a ~160px card would each be about 70px
+     wide and wrap their labels. Stacked they stay readable and keep the
+     full 44px target. */
+  .book-card-actions {
+    flex-direction: column;
+  }
+
+  .book-details-btn,
+  .book-buy-btn,
+  .book-status {
+    width: 100%;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+
+  .book-modal-panel {
+    padding: 16px;
+  }
+
+  .book-modal-cover {
+    width: min(66%, 190px);
+  }
+}
+
+/* ==============================
+   REDUCED MOTION
+   Hover feedback stays — it is what tells a visitor the card is
+   interactive — but it becomes colour and shadow only. Nothing moves.
+   ============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .book-card,
+  .book-card::before,
+  .book-card-cover::before,
+  .book-card-cover img,
+  .book-details-btn,
+  .book-buy-btn {
+    transition: none;
+    transform: none !important;
+  }
+}

@@ -775,6 +775,21 @@ details[open] summary::after {
     transform: none !important;
   }
 
+  /* Modal copy starts hidden and is revealed by modalTextRise. With
+     animations switched off it has to be visible outright, otherwise the
+     panel opens with nothing in it. The matching rule in css/overrides.css
+     is what actually beats the smoothed animation added there. */
+  .modal-meta,
+  .modal-title,
+  .modal-desc,
+  .modal-actions,
+  .modal-social {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
+
   .scroll-progress {
     transition: none;
   }

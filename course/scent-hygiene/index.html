@@ -44,6 +44,7 @@
     </a>
     <div class="course-nav-links">
       <a href="../../" class="course-nav-link">Home</a>
+      <a href="../../bookstore.html" class="course-nav-link">Bookstore</a>
       <a href="../" class="course-nav-link">Free Courses</a>
     </div>
     <div class="course-nav-social">
@@ -273,28 +274,12 @@
       <h2 class="section-title">Go Deeper</h2>
       <p class="section-intro">Want the complete guides? These ebooks cover everything and more.</p>
 
-      <div class="ebook-row">
-        <a href="https://ethosempire.gumroad.com/l/thelooksmaxxingguide?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
-          <img src="../../images/ethos-empire-looksmaxxing-guide-ebook-cover-320.webp" width="320" height="500" alt="Looksmaxxing Guide ebook" class="ebook-cover" loading="lazy">
-          <h3 class="ebook-name">Looksmaxxing Guide</h3>
-          <p class="ebook-desc">Level up your appearance — style, grooming, and self-presentation.</p>
-          <span class="ebook-buy">Buy Now →</span>
-        </a>
-
-        <a href="https://ethosempire.gumroad.com/l/howtobeconfidence?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
-          <img src="../../images/ethos-empire-confidence-guide-ebook-cover-320.webp" width="320" height="500" alt="Confidence Guide ebook" class="ebook-cover" loading="lazy">
-          <h3 class="ebook-name">Confidence Guide</h3>
-          <p class="ebook-desc">Build real confidence through better habits and a sharper mindset.</p>
-          <span class="ebook-buy">Buy Now →</span>
-        </a>
-
-        <a href="https://ethosempire.gumroad.com/l/theclearskinguide?layout=profile" target="_blank" rel="noopener noreferrer" class="ebook-card">
-          <img src="../../images/ethos-empire-clear-skin-guide-ebook-cover-320.webp" width="320" height="500" alt="The Clear Skin Guide ebook" class="ebook-cover" loading="lazy">
-          <h3 class="ebook-name">The Clear Skin Guide</h3>
-          <p class="ebook-desc">Practical skincare steps for healthier skin and better daily habits.</p>
-          <span class="ebook-buy">Buy Now →</span>
-        </a>
-      </div>
+      <!-- Rendered by js/bookstore.js from the shared catalogue. The
+           page names the books; every title, cover, summary, status
+           and checkout link comes from js/ebook-data.js. -->
+      <div class="ebook-row"
+           data-ebook-row="looksmaxxing-guide,confidence-guide,clear-skin-guide"
+           data-ebook-base="../../"></div>
 
       <a href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer" class="cta-button--spaced cta-button">View All Ebooks →</a>
     </section>
@@ -348,6 +333,8 @@
 
   </div>
 
+  <script src="../../js/ebook-data.js" defer></script>
+  <script src="../../js/bookstore.js" defer></script>
   <script src="../../js/matrix.js"></script>
   <script src="../course-merch.js" defer></script>
 </body>

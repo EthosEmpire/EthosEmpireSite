@@ -30,6 +30,27 @@
     <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-hoodie-pink-gold-logo-1200.webp</image:loc></image:image>
   </url>
 
+  <!-- The full ebook collection. Every cover is listed here because this is
+       the page that shows all of them; the homepage shelf shows a featured
+       subset of the same catalogue. -->
+  <url>
+    <loc>https://www.ethosempire.org/bookstore.html</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-built-by-money-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-command-the-room-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-confidence-guide-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-philosophy-of-becoming-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-life-lessons-in-faith-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-relationship-code-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-architecture-of-health-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-gym-mindset-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-clear-skin-guide-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-looksmaxxing-guide-ebook-cover-1200.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.ethosempire.org/images/ethos-empire-hair-care-blueprint-ebook-cover-1200.webp</image:loc></image:image>
+  </url>
+
   <url>
     <loc>https://www.ethosempire.org/privacy-policy.html</loc>
     <lastmod>2026-05-04</lastmod>

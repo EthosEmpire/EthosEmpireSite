@@ -23,55 +23,207 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Ambient background drift
+   The ambient backdrop — soft light moving through a dark room
    --------------------------------------------------------------------------
-   Two very soft cool glows that move slowly behind everything, so the page
-   feels alive without the visitor consciously noticing motion.
+   Three light sources over the static base in css/home.css. Every colour,
+   blur and duration is a token in css/tokens.css; retune there, not here.
 
-   Deliberate constraints:
-     - one extra pseudo-element, no DOM, no JavaScript, no canvas
-     - only transform and opacity animate, so it composites on the GPU and
-       can never cause layout shift or CLS
-     - 54s and 72s cycles — slow enough to read as atmosphere, not motion
-     - drift distance is a few percent; the glows never sweep the screen
-     - sits at z-index 0 behind .page-backdrop::after's vignette, so text
-       contrast is unaffected
+     .page-backdrop::before   COOL — the main navy aurora, upper left
+     .backdrop-glow           WARM — one tight amber highlight, upper right
+     .backdrop-glow::after    SHEEN — a wide cool sweep, barely visible
+     .page-backdrop::after    vignette (home.css), painted above all three
+
+   WHY THIS REPLACED THE PREVIOUS VERSION
+   --------------------------------------
+   The old one rendered as flat khaki. Measured, not guessed:
+
+     - warm areas came out at R/G 1.03. Gold needs ~1.4; at 1.0 it is
+       olive. Two dim, wide, low-alpha yellow washes stacked over black
+       cannot produce gold, because a dark desaturated yellow IS olive.
+       Alpha caps could not fix that — the geometry was wrong.
+     - the whole viewport spanned luminance 3-35 of 255, mean 18. There
+       was no light anywhere, just slightly different darks.
+     - it moved 4/255 per channel over 34 seconds: invisible.
+
+   So the composition changed, not the numbers:
+
+     1. ONE warm source instead of two, small and tight rather than wide
+        and dim, at a peak alpha that actually reads, biased red
+        (R/G 1.48) so it stays amber as it falls off.
+     2. The cool light is now the bright one — it carries the composition
+        and reaches a luminance that looks like light.
+     3. The two are placed far apart on a diagonal and both fall off well
+        before they meet, because any overlap of a yellow and a blue
+        falloff is grey-green.
+     4. blur() on each layer. Large soft radials band visibly on a dark
+        screen; the blur turns them into light. Each layer only ever
+        translates and scales, so the blur rasterises once and the
+        animation stays on the compositor.
+     5. Travel is now 6-11% over 34-55s instead of 2.5% over 68-124s.
+
+   Constraints kept: no JavaScript, no canvas, no particles, no library,
+   one DOM node. Only transform and opacity animate, so nothing here can
+   cause layout shift. .page-backdrop is overflow:hidden, so no layer can
+   widen the page.
+
+   Stacking inside .page-backdrop (it is isolation:isolate):
+     z-index 0  ::before  cool
+     z-index 1  .backdrop-glow  warm  (+ its ::after sheen)
+     z-index 3  ::after  vignette
    -------------------------------------------------------------------------- */
 
+/* COOL — the main light. Sits behind the hero and carries the whole
+   composition. Two sources: a large one upper-left of centre and a deeper
+   counterweight low-right, so the frame reads as a diagonal rather than a
+   symmetrical pair. */
 .page-backdrop::before {
   content: "";
   position: absolute;
-  inset: -20%;
+  /* inset:0 on purpose. A negative inset makes this box 150% of the
+     viewport, and then every `at x% y%` in the gradients below is a
+     percentage of THAT box, not of the screen — the lights land nowhere
+     near where they read. Sizes are in vw and positions are true viewport
+     percentages, so what is written here is what appears.
+     The parent clips, so nothing needs to overhang. */
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
+  /* Both sources are anchored past the edges so the viewport only ever
+     shows part of them. A light you can see the whole outline of reads as
+     a circle; one that is clipped reads as light coming from somewhere. */
   background:
-    radial-gradient(circle 38vw at 22% 28%, var(--ambient-blue), transparent 62%),
-    radial-gradient(circle 34vw at 78% 68%, var(--ambient-cool), transparent 60%);
+    radial-gradient(ellipse 58vw 44vw at 16% 12%, var(--light-navy), transparent 66%),
+    radial-gradient(ellipse 46vw 32vw at 94% 92%, var(--light-navy-deep), transparent 66%);
+  filter: blur(var(--light-blur));
   will-change: transform, opacity;
   animation:
-    ambientDriftA 54s var(--ease-smooth) infinite alternate,
-    ambientBreathe 72s ease-in-out infinite alternate;
+    driftCool var(--drift-cool) ease-in-out infinite alternate,
+    breatheCool var(--drift-breathe) ease-in-out infinite alternate;
 }
 
-@keyframes ambientDriftA {
-  from { transform: translate3d(-2.5%, -1.5%, 0) scale(1); }
-  to   { transform: translate3d(2.5%, 1.5%, 0) scale(1.06); }
+/* WARM — one highlight, reading as light catching the gold in the mark.
+   Small and tight on purpose: this is the layer that turned to olive when
+   it was wide and dim. Placed upper-right, diagonally away from the cool
+   peak, and fully transparent by 58% so it never crosses into the blue. */
+.backdrop-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* A `circle` radius may not be a percentage — writing one invalidates
+     the whole background and the layer silently renders nothing. vw only.
+
+     Anchored into the top-right corner and clipped by both edges, so it
+     reads as light spilling in from off-frame rather than as a gold orb
+     sitting on the page — which is exactly what a centred circle looked
+     like when this was first tuned.
+
+     Two overlapping ellipses of different shapes, offset from each other,
+     so the falloff is asymmetric and there is no findable centre.
+
+     It is also far from the cool peak at 16%/12%: this is transparent
+     past ~64% of the width, the cool source past ~60%. That gap is the
+     whole reason the two never blend into grey-green. */
+  background:
+    radial-gradient(ellipse 20vw 13vw at 82% 6%, var(--light-gold-core), transparent 62%),
+    radial-gradient(ellipse 33vw 19vw at 93% 14%, var(--light-gold), transparent 64%);
+  filter: blur(var(--light-blur-warm));
+  will-change: transform, opacity;
+  /* `alternate-reverse` is one hyphenated keyword. Written as two words it
+     is invalid, the whole shorthand resets, and the layer sits perfectly
+     still while looking correct in the stylesheet. */
+  animation:
+    driftWarm var(--drift-warm) ease-in-out infinite alternate,
+    breatheWarm var(--drift-breathe) ease-in-out infinite alternate-reverse;
 }
 
-@keyframes ambientBreathe {
-  from { opacity: 0.75; }
+/* SHEEN — a wide, cool, very faint sweep for depth. Cool rather than gold
+   so it adds no further yellow to the mix. Angled so it never reads as a
+   horizontal seam, and it travels out and back, so the loop has no jump. */
+.backdrop-glow::after {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  background: linear-gradient(101deg,
+    transparent 30%,
+    var(--light-sheen) 50%,
+    transparent 70%);
+  filter: blur(var(--light-blur-sm));
+  will-change: transform;
+  animation: driftSheen var(--drift-sheen) ease-in-out infinite;
+}
+
+/* Travel is asymmetric — the two lights do not mirror each other, so the
+   composition is different at the start, middle and end of every cycle
+   rather than just sliding back and forth along one axis. */
+@keyframes driftCool {
+  from { transform: translate3d(-6%, -3%, 0) scale(1); }
+  to   { transform: translate3d(5%, 4%, 0) scale(1.14); }
+}
+
+@keyframes driftWarm {
+  from { transform: translate3d(4%, 3%, 0) scale(1.1); }
+  to   { transform: translate3d(-7%, -2%, 0) scale(1); }
+}
+
+/* Opacity floors stay high enough that neither light ever fully leaves —
+   nothing here reads as a pulse or a flash. */
+@keyframes breatheCool {
+  from { opacity: 0.78; }
   to   { opacity: 1; }
+}
+
+@keyframes breatheWarm {
+  from { opacity: 0.76; }
+  to   { opacity: 1; }
+}
+
+@keyframes driftSheen {
+  0%   { transform: translate3d(-42%, 0, 0); }
+  50%  { transform: translate3d(42%, 0, 0); }
+  100% { transform: translate3d(-42%, 0, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   Phones — same composition, cheaper to draw
+   --------------------------------------------------------------------------
+   A viewport-sized blur is the expensive part, so the radius drops and the
+   sheen goes entirely: it is the widest layer to composite and the least
+   visible on a small screen. The two real lights stay, repositioned for a
+   tall frame so the hero still has light behind it.
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .page-backdrop::before {
+    background:
+      radial-gradient(ellipse 86vw 58vw at 24% 16%, var(--light-navy), transparent 66%),
+      radial-gradient(ellipse 76vw 50vw at 88% 86%, var(--light-navy-deep), transparent 66%);
+    filter: blur(var(--light-blur-sm));
+  }
+
+  .backdrop-glow {
+    background:
+      radial-gradient(ellipse 30vw 22vw at 84% 13%, var(--light-gold), transparent 62%);
+    filter: blur(var(--light-blur-warm));
+  }
+
+  .backdrop-glow::after {
+    display: none;
+  }
 }
 
 .js-reveal .soft-card,
 .js-reveal .section-head,
-.js-reveal .partnership-card {
+.js-reveal .partnership-card,
+.js-reveal .reveal-block {
   opacity: 0;
   transform: translateY(14px);
 }
 
 .js-reveal .soft-card.is-visible,
 .js-reveal .section-head.is-visible,
-.js-reveal .partnership-card.is-visible {
+.js-reveal .partnership-card.is-visible,
+.js-reveal .reveal-block.is-visible {
   opacity: 1;
   transform: none;
   transition:
@@ -91,25 +243,42 @@
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  /* Ambient glows stay, but frozen — the atmosphere is kept, the motion
-     is removed. Held at the mid-point of the drift so the composition
-     matches what everyone else sees on average. */
+  /* The lights stay, frozen. The atmosphere is the brand; only the motion
+     is the accessibility problem, so only the motion goes.
+
+     Both layers are parked at roughly the mid-point of their travel and
+     at full opacity, which is the strongest moment of the cycle — the
+     static composition should be the best one, not an average one. The
+     sheen is removed rather than frozen: stopped mid-sweep it reads as a
+     stripe across the page instead of as light. */
   .page-backdrop::before {
     animation: none;
-    transform: none;
-    opacity: 0.85;
+    transform: translate3d(-1%, 0, 0) scale(1.07);
+    opacity: 1;
+  }
+
+  .backdrop-glow {
+    animation: none;
+    transform: translate3d(-2%, 1%, 0) scale(1.05);
+    opacity: 0.92;
+  }
+
+  .backdrop-glow::after {
+    display: none;
   }
 
   .js-reveal .soft-card,
   .js-reveal .section-head,
-  .js-reveal .partnership-card {
+  .js-reveal .partnership-card,
+  .js-reveal .reveal-block {
     opacity: 1;
     transform: none;
   }
 
   .js-reveal .soft-card.is-visible,
   .js-reveal .section-head.is-visible,
-  .js-reveal .partnership-card.is-visible {
+  .js-reveal .partnership-card.is-visible,
+  .js-reveal .reveal-block.is-visible {
     transition: none;
   }
 }

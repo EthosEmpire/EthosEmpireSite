@@ -1,8 +1,12 @@
 const $ = (id) => document.getElementById(id);
 
-let currentEbookIndex = 0;
 let currentMerchIndex = 0;
 let activeModal = null;
+
+/* The control that opened the current modal. Focus goes back here on close
+   so keyboard and screen-reader users land where they left off instead of
+   at the top of the document. */
+let modalReturnFocus = null;
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
@@ -29,8 +33,13 @@ function ensureScrollProgress() {
 }
 
 /* Selectors that participate in the reveal system. Must stay in sync with
-   the hiding rules in css/animations.css. */
-const REVEAL_SELECTOR = ".soft-card, .section-head, .partnership-card";
+   the hiding rules in css/animations.css.
+
+   .reveal-block is for wrappers whose contents are rendered by JavaScript
+   (the bookstore shelf). The wrapper itself is in the HTML, so the observer
+   can see it no matter which script finishes first. */
+const REVEAL_SELECTOR =
+  ".soft-card, .section-head, .partnership-card, .reveal-block";
 
 /* One IntersectionObserver for the whole page — no scroll listeners, no
    polling. Each element is unobserved once it has been revealed.
@@ -134,6 +143,13 @@ function openModal(id) {
   const modal = $(id);
   if (!modal) return;
 
+  /* Only capture the trigger when nothing is open yet. Stepping between
+     items inside a modal calls this again, and overwriting the return
+     target with a control that is about to be hidden would strand focus. */
+  if (!activeModal) {
+    modalReturnFocus = document.activeElement;
+  }
+
   activeModal = id;
   modal.classList.add("open");
   modal.setAttribute("aria-hidden", "false");
@@ -147,7 +163,12 @@ function openModal(id) {
     'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
   );
 
-  window.setTimeout(() => firstFocusable?.focus(), 40);
+  /* Focus on the next frame, once the .open class has been applied and
+     styles are resolved. This used to be a 40ms timeout, which was a guess
+     that happened to be shorter than the overlay's visibility transition —
+     the call landed while the modal was still hidden and did nothing.
+     The CSS now flips visibility as a step, and this no longer races it. */
+  requestAnimationFrame(() => firstFocusable?.focus());
 }
 
 function closeModal(id) {
@@ -162,51 +183,24 @@ function closeModal(id) {
 
   document.body.style.overflow = "";
 
-  if (activeModal === id) {
-    activeModal = null;
+  if (activeModal !== id) return;
+
+  activeModal = null;
+
+  const target = modalReturnFocus;
+  modalReturnFocus = null;
+
+  /* The opener can be gone if the grid re-rendered while the modal was
+     open, so check it is still in the document before focusing it. */
+  if (target && document.contains(target) && typeof target.focus === "function") {
+    target.focus();
   }
 }
 
-function openEbookModal(index) {
-  const item = window.ebookData?.[index];
-  if (!item) return;
-
-  currentEbookIndex = index;
-
-  const modalCover = $("ebookModalCover");
-  if (modalCover) {
-    modalCover.src = item.image1200 || item.image320;
-    modalCover.srcset = `${item.image320} 320w, ${item.image1200} 1200w`;
-    modalCover.sizes = "(max-width: 767px) 90vw, 280px";
-    modalCover.alt = item.alt;
-    modalCover.width = 420;
-    modalCover.height = 594;
-  }
-
-  const title = $("ebookModalTitle");
-  const desc = $("ebookModalDesc");
-  const page = $("ebookModalPage");
-  const buy = $("ebookModalBuy");
-
-  if (title) title.textContent = item.title;
-  if (desc) desc.textContent = item.desc;
-  if (page) page.href = item.page || item.link;
-  if (buy) buy.href = item.link;
-
-  openModal("ebookModal");
-}
-
-function closeEbookModal() {
-  closeModal("ebookModal");
-}
-
-function nextEbook(delta) {
-  const total = window.ebookData?.length || 0;
-  if (!total) return;
-
-  currentEbookIndex = (currentEbookIndex + delta + total) % total;
-  openEbookModal(currentEbookIndex);
-}
+/* The ebook detail view lives in js/bookstore.js now — it renders from
+   js/ebook-data.js and drives itself through openModal/closeModal below.
+   What used to be here was the carousel's own modal, and it went with the
+   carousel. */
 
 function openMerchModal(index) {
   const item = window.merchData?.[index];
@@ -276,36 +270,27 @@ function trapModalFocus(event) {
 }
 
 function setupModalControls() {
-  $("ebookModalClose")?.addEventListener("click", closeEbookModal);
-  $("ebookPrevBtn")?.addEventListener("click", () => nextEbook(-1));
-  $("ebookNextBtn")?.addEventListener("click", () => nextEbook(1));
-
   $("merchModalClose")?.addEventListener("click", closeMerchModal);
   $("merchPrevBtn")?.addEventListener("click", () => nextMerch(-1));
   $("merchNextBtn")?.addEventListener("click", () => nextMerch(1));
 
-  ["ebookModal", "merchModal"].forEach((id) => {
-    const overlay = $(id);
-    overlay?.addEventListener("click", (e) => {
-      if (e.target === overlay) {
-        if (id === "ebookModal") closeEbookModal();
-        if (id === "merchModal") closeMerchModal();
-      }
-    });
+  const merchOverlay = $("merchModal");
+  merchOverlay?.addEventListener("click", (e) => {
+    if (e.target === merchOverlay) closeMerchModal();
   });
 
+  /* Escape and the Tab trap are handled for whichever modal is open, so a
+     modal added later — the book detail view, for instance — gets both
+     without touching this function. */
   document.addEventListener("keydown", (e) => {
+    if (!activeModal) return;
+
     if (e.key === "Escape") {
-      closeEbookModal();
-      closeMerchModal();
+      closeModal(activeModal);
+      return;
     }
 
-    if ($("ebookModal")?.classList.contains("open")) {
-      if (e.key === "ArrowLeft") nextEbook(-1);
-      if (e.key === "ArrowRight") nextEbook(1);
-    }
-
-    if ($("merchModal")?.classList.contains("open")) {
+    if (activeModal === "merchModal") {
       if (e.key === "ArrowLeft") nextMerch(-1);
       if (e.key === "ArrowRight") nextMerch(1);
     }
@@ -326,8 +311,17 @@ function setupFaqAccordion() {
   });
 }
 
-window.openEbookModal = openEbookModal;
 window.openMerchModal = openMerchModal;
+
+/* Shared modal primitives. js/bookstore.js drives the book detail view
+   through these, so the scroll lock, focus trap, Escape handling and focus
+   restore all have one implementation. */
+window.openModal = openModal;
+window.closeModal = closeModal;
+
+/* Exposed so scripts that render cards after this file has run can apply
+   the same hover treatment to them. */
+window.setupPointerGlow = setupPointerGlow;
 
 document.addEventListener("DOMContentLoaded", () => {
   ensureScrollProgress();

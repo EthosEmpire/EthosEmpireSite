@@ -102,7 +102,7 @@
       {"@type":"ListItem","position":4,"item":{"@type":"Book","name":"The Philosophy of Becoming","url":"https://ethosempire.gumroad.com/l/thephilosophyofbecoming?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-philosophy-of-becoming-ebook-cover-1200.webp","description":"Explore the mindset, discipline, and personal standards needed to become stronger and more intentional.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
       {"@type":"ListItem","position":5,"item":{"@type":"Book","name":"Life Lessons in Faith","url":"https://ethosempire.gumroad.com/l/lifelessonsinfaith?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-life-lessons-in-faith-ebook-cover-1200.webp","description":"Explore purpose, discipline, and belief with a guide that connects inner strength to a grounded way of living.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
       {"@type":"ListItem","position":6,"item":{"@type":"Book","name":"The Relationship Code","url":"https://ethosempire.gumroad.com/l/therelationshipcode?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-relationship-code-ebook-cover-1200.webp","description":"Learn how to communicate better, build attraction, and approach relationships with clarity and confidence.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
-      {"@type":"ListItem","position":7,"item":{"@type":"Book","name":"The Architecture of Health","url":"https://ethosempire.gumroad.com/l/thearchitectureofhealth?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-architecture-of-health-ebook-cover-1200.webp","description":"Build a better body and clearer mind through habits that support energy, training, nutrition, and long-term health.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
+      {"@type":"ListItem","position":7,"item":{"@type":"Book","name":"The Architecture of Health","url":"https://ethosempire.gumroad.com/l/thearchitechtureofhealth?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-architecture-of-health-ebook-cover-1200.webp","description":"Build a better body and clearer mind through habits that support energy, training, nutrition, and long-term health.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
       {"@type":"ListItem","position":8,"item":{"@type":"Book","name":"The Gym Mindset","url":"https://ethosempire.gumroad.com/l/thegymmindset?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-gym-mindset-ebook-cover-1200.webp","description":"Train with more consistency, discipline, and purpose so your gym routine turns into real progress.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
       {"@type":"ListItem","position":9,"item":{"@type":"Book","name":"The Clear Skin Guide","url":"https://ethosempire.gumroad.com/l/theclearskinguide?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-clear-skin-guide-ebook-cover-1200.webp","description":"Improve your skincare routine with practical steps for healthier skin and better daily habits.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
       {"@type":"ListItem","position":10,"item":{"@type":"Book","name":"Looksmaxxing Guide","url":"https://ethosempire.gumroad.com/l/thelooksmaxxingguide?layout=profile","image":"https://www.ethosempire.org/images/ethos-empire-looksmaxxing-guide-ebook-cover-1200.webp","description":"Level up your appearance with a sharper approach to style, grooming, confidence, and self-presentation.","author":{"@type":"Organization","name":"Ethos Empire"},"publisher":{"@type":"Organization","name":"Ethos Empire"}}},
@@ -122,6 +122,7 @@
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/bookstore.css">
 
   <!-- Reveal guard. Must run before first paint, which is why it is inline
        and not in js/site.js: it marks the document as reveal-capable only
@@ -154,6 +155,12 @@
              loading="eager" decoding="async">
         <span class="topbar-brand-word">Ethos Empire</span>
       </a>
+
+      <nav class="topbar-nav" aria-label="Primary">
+        <a href="index.html" class="topbar-nav-link" aria-current="page">Home</a>
+        <a href="bookstore.html" class="topbar-nav-link">Bookstore</a>
+        <a href="course/" class="topbar-nav-link">Free Courses</a>
+      </nav>
 
       <nav class="topbar-social" aria-label="Ethos Empire social media">
         <a href="https://www.instagram.com/ethos_empireo/" target="_blank" rel="noopener noreferrer" class="topbar-social-link" aria-label="Ethos Empire on Instagram">
@@ -204,10 +211,17 @@
   </header>
 
   <!-- =============================================
-       AMBIENT BACKDROP  (static gradient, GPU-cheap)
-       Replaces the previous continuous matrix canvas.
+       AMBIENT BACKDROP
+       Static base gradient + two slow drifting light layers.
+       Decorative only: aria-hidden and pointer-events:none, so it
+       never intercepts a click or a text selection.
+       Colours and timings: css/tokens.css
+       Base and vignette:   css/home.css
+       Motion:              css/animations.css
        ============================================= -->
-  <div class="page-backdrop" aria-hidden="true"></div>
+  <div class="page-backdrop" aria-hidden="true">
+    <div class="backdrop-glow"></div>
+  </div>
 
   <!-- =============================================
        MAIN CONTENT — natural document flow (no snap)
@@ -244,7 +258,7 @@
           <a href="course/" class="btn btn-primary" aria-label="Get the Free Course">
             Free Course <span aria-hidden="true">→</span>
           </a>
-          <a href="#library" class="btn btn-ghost">Empire Library</a>
+          <a href="bookstore.html" class="btn btn-ghost">Bookstore</a>
         </div>
       </div>
 
@@ -294,8 +308,10 @@
       <p class="manifesto-sub">We only get one. What you do with it defines you.</p>
       <div class="manifesto-rule" aria-hidden="true"></div>
       <div class="manifesto-stats">
+        <!-- The count is filled from js/ebook-data.js at load. The number
+             in the markup is the fallback for a no-JS render. -->
         <div class="stat-box">
-          <span class="stat-num">11</span>
+          <span class="stat-num" data-ebook-count>11</span>
           <span class="stat-desc">Ebooks &amp; guides</span>
         </div>
         <div class="stat-box">
@@ -422,30 +438,46 @@
     </section>
 
     <!-- ─────────────────────────────────────────
-         EMPIRE KNOWLEDGE LIBRARY
+         BOOKSTORE — featured shelf
+         The id stays "library" so any existing /#library
+         link keeps working.
+
+         Every card here is rendered by js/bookstore.js from
+         js/ebook-data.js — the same file bookstore.html reads.
+         No book title, cover, price, link or description is
+         written into this page.
          ───────────────────────────────────────── -->
-    <section id="library" class="library-section" aria-label="Empire Knowledge Library">
+    <section id="library" class="library-section bookstore-section" aria-labelledby="bookstore-heading">
       <header class="section-head">
-        <span class="section-eyebrow">Empire Knowledge Library</span>
-        <h2 class="section-title">
-          11&nbsp;Books. <span class="gold-text">Endless Growth.</span>
+        <span class="section-eyebrow">Empire Bookstore</span>
+        <h2 id="bookstore-heading" class="section-title">
+          Explore the <span class="gold-text">Ethos Empire Bookstore</span>
         </h2>
-        <p class="section-hint">Drag to explore&nbsp;·&nbsp;Tap any book to open</p>
+        <p class="bookstore-lede">
+          Practical guides created to help you strengthen your mindset, confidence,
+          health, relationships, discipline, and future.
+        </p>
       </header>
 
-      <div class="ebook-wrapper soft-card rounded-3xl p-5 md:p-8"
-           id="ebookWrapper"
-           aria-label="Ethos Empire ebook collection">
-        <div class="ebook-track" id="ebookTrack">
-          <!-- Populated by carousel.js — static SEO fallback below -->
-          <div class="ebook-card">
-            <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer bookmark">
-              <img src="images/ethos-empire-built-by-money-ebook-cover-320.webp" alt="Built by Money ebook" width="160" height="226" loading="lazy" decoding="async" draggable="false">
-            </a>
-            <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer bookmark" class="ebook-card-title">Built by Money</a>
-            <a href="https://ethosempire.gumroad.com/l/builtbymoney?layout=profile" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy</a>
-          </div>
-        </div>
+      <div class="bookstore-shelf reveal-block">
+        <div class="book-grid book-grid--featured" data-ebook-grid="featured"></div>
+
+        <noscript>
+          <p class="bookstore-empty">
+            The shelf needs JavaScript to load the covers. Every Ethos Empire guide
+            is also listed at
+            <a href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer">our store</a>.
+          </p>
+        </noscript>
+      </div>
+
+      <div class="bookstore-cta">
+        <a href="bookstore.html" class="btn btn-primary btn-lg">
+          Enter the Bookstore <span aria-hidden="true">→</span>
+        </a>
+        <p class="bookstore-cta-note">
+          <span data-ebook-count>11</span> guides in the full collection
+        </p>
       </div>
     </section>
 
@@ -554,46 +586,27 @@
       <div class="site-footer-inner">
         <span class="site-footer-copy">© 2026 Ethos Empire</span>
         <span class="site-footer-sep" aria-hidden="true">|</span>
+        <a class="site-footer-link" href="bookstore.html">Bookstore</a>
+        <span class="site-footer-sep" aria-hidden="true">|</span>
+        <a class="site-footer-link" href="course/">Free Courses</a>
+        <span class="site-footer-sep" aria-hidden="true">|</span>
         <a class="site-footer-link" href="privacy-policy.html">Privacy Policy</a>
         <span class="site-footer-sep" aria-hidden="true">|</span>
         <a class="site-footer-link" href="terms.html">Terms of Service</a>
       </div>
       <p class="site-footer-tag">
-        Discipline&nbsp;·&nbsp;Confidence&nbsp;·&nbsp;Health&nbsp;·&nbsp;Legacy
+        Discipline&nbsp;· Confidence&nbsp;· Health&nbsp;· Legacy
       </p>
     </footer>
 
   </main>
 
   <!-- =============================================
-       MODALS  (unchanged)
+       MERCH MODAL
+       The book detail modal is not here: js/bookstore.js builds it,
+       so the same panel serves this page and bookstore.html without
+       the markup being pasted into both.
        ============================================= -->
-  <div id="ebookModal" class="modal-overlay" aria-hidden="true">
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="ebookModalTitle">
-      <button class="modal-close" id="ebookModalClose" aria-label="Close ebook popup">×</button>
-      <div class="modal-grid">
-        <div class="modal-cover-wrap">
-          <button class="modal-nav modal-prev" id="ebookPrevBtn" aria-label="Previous ebook">‹</button>
-          <img id="ebookModalCover" class="modal-cover" src="" alt="" loading="lazy" decoding="async">
-          <button class="modal-nav modal-next" id="ebookNextBtn" aria-label="Next ebook">›</button>
-        </div>
-        <div class="px-1 md:px-2">
-          <p class="modal-meta mb-3" id="ebookModalMeta">Empire Knowledge Library</p>
-          <h3 id="ebookModalTitle" class="modal-title">Title</h3>
-          <p id="ebookModalDesc" class="modal-desc mt-4">Description</p>
-          <div class="modal-actions">
-            <a id="ebookModalPage" href="#" target="_blank" rel="noopener noreferrer bookmark" class="modal-buy" style="background:transparent;color:#FFD700;border:1px solid #FFD700;">
-              View Page
-            </a>
-            <a id="ebookModalBuy" href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer" class="modal-buy">
-              Buy Now
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div id="merchModal" class="modal-overlay" aria-hidden="true">
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="merchModalTitle">
       <button class="modal-close" id="merchModalClose" aria-label="Close merch popup">×</button>
@@ -630,13 +643,19 @@
 
   <!-- =============================================
        SCRIPTS
-       catalog.js  ebook/merch data + carousel rendering
-       site.js     shared behaviour: scroll progress, modals, reveal,
-                   card hover/tilt, FAQ accordion
+       Order matters, and defer preserves it:
+         ebook-data.js  the catalogue — data only
+         site.js        shared behaviour: scroll progress, the modal
+                        primitives, reveal, card hover/tilt, FAQ
+         catalog.js     merch data + the merch carousel
+         bookstore.js   renders the shelf; needs site.js's modal
+                        primitives and ebook-data.js's catalogue
        js/matrix.js is not used here; the course pages load it directly.
        ============================================= -->
-  <script src="js/catalog.js" defer></script>
+  <script src="js/ebook-data.js" defer></script>
   <script src="js/site.js" defer></script>
+  <script src="js/catalog.js" defer></script>
+  <script src="js/bookstore.js" defer></script>
 
   <!-- =============================================
        PRIVACY PREFERENCE NOTICE

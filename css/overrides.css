@@ -113,10 +113,28 @@
    Modal smoothing
 ------------------------------ */
 
+/* Fade the overlay, but switch `visibility` as a step rather than easing
+   it over the same 340ms.
+
+   Easing visibility meant the overlay was still computed `hidden` for the
+   first ~100ms after opening, and an element inside a hidden subtree
+   cannot take focus — so the focus move on open silently did nothing and
+   the dialog opened with focus left behind on the page. It only ever
+   worked for visitors with reduced motion, where the transition is off.
+
+   The two-rule form below is the standard fix: visible applies instantly
+   on open, and the hide is delayed until the fade has finished on close,
+   so the fade-out is preserved. */
 .modal-overlay {
   transition:
     opacity 340ms var(--ease-soft),
-    visibility 340ms var(--ease-soft);
+    visibility 0s linear 340ms;
+}
+
+.modal-overlay.open {
+  transition:
+    opacity 340ms var(--ease-soft),
+    visibility 0s linear 0s;
 }
 
 .modal-panel {
@@ -223,5 +241,20 @@ details.soft-card {
     transition: none !important;
     animation: none !important;
     transform: none !important;
+  }
+
+  /* Modal copy is hidden by default and revealed by modalTextRiseSmooth
+     above. Switching the animation off has to come with making the copy
+     visible, or the panel opens empty. Selectors mirror the ones being
+     cancelled so this wins on specificity rather than on !important. */
+  .modal-overlay.open .modal-panel.modal-animate .modal-meta,
+  .modal-overlay.open .modal-panel.modal-animate .modal-title,
+  .modal-overlay.open .modal-panel.modal-animate .modal-desc,
+  .modal-overlay.open .modal-panel.modal-animate .modal-actions,
+  .modal-overlay.open .modal-panel.modal-animate .modal-social {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }

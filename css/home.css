@@ -20,6 +20,10 @@
   align-items: center;
   justify-content: center;
   gap: 0 6px;
+  /* An inline-flex box sizes to its content first. Without this cap it can
+     grow past the viewport on a phone instead of wrapping, and adding a
+     link to the row is enough to trigger it. */
+  max-width: 100%;
   padding: 12px 24px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
@@ -175,10 +179,16 @@
 
 /* ==============================
    AMBIENT PAGE BACKDROP
-   Static, GPU-cheap, deliberately calm — replaces the previous
-   continuous matrix canvas so the site reads as premium/disciplined
-   rather than busy. Layered gradients on pure black using the Ethos
-   Empire gold palette.
+   The still base the drifting lights sit on. GPU-cheap and
+   deliberately calm — layered gradients, no canvas, no particles.
+
+   Three files share the job and each owns one part of it:
+     css/tokens.css      the colours and the cycle lengths
+     css/home.css        this static base + the vignette on top
+     css/animations.css  the moving layers in between
+
+   Read together they go: near-black at the edges, midnight navy
+   through the body, a gold spotlight where the mark and hero sit.
    ============================== */
 
 html,
@@ -199,57 +209,58 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Layered STATIC navy gradient. Empire gold stays the dominant accent
-     and keeps the top-centre spotlight where the mark and hero sit; the
-     blues supply depth beneath it. The Ethos A.I teal and orange remain
-     tiny corner accents only — Ethos Empire is the primary identity and
-     Ethos A.I is the partner, not a co-owner of the palette.
+  /* Clips the drifting layers, which are inset past the edges on purpose.
+     Without this they could widen the page on some browsers. */
+  overflow: hidden;
+  /* Contains the layers' blending so the lights composite against this
+     base and nothing else on the page. */
+  isolation: isolate;
+  /* THE DARK ROOM. Deliberately just two gradients.
+     The previous version stacked seven here — a gold spotlight, a second
+     gold wash, two navy lifts, partner teal, partner orange and the base
+     — then three more moved on top. Ten overlapping radials average each
+     other out: the render measured a flat grey-green with visible
+     horizontal banding where the ellipse stops met. All the light now
+     comes from the animated layers in css/animations.css; this is only
+     the room they light.
 
-     The slow drifting lights are a separate layer: .page-backdrop::before
-     in css/animations.css. */
+     The partner teal and orange are gone from the page background. They
+     belong to the partnership card and nowhere else — mixed into a warm
+     and cool blend at this scale they only ever produced mud. */
   background:
-    /* Empire gold spotlight — top centre, unchanged in role */
-    radial-gradient(ellipse 65% 45% at 50% 0%,
-      rgba(255, 215, 0, 0.10),
-      rgba(255, 215, 0, 0.03) 45%,
-      transparent 70%),
-    /* Empire gold-mid warmth — upper right */
-    radial-gradient(ellipse 45% 40% at 82% 22%,
-      rgba(201, 149, 42, 0.05),
-      transparent 60%),
-    /* Cool navy lift — mid left, gives the page depth */
-    radial-gradient(ellipse 55% 45% at 10% 45%,
-      rgba(56, 116, 190, 0.07),
+    /* One faint cool lift off the upper left, so the room is not a flat
+       vertical ramp and the composition has a diagonal. */
+    radial-gradient(ellipse 90% 70% at 22% 8%,
+      rgba(18, 44, 84, 0.55),
       transparent 62%),
-    /* Cool navy lift — lower right */
-    radial-gradient(ellipse 50% 40% at 88% 76%,
-      rgba(38, 88, 148, 0.06),
-      transparent 58%),
-    /* Partner teal — tiny cool accent, upper left corner only */
-    radial-gradient(circle 32vw at 8% 6%,
-      rgba(23, 150, 156, 0.04),
-      transparent 60%),
-    /* Partner orange — tiny warm accent, lower right corner only */
-    radial-gradient(circle 30vw at 92% 88%,
-      rgba(225, 119, 38, 0.035),
-      transparent 60%),
-    /* Base — deep navy, lighter through the middle for section depth */
-    linear-gradient(180deg,
-      var(--bg-deep) 0%,
-      var(--bg) 38%,
-      var(--bg-mid) 62%,
-      var(--bg-deep) 100%);
+    /* Black at the top where the sticky bar sits, black at the bottom
+       behind the footer, deep navy through the body. Those dark ends are
+       what keep the bar and footer legible wherever the lights drift. */
+    linear-gradient(174deg,
+      var(--bg-void) 0%,
+      var(--bg-black) 18%,
+      var(--bg-deep) 46%,
+      #061224 72%,
+      var(--bg-void) 100%);
 }
 
 .page-backdrop::after {
-  /* Subtle vignette so the content column always sits over the darkest
-     part of the page — improves text contrast on wide screens. */
+  /* Vignette. Painted above the moving layers, so text contrast never
+     depends on where the lights happen to be.
+
+     Deliberately weaker and pushed further out than before (was 0.45
+     from 55%). At the old strength it sat directly on top of the corners
+     the lights occupy and crushed them — the backdrop measured a 33/255
+     luminance range across the whole viewport. It now only shapes the
+     extreme edges. */
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 90% 80% at 50% 50%,
-    transparent 55%,
-    rgba(0, 0, 0, 0.45) 100%);
+  z-index: 3;
+  background: radial-gradient(ellipse 96% 86% at 50% 46%,
+    transparent 62%,
+    rgba(0, 0, 0, 0.28) 88%,
+    rgba(0, 0, 0, 0.46) 100%);
   pointer-events: none;
 }
 

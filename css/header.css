@@ -93,6 +93,62 @@
   white-space: nowrap;
 }
 
+/* ---------- Primary page navigation ----------
+   One nav for every width. There is no separate mobile menu and no
+   hamburger: three links fit on one line at 320px, so a disclosure widget
+   would add JavaScript and a focus trap to hide something that already
+   fits. On phones the bar reflows to brand + partner, then nav, then the
+   social row — see the max-width:767px block below. */
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.topbar-nav-link {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-mid);
+  white-space: nowrap;
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.topbar-nav-link:hover,
+.topbar-nav-link:focus-visible {
+  color: var(--gold-3);
+  background: rgba(255, 215, 0, 0.08);
+  outline: none;
+}
+
+.topbar-nav-link:focus-visible {
+  outline: 2px solid var(--gold-3);
+  outline-offset: 2px;
+}
+
+/* The current page is marked with an underline as well as a colour, so it
+   is not signalled by colour alone. */
+.topbar-nav-link[aria-current="page"] {
+  color: var(--gold-3);
+  box-shadow: inset 0 -2px 0 var(--gold-2);
+}
+
+/* Taller tap targets wherever the pointer is a finger — phones and
+   tablets alike, which a width breakpoint alone would miss at 768px. On a
+   mouse the bar stays compact; 27px still clears the 24px minimum. */
+@media (pointer: coarse) {
+  .topbar-nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+}
+
 .topbar-social {
   display: flex;
   align-items: center;
@@ -185,6 +241,20 @@
   .topbar-brand-word {
     font-size: 0.78rem;
     letter-spacing: 0.2em;
+  }
+
+  /* Full-width line of its own between the brand row and the social row. */
+  .topbar-nav {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .topbar-nav-link {
+    padding: 8px 12px;
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
   }
 
   .topbar-social {

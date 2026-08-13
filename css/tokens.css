@@ -22,13 +22,56 @@
   --bg-deep:   #040b14;   /* deepest navy — wells and page edges  */
   --bg-mid:    #0a1a2d;   /* dark blue — mid-depth band           */
   --bg-elev:   #101c2b;   /* blue graphite — elevated surfaces    */
+  --bg-black:  #01040a;   /* near-black — the floor of the page   */
+  --bg-void:   #000206;   /* true black, faintest blue cast       */
   --surface:       rgba(255, 255, 255, 0.035);
   --surface-hover: rgba(255, 255, 255, 0.06);
 
-  /* Ambient glow colours for the drifting background lights.
-     Cool and low-alpha on purpose: atmosphere, never a focal point. */
-  --ambient-blue: rgba(56, 116, 190, 0.10);
-  --ambient-cool: rgba(38, 88, 148, 0.07);
+  /* --- Ambient backdrop -----------------------------------------
+     Colours and timings for the drifting lights in css/animations.css.
+     THE single place to retune the animation.
+
+     Sampled from images/ethos-empire-logo.webp, which is 91% pure black
+     and 8% gold. The logo's dominant gold is #f0bb34 — an amber, not the
+     lemon #ffd700 the UI uses. The lights below follow the logo; buttons
+     and text keep the established UI gold.
+
+     THE RULE THAT MATTERS — keep warm light's R/G ratio near 1.4.
+     Dark yellow *is* olive. A dim, wide, low-saturation yellow wash over
+     black cannot look like gold at any alpha, which is what the previous
+     version tried and why it rendered as khaki (measured R/G 1.03). Gold
+     reads as gold only when it is small, brighter, and biased to red.
+     So: one warm source, tight falloff, meaningful peak alpha.
+
+     THE SECOND RULE — keep the warm and cool lights apart. Where a
+     yellow falloff crosses a blue one the result is always grey-green.
+     Placement in animations.css is deliberately asymmetric so their
+     bright zones never meet. */
+  --light-navy:      rgba(46, 104, 184, 0.42);  /* main cool source     */
+  --light-navy-deep: rgba(24, 60, 122, 0.34);   /* cool counterweight   */
+  --light-gold:      rgba(255, 168, 52, 0.34);  /* R/G 1.52 — logo amber*/
+  --light-gold-core: rgba(255, 206, 122, 0.22); /* hotter centre        */
+  --light-sheen:     rgba(146, 184, 250, 0.06); /* cool, never warm     */
+
+  /* Blur turns the gradients into light instead of visible colour bands.
+     Applied to layers that only ever translate/scale, so it rasterises
+     once and the animation stays on the compositor.
+
+     Blur radius has to stay well under the feature it softens or it
+     erases it. The warm light is a small spot and gets its own, much
+     smaller radius: at the cool layer's 70px it flattened to a warm grey
+     (#171412, R/G 1.15) no matter how the colour was set. */
+  --light-blur:      70px;
+  --light-blur-warm: 42px;
+  --light-blur-sm:   44px;                      /* phones               */
+
+  /* Under a minute and staggered, so no two layers travel together and
+     the loop has no visible beat. The previous 68/86/124s pairing moved
+     4/255 per channel over half a minute — invisible. */
+  --drift-cool:    34s;
+  --drift-warm:    46s;
+  --drift-sheen:   55s;
+  --drift-breathe: 40s;
 
   /* --- Ethos Empire (dominant brand) --------------------------- */
   --empire-gold:      #ffd700;
@@ -60,6 +103,14 @@
   --border-strong: rgba(255, 215, 0, 0.28);
   --shadow-soft:   0 18px 55px rgba(0, 0, 0, 0.42);
   --shadow-strong: 0 28px 80px rgba(0, 0, 0, 0.58);
+
+  /* --- Bookstore ------------------------------------------------
+     Every ebook cover ships at 320x500 and 1200x1875, so one ratio
+     describes the whole catalogue. The grid, the card and the
+     detail view all read it from here — a future cover set only
+     has to change this line. */
+  --cover-ratio: 320 / 500;
+  --shelf-line:  rgba(255, 215, 0, 0.20);
 
   /* --- Motion tokens ------------------------------------------- */
   --ease-smooth: cubic-bezier(0.22, 0.7, 0.2, 1);
