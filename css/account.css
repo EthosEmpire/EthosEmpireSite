@@ -1,0 +1,576 @@
+/* ==========================================================================
+   Ethos Empire — account page
+   --------------------------------------------------------------------------
+   Styles account.html only. Reuses the site's tokens, buttons, backdrop and
+   top bar; everything here is the card, the forms and the status region.
+   ========================================================================== */
+
+.account-body {
+  min-height: 100vh;
+}
+
+.account-main {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: clamp(28px, 5vw, 64px) 20px clamp(40px, 6vw, 72px);
+}
+
+.account-card {
+  width: min(100%, 520px);
+  padding: clamp(24px, 4vw, 40px) clamp(20px, 3.5vw, 38px) clamp(22px, 3vw, 32px);
+  border-radius: 26px;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255, 215, 0, 0.07), transparent 62%),
+    rgba(4, 10, 18, 0.72);
+  box-shadow: var(--shadow-strong);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---------- Head ---------- */
+
+.account-head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Reserves the logo's square before the image decodes. */
+.account-logo-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(72px, 16vw, 96px);
+  aspect-ratio: 1;
+  margin-bottom: 14px;
+}
+
+/* Official logo, used as it ships — solid black ground, gold mark, artwork
+   untouched. Framed as an emblem with the same rounded corners and soft gold
+   glow the mark gets elsewhere on the site. No blending or filter tricks. */
+.account-logo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow:
+    0 0 24px rgba(255, 200, 90, 0.2),
+    0 10px 26px rgba(0, 0, 0, 0.42);
+}
+
+.account-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 4vw, 1.9rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--gold-3);
+}
+
+.account-sub {
+  margin: 0;
+  color: var(--text-mid);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* ---------- Status region ----------
+   Tone is signalled by an icon-free word choice, a border and a colour —
+   never colour alone. */
+
+.account-status {
+  margin: 0 0 18px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.account-status[hidden] { display: none; }
+
+.account-status.is-info {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft);
+}
+
+.account-status.is-success {
+  border-color: rgba(255, 215, 0, 0.34);
+  background: rgba(255, 215, 0, 0.08);
+  color: var(--gold-4);
+}
+
+.account-status.is-error {
+  border-color: rgba(255, 120, 100, 0.46);
+  background: rgba(255, 90, 70, 0.1);
+  color: #ffb4a6;
+}
+
+/* ---------- Panels ---------- */
+
+.account-panel[hidden] { display: none; }
+
+.account-panel-title {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+}
+
+.account-panel-title:focus-visible {
+  outline: 2px solid var(--gold-3);
+  outline-offset: 4px;
+}
+
+.account-note {
+  margin: 0 0 16px;
+  color: var(--text-mid);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* ---------- Forms ---------- */
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+
+.field-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.42);
+  color: #ffffff;
+  font-size: 0.95rem;
+  transition: border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+}
+
+.field-input::placeholder { color: rgba(255, 255, 255, 0.34); }
+
+.field-input:hover {
+  border-color: rgba(255, 215, 0, 0.28);
+}
+
+.field-input:focus-visible {
+  outline: none;
+  border-color: var(--gold-3);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+/* Invalid state carries a border colour AND the message in the live region,
+   so it is never communicated by colour alone. */
+.field-input.is-invalid {
+  border-color: rgba(255, 120, 100, 0.7);
+}
+
+.field-with-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-with-toggle .field-input {
+  padding-right: 72px;
+}
+
+.field-toggle {
+  position: absolute;
+  right: 6px;
+  min-height: 34px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 215, 0, 0.26);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--gold-3);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, color var(--dur-fast) ease;
+}
+
+.field-toggle:hover,
+.field-toggle:focus-visible {
+  border-color: var(--gold-3);
+  color: var(--gold-4);
+}
+
+.field-hint {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+/* ---------- Checkbox ---------- */
+
+.field-check {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+.field-checkbox {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: #ffd700;
+  cursor: pointer;
+}
+
+.field-checkbox:focus-visible {
+  outline: 2px solid var(--gold-3);
+  outline-offset: 3px;
+}
+
+.field-check-label {
+  color: var(--text-mid);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.field-check-label a {
+  color: var(--gold-3);
+  text-underline-offset: 3px;
+}
+
+/* ---------- Buttons and links ---------- */
+
+.account-submit {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.account-submit[aria-busy="true"] {
+  opacity: 0.72;
+  cursor: progress;
+}
+
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.account-actions .btn { flex: 1 1 auto; }
+
+.account-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 10px;
+  margin-top: 18px;
+  text-align: center;
+}
+
+/* A real <button>, because these switch panels rather than navigate. */
+.account-link {
+  padding: 6px 2px;
+  border: none;
+  background: none;
+  color: var(--gold-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(201, 149, 42, 0.4);
+  cursor: pointer;
+  transition: color var(--dur-fast) ease;
+}
+
+.account-link:hover,
+.account-link:focus-visible {
+  color: var(--gold-4);
+  text-decoration-color: var(--gold-3);
+}
+
+.account-link:focus-visible {
+  outline: 2px solid var(--gold-3);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.account-links-sep { color: var(--text-dim); }
+
+.account-back { margin-top: 6px; }
+
+/* ---------- Signed-in details ---------- */
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 18px;
+  padding: 4px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.account-detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 2px;
+}
+
+.account-detail dt {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.account-detail dd {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Footer / noscript ---------- */
+
+.account-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.78rem;
+}
+
+.account-foot a {
+  color: var(--gold-2);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 149, 42, 0.35);
+}
+
+.account-foot a:hover,
+.account-foot a:focus-visible {
+  color: var(--gold-3);
+}
+
+.account-noscript {
+  max-width: 520px;
+  margin: 20px auto 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 215, 0, 0.28);
+  color: var(--text-mid);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.account-noscript a { color: var(--gold-3); }
+
+/* ---------- Narrow phones ---------- */
+
+@media (max-width: 480px) {
+  .account-main { min-height: auto; }
+
+  .account-card {
+    padding: 22px 16px 20px;
+    border-radius: 20px;
+  }
+
+  .account-actions { flex-direction: column; }
+  .account-actions .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-input,
+  .field-toggle,
+  .account-link {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Continue with Google
+   --------------------------------------------------------------------------
+   Google's branding guidelines require the official multi-colour "G" on an
+   unmodified light surface with adequate contrast, so the button itself stays
+   white with Google's own text colour. Ethos Empire styling is applied
+   *around* it — the surrounding block, the divider and the terms notice —
+   rather than recolouring the mark or the button face.
+
+   The whole block is hidden until js/account-page.js confirms this origin is
+   on the Firebase project's authorized-domain list.
+   ========================================================================== */
+
+.account-oauth[hidden] { display: none; }
+
+.account-oauth {
+  margin-bottom: 22px;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid #747775;
+  background: #ffffff;
+  color: #1f1f1f;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: box-shadow var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+
+.google-btn:hover {
+  background: #f7f8f8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32);
+}
+
+.google-btn:focus-visible {
+  outline: 2px solid var(--gold-3);
+  outline-offset: 3px;
+}
+
+.google-btn[disabled],
+.google-btn[aria-busy="true"] {
+  opacity: 0.72;
+  cursor: progress;
+}
+
+.google-btn-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.google-btn-label {
+  /* Never let the label wrap mid-phrase on a narrow phone. */
+  white-space: nowrap;
+}
+
+.account-oauth-terms {
+  margin: 12px 0 0;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.account-oauth-terms a {
+  color: var(--gold-2);
+  text-underline-offset: 3px;
+}
+
+.account-oauth-terms a:hover,
+.account-oauth-terms a:focus-visible {
+  color: var(--gold-3);
+}
+
+/* "or use your email" rule */
+.account-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 0;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.account-divider::before,
+.account-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ==========================================================================
+   Account security area
+   ========================================================================== */
+
+.account-subhead {
+  margin: 0 0 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+
+.account-security-actions {
+  margin: 0 0 20px;
+}
+
+.account-security-actions[hidden] { display: none; }
+
+.account-security-btn {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* Cooldown state — the label carries the countdown, so the disabled look is
+   never the only signal. */
+.account-security-btn[aria-disabled="true"],
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.account-note-quiet {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 480px) {
+  .google-btn {
+    font-size: 0.88rem;
+    padding: 12px 12px;
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-btn { transition: none; }
+}

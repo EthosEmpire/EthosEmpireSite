@@ -10,7 +10,7 @@
 
   <meta property="og:site_name" content="Ethos Empire">
   <meta property="og:title" content="Privacy Policy | Ethos Empire">
-  <meta property="og:description" content="How ethosempire.org handles data: no accounts, no analytics scripts, no first-party tracking, and a single cookie-consent preference stored on your device.">
+  <meta property="og:description" content="How ethosempire.org handles data: optional accounts via Firebase Authentication, no analytics scripts, no first-party tracking, and a cookie-consent preference stored on your device.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.ethosempire.org/privacy-policy.html">
   <meta property="og:image" content="https://www.ethosempire.org/images/ethos-empire-logo.webp">
@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@EthosEmpire_X">
   <meta name="twitter:title" content="Privacy Policy | Ethos Empire">
-  <meta name="twitter:description" content="How ethosempire.org handles data: no accounts, no analytics scripts, no first-party tracking, and a single cookie-consent preference stored on your device.">
+  <meta name="twitter:description" content="How ethosempire.org handles data: optional accounts via Firebase Authentication, no analytics scripts, no first-party tracking, and a cookie-consent preference stored on your device.">
   <meta name="twitter:image" content="https://www.ethosempire.org/images/ethos-empire-logo.webp">
 
   <link rel="icon" href="favicon.ico" sizes="any">
@@ -82,8 +82,9 @@
       <p>
         This Privacy Policy explains what information is collected in connection with
         your visit to our site, how it is used, and what your rights are. It reflects
-        the site as it actually operates today — a static website with no accounts,
-        no checkout, no analytics scripts, and no first-party tracking.
+        the site as it actually operates today — a static website with no checkout,
+        no analytics scripts, and no first-party tracking, plus an optional account
+        you may choose to create (see Section 1a).
       </p>
       <div class="highlight-box">
         We do not sell, rent, or trade your personal information. We do not run our
@@ -97,10 +98,11 @@
 
       <p><strong>Information we collect directly (first-party)</strong></p>
       <p>
-        The ethosempire.org site itself is a static website. It has no user accounts,
-        no login system, no checkout, no contact forms, no newsletter signup, and no
-        analytics or tracking scripts. The only information the site stores in your
-        browser is:
+        The ethosempire.org site itself is a static website. It has no checkout, no
+        contact forms, no newsletter signup, and no analytics or tracking scripts.
+        Creating an account is entirely optional — you can read every course, guide
+        page and other page on this site without one. If you browse without an
+        account, the only information the site stores in your browser is:
       </p>
       <ul>
         <li>
@@ -137,6 +139,59 @@
     </div>
 
     <div class="policy-section">
+      <p class="section-num">Section 1a</p>
+      <h2 class="section-title">Accounts and Authentication</h2>
+      <p>
+        Creating an Ethos Empire account is optional. Every course, guide page and
+        other page on this site can be read without one.
+      </p>
+      <p>
+        If you do create an account, sign-in is handled by
+        <strong>Firebase Authentication</strong>, a service operated by Google. You
+        can register in one of two ways: with an email address and password, or by
+        choosing <strong>Continue with Google</strong>.
+      </p>
+      <p>
+        If you register with an email address and password, we ask for:
+      </p>
+      <ul>
+        <li><strong>A display name</strong> — the name you choose to be known by.</li>
+        <li><strong>Your email address</strong> — used to identify your account, verify it, and let you reset your password.</li>
+        <li><strong>A password</strong> — handled by Firebase Authentication. Ethos Empire never sees, receives, or stores your password.</li>
+      </ul>
+      <p>
+        If you choose <strong>Continue with Google</strong>, Google asks you to
+        approve the sign-in and then tells Firebase your name, email address and
+        Google account identifier. Ethos Empire requests no other Google data — no
+        contacts, Drive, Calendar or Gmail content — and never sees your Google
+        password. You can review or revoke this access at any time in your Google
+        account's third-party access settings.
+      </p>
+      <p>
+        That account information is stored by Google on Firebase infrastructure under
+        Google's privacy terms, not on this website. Firebase also records standard
+        technical sign-in data such as account creation and last sign-in times, and may
+        record the IP address a sign-in request came from, for security and abuse
+        prevention.
+      </p>
+      <p>
+        While you are signed in, Firebase stores a session token in your browser's local
+        storage so you are not asked to log in again on every page. Signing out removes it.
+      </p>
+      <p>
+        Ethos Empire does not currently use your account to send marketing email, and
+        there is no newsletter or mailing list. Verification and password-reset emails
+        are transactional and are sent by Firebase at your request.
+      </p>
+      <p>
+        <strong>Deleting your account.</strong> Email
+        <a href="mailto:info.ethosempire@gmail.com">info.ethosempire@gmail.com</a> from
+        the address on the account and we will delete it and its associated
+        authentication record.
+      </p>
+    </div>
+
+    <div class="policy-section">
       <p class="section-num">Section 2</p>
       <h2 class="section-title">How We Use Your Information</h2>
       <p>The data collected from site visits is used only to:</p>
@@ -157,6 +212,12 @@
       <h2 class="section-title">Third-Party Services</h2>
       <p>Our website integrates or links to the following third-party services. Each operates under its own privacy policy:</p>
       <ul>
+        <li>
+          <strong>Google Firebase Authentication</strong> — provides account creation,
+          sign-in, email verification and password reset if you choose to create an
+          account. This includes the optional "Continue with Google" sign-in option.
+          Operated by Google under the Google Privacy Policy.
+        </li>
         <li>
           <strong>Gumroad</strong> — processes all ebook purchases and manages digital delivery.
           <a href="https://gumroad.com/privacy" target="_blank" rel="noopener noreferrer">Gumroad Privacy Policy</a>
@@ -265,10 +326,12 @@
       <h2 class="section-title">Data Security</h2>
       <p>
         We use reasonable technical and organisational measures appropriate to a static
-        website of this nature. Because the site has no accounts, no checkout, and no
-        first-party data store, there is no user database on our side to protect —
-        payment card information, billing details, and order records are handled by
-        Gumroad and Printful under their own security programmes.
+        website of this nature. The site has no checkout and no first-party data store,
+        so there is no database on our own servers to protect. Account credentials are
+        held by Google Firebase Authentication under Google's security programme, and
+        Ethos Empire never receives or stores your password. Payment card information,
+        billing details, and order records are handled by Gumroad and Printful under
+        their own security programmes.
       </p>
       <p>
         No method of transmitting or storing information is completely secure. We do
@@ -363,6 +426,7 @@
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="bookstore.html">Bookstore</a>
+      <a href="account.html?mode=login">Log In</a>
       <a href="terms.html">Terms of Service</a>
       <a href="https://ethosempire.gumroad.com/" target="_blank" rel="noopener noreferrer">Shop Ebooks</a>
     </div>

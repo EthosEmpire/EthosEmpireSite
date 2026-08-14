@@ -197,8 +197,9 @@
     order: 2;
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
     margin-right: 0;
-    gap: 14px;
+    gap: 8px 14px;
   }
 }
 
@@ -314,4 +315,20 @@ h2[id] { scroll-margin-top: 82px }
 @media (prefers-reduced-motion: reduce) {
   .course-toc-list a,
   .course-backtotop a { transition: none }
+}
+
+/* The one gold action in the course nav — matches the top bar's account CTA
+   on the main site so "Join" reads the same everywhere. */
+.course-nav-join {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ffd700, #c9952a);
+  color: #000 !important;
+  border-bottom-color: transparent !important;
+}
+
+.course-nav-join:hover,
+.course-nav-join:focus-visible {
+  filter: brightness(1.07);
+  color: #000 !important;
 }

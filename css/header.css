@@ -230,8 +230,11 @@
   border-radius: 4px;
 }
 
-/* --- Mobile: stack brand+partner on line 1, social scrolls line 2 --- */
-@media (max-width: 767px) {
+/* --- Narrow: brand on line 1, nav on line 2, account on line 3 ---
+   Starts at 900px rather than 768px because the bar now carries the
+   brand, four links and two account controls; below ~900 they no longer
+   fit on one line and the bar overflowed the viewport at exactly 768. */
+@media (max-width: 899px) {
   .topbar-inner {
     padding: 8px 14px;
     gap: 10px;
@@ -243,12 +246,16 @@
     letter-spacing: 0.2em;
   }
 
-  /* Full-width line of its own between the brand row and the social row. */
+  /* Full-width line of its own between the brand row and the account row.
+     Wraps because at 320px the four links total ~351px against a 292px
+     container — without this they overflow the viewport rather than
+     forming a second line. */
   .topbar-nav {
     order: 2;
     width: 100%;
     justify-content: center;
-    gap: 2px;
+    flex-wrap: wrap;
+    gap: 2px 4px;
   }
 
   .topbar-nav-link {
@@ -257,25 +264,25 @@
     letter-spacing: 0.1em;
   }
 
-  .topbar-social {
-    order: 3;
+  .topbar .topbar-social {
+    order: 4;
     width: 100%;
     justify-content: center;
     gap: 2px;
     margin: 4px -6px 0;
   }
 
-  .topbar-social-link {
+  .topbar .topbar-social-link {
     width: 30px;
     height: 30px;
   }
 
-  .topbar-social-link img {
+  .topbar .topbar-social-link img {
     width: 20px;
     height: 20px;
   }
 
-  .topbar-partner {
+  .topbar .topbar-partner {
     margin-left: auto;
     padding: 5px 8px 5px 10px;
   }
@@ -587,5 +594,112 @@
   .btn-partner,
   .partnership-independence-link {
     transition: none;
+  }
+}
+
+/* ==========================================================================
+   v6 — Account controls in the top bar
+   --------------------------------------------------------------------------
+   Filled by js/auth-ui.js on the first frame from a cached hint, so the bar
+   does not reflow when authentication state resolves. The slot reserves a
+   minimum width for the same reason: the signed-out pair ("Log In" +
+   "Join the Empire") and the signed-in pair ("My Account" + "Log Out") are
+   different lengths, and without a floor the brand and nav would nudge
+   sideways on the swap.
+   ========================================================================== */
+
+.topbar-account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+  min-height: 38px;
+}
+
+@media (min-width: 900px) {
+  .topbar-account { min-width: 232px; justify-content: flex-end; }
+}
+
+/* Quieter secondary action. */
+.topbar-account-link {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-mid);
+  white-space: nowrap;
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.topbar-account-link:hover,
+.topbar-account-link:focus-visible {
+  color: var(--gold-3);
+  background: rgba(255, 215, 0, 0.08);
+  outline: none;
+}
+
+/* The one gold action in the bar. */
+.topbar-account-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-3), var(--gold-2));
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(201, 149, 42, 0.22);
+  transition: transform 200ms var(--ease-soft), filter 200ms ease;
+}
+
+.topbar-account-cta:hover,
+.topbar-account-cta:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.07);
+  outline: none;
+}
+
+.topbar-account-link:focus-visible,
+.topbar-account-cta:focus-visible {
+  outline: 2px solid var(--gold-3);
+  outline-offset: 2px;
+}
+
+/* --- Narrow: account drops to its own centred line --- */
+@media (max-width: 899px) {
+  .topbar-account {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 2px;
+  }
+
+  .topbar-nav { order: 2; }
+
+  .topbar-account-link,
+  .topbar-account-cta {
+    min-height: 40px;
+    align-items: center;
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar-account-link,
+  .topbar-account-cta {
+    transition: none;
+  }
+  .topbar-account-cta:hover,
+  .topbar-account-cta:focus-visible {
+    transform: none;
   }
 }

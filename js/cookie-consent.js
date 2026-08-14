@@ -5,9 +5,16 @@
 
    ethosempire.org sets no cookies. A repository-wide search finds no
    document.cookie write anywhere, no analytics, no advertising pixels, no
-   tag manager and no third-party embeds on this page. The only browser-side
-   storage is the single localStorage key written here, and its only job is
-   to remember whether this notice has been dismissed.
+   tag manager and no third-party embeds on this page.
+
+   Browser-side storage, in full:
+     ee_cookie_consent  the key written here — whether this notice was dismissed
+     ee_auth_hint       "in"/"out", so the top bar can paint the right account
+                        links without loading the Firebase SDK (js/auth-ui.js)
+     Firebase Auth      a sign-in session, created ONLY if a visitor chooses to
+                        make an account and log in. Removed on sign-out.
+
+   None of these are cookies and none are used for tracking or analytics.
 
    So this is a preference notice, not a consent-management platform, and it
    is deliberately not described as one. Both choices record a preference:
